@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<link
+			rel="stylesheet"
+			href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+		/>
+		<link rel="stylesheet" href="./src/sass/main.scss" />
+		<title>Document</title>
+	</head>
+	<body>
+		<main class="container">
+			<h1>CREATE YOUR NEON HEADING</h1>
+			<h2>some sub neon heading</h2>
+
+			<section class="ui-container">
+				<article class="ui-input">
+					<div class="ui-input-nav">
+						<ul class="ui-input-nav-lists">
+							<li class="ui-input-nav-list nav-active">Text</li>
+							<li class="ui-input-nav-list">Font Family</li>
+							<li class="ui-input-nav-list">Color</li>
+						</ul>
+					</div>
+
+					<div class="ui-input-form">
+						<!-- Text area -->
+						<section class="ui-input-form-text">
+							<input type="text" name="userText" id="userText" />
+						</section>
+						<!-- fonts -->
+						<section class="ui-input-form-fontFamily">
+							<h3 class="ui-input-form-fontFamily header">CHOOSE FONT</h3>
+							<ul class="ui-input-fontFamily-lists">
+								<li class="ui-input-fontFamily-list">Alexa</li>
+								<li class="ui-input-fontFamily-list">Amsterdam</li>
+								<li class="ui-input-fontFamily-list">Amanda</li>
+								<li class="ui-input-fontFamily-list">Barcelona</li>
+								<li class="ui-input-fontFamily-list">Bayview</li>
+								<li class="ui-input-fontFamily-list">Vintage</li>
+								<li class="ui-input-fontFamily-list">NewCursive</li>
+								<li class="ui-input-fontFamily-list">Neo Tokyo</li>
+							</ul>
+						</section>
+						<!-- Colors -->
+						<section class="ui-input-form-colour">
+							<h3 class="ui-input-form-color heading">CHOOSE COLOUR</h3>
+							<ul class="ui-input-color-lists">
+								<li class="input-color-list" title="Description of this color">
+									<i class="fa fa-lightbulb-o" data-color="orange"></i>
+									<p class="input-color-list-heading">Orange</p>
+								</li>
+								<li class="input-color-list" title="Description of this color">
+									<i class="fa fa-lightbulb-o" data-color="Light Red"></i>
+									<p class="input-color-list-heading">Light Red</p>
+								</li>
+								<li class="input-color-list" title="Description of this color">
+									<i class="fa fa-lightbulb-o" data-color="Red"></i>
+									<p class="input-color-list-heading">Red</p>
+								</li>
+								<li class="input-color-list" title="Description of this color">
+									<i class="fa fa-lightbulb-o" data-color="Deep Blue"></i>
+									<p class="input-color-list-heading">Deep Blue</p>
+								</li>
+								<li class="input-color-list" title="Description of this color">
+									<i class="fa fa-lightbulb-o" data-color="Electric Blue"></i>
+									<p class="input-color-list-heading">Electric Blue</p>
+								</li>
+								<li class="input-color-list" title="Description of this color">
+									<i class="fa fa-lightbulb-o"></i>
+									<p class="input-color-list-heading">Green</p>
+								</li>
+								<li class="input-color-list" title="Description of this color">
+									<i class="fa fa-lightbulb-o" data-color="Mint Green"></i>
+									<p class="input-color-list-heading">Mint Green</p>
+								</li>
+								<li class="input-color-list" title="Description of this color">
+									<i class="fa fa-lightbulb-o" data-color="Deep Green"></i>
+									<p class="input-color-list-heading">Deep Green</p>
+								</li>
+							</ul>
+						</section>
+					</div>
+				</article>
+
+				<article class="ui-display">
+					<!-- toggle button -->
+					<label class="switch">
+						<input type="checkbox" />
+						<span class="slider round"></span>
+					</label>
+					<!-- user text -->
+					<div class="ui-display-userText"></div>
+					<!-- carousel here if she wants it -->
+				</article>
+			</section>
+		</main>
+	</body>
+</html>

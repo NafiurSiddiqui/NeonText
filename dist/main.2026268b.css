@@ -1,0 +1,181 @@
+*, *:before, *:after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  box-sizing: inherit;
+}
+
+body {
+  font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
+}
+
+main.container {
+  width: 100%;
+  display: flex;
+  -webkit-box-flex: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+ul > li {
+  list-style-type: none;
+}
+
+section.ui-container {
+  border: 1px solid black;
+}
+
+article.ui-display {
+  background-color: #202020;
+}
+
+/* The switch - the box around the slider */
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 60px;
+  height: 34px;
+}
+
+/* Hide default HTML checkbox */
+.switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+/* The slider */
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #ccc;
+  -webkit-transition: 0.4s;
+  transition: 0.4s;
+}
+
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 26px;
+  width: 26px;
+  left: 4px;
+  bottom: 4px;
+  background-color: white;
+  -webkit-transition: 0.4s;
+  transition: 0.4s;
+}
+
+input:checked + .slider {
+  background-color: #2196F3;
+}
+
+input:focus + .slider {
+  box-shadow: 0 0 1px #2196F3;
+}
+
+input:checked + .slider:before {
+  -webkit-transform: translateX(26px);
+  -ms-transform: translateX(26px);
+  transform: translateX(26px);
+}
+
+/* Rounded sliders */
+.slider.round {
+  border-radius: 34px;
+}
+
+.slider.round:before {
+  border-radius: 50%;
+}
+
+section.ui-container {
+  display: grid;
+  grid-template-columns: 25em 1fr;
+  width: 70%;
+  grid-gap: 20px;
+  padding: 1rem 2rem;
+  height: 80vh;
+  min-height: 38rem;
+}
+
+ul.ui-input-nav-lists {
+  display: flex;
+  -webkit-box-flex: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+ul.ui-input-nav-lists > li {
+  font-size: 1.4rem;
+}
+
+.ui-input-form-fontFamily,
+.ui-input-form-colour {
+  display: none;
+}
+
+.ui-input {
+  border: 1px solid silver;
+  border-radius: 1.2em;
+  padding: 0.2em;
+}
+.ui-input-nav {
+  border: 2px solid #f9adba;
+  border-top-left-radius: 1.2em;
+  border-top-right-radius: 1.2em;
+  line-height: 2.6em;
+}
+.ui-input-nav-list {
+  border: 1px solid #f098ce;
+  width: 100%;
+  text-align: center;
+  cursor: pointer;
+}
+.ui-input-nav-list:nth-child(1) {
+  border-top-left-radius: 0.8em;
+}
+.ui-input-nav-list:nth-child(3) {
+  border-top-right-radius: 0.8em;
+}
+
+section.ui-input-form-text {
+  text-align: center;
+  padding: 1em;
+}
+section.ui-input-form-text > input {
+  width: 100%;
+  height: 10rem;
+  border-radius: 0.8em;
+  border-top-style: hidden;
+  border-right-style: hidden;
+  border-left-style: hidden;
+  border-bottom-style: hidden;
+  box-shadow: inset 0 0 0 2px #d6d6d6;
+  outline: none;
+  padding: 2em;
+  background-color: #eeeeee;
+  font-size: 1.5rem;
+  color: #444;
+  font-weight: 500;
+  text-align: center;
+}
+section.ui-input-form-text > input:focus {
+  -webkit-box-shadow: 0px 2px 6px 3px #d7caccbe;
+  box-shadow: 0px 2px 6px 3px #d7caccbe;
+  border: 1px solid rgba(128, 128, 128, 0.575);
+}
+
+.nav-active {
+  background-color: #ffb5c2;
+  color: white;
+  cursor: auto;
+}
+
+/*# sourceMappingURL=/main.2026268b.css.map */
