@@ -1,6 +1,7 @@
+@import url("https://fonts.googleapis.com/css2?family=Orbitron&display=swap");
 @import url("http://fonts.cdnfonts.com/css/amsterdam-2");
 @import url("http://fonts.cdnfonts.com/css/amanda");
-@import url("http://fonts.cdnfonts.com/css/fc-barcelona");
+@import url("http://fonts.cdnfonts.com/css/raster-slice");
 @import url("https://fonts.googleapis.com/css2?family=Allura&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Tangerine&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Cookie&display=swap");
@@ -132,6 +133,7 @@ ul.ui-input-nav-lists > li {
   border: 1px solid silver;
   border-radius: 1.2em;
   padding: 0.2em;
+  transition: all 3ms linear;
 }
 .ui-input-nav {
   border: 2px solid #f9adba;
@@ -150,6 +152,13 @@ ul.ui-input-nav-lists > li {
 }
 .ui-input-nav-list:nth-child(3) {
   border-top-right-radius: 0.8em;
+}
+
+.ui-input-form {
+  padding: 1em 0;
+}
+.ui-input-form-heading {
+  margin-bottom: 1em;
 }
 
 section.ui-input-form-text {
@@ -185,10 +194,6 @@ section.ui-input-form-text > input:focus {
   cursor: auto;
 }
 
-@font-face {
-  font-family: "Alexa";
-  src: url("/Alexa.42c03e1f.ttf") format("truetype");
-}
 .ui-input-form-fontFamily {
   display: flex;
   -webkit-box-flex: flex;
@@ -198,19 +203,28 @@ section.ui-input-form-text > input:focus {
 }
 
 .ui-input-fontFamily-lists {
-  border: 1px solid #9090e6;
   width: 90%;
   text-align: center;
   display: grid;
   grid-template-columns: auto auto;
   grid-gap: 10px;
 }
-.ui-input-fontFamily-lists > li {
+
+.ui-input-fontFamily-list {
   border: 1px solid silver;
   width: 10em;
   padding: 0.4em;
   border-radius: 0.2em;
   cursor: pointer;
+}
+.ui-input-fontFamily-list:hover {
+  background-color: #ffb5c2;
+}
+.ui-input-fontFamily-list__image {
+  height: 22px;
+}
+.ui-input-fontFamily-list__image#orbitron, .ui-input-fontFamily-list__image#cookie {
+  height: 18px;
 }
 
 /*# sourceMappingURL=/main.2026268b.css.map */

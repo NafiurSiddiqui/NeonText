@@ -17,6 +17,7 @@ ul.ui-input-nav-lists {
 	border: 1px solid silver;
 	border-radius: 1.2em;
 	padding: 0.2em;
+	transition: all 3ms linear;
 	&-nav {
 		border: 2px solid #f9adba;
 		border-top-left-radius: 1.2em;
@@ -36,6 +37,14 @@ ul.ui-input-nav-lists {
 				border-top-right-radius: 0.8em;
 			}
 		}
+	}
+}
+
+.ui-input-form {
+	padding: 1em 0;
+
+	&-heading {
+		margin-bottom: 1em;
 	}
 }
 
@@ -70,7 +79,7 @@ section.ui-input-form-text {
 
 // active class for ui-input nav
 .nav-active {
-	background-color: #ffb5c2;
+	background-color: $primaryColor;
 	color: rgb(255, 255, 255);
 	cursor: auto;
 }

@@ -1,15 +1,14 @@
 //font family
-//?---Alexa
-@font-face {
-	font-family: "Alexa";
-	src: url("./ui-input/fonts/Alexa.ttf") format("truetype");
-}
-//?---amsterdam---plz beware of the liecensing
+//?---Orbitron
+@import url("https://fonts.googleapis.com/css2?family=Orbitron&display=swap");
+// font-family: "Orbitron", sans-serif;
+//?---Amsterdam
 @import url("http://fonts.cdnfonts.com/css/amsterdam-2");
 //? Amanda
 @import url("http://fonts.cdnfonts.com/css/amanda");
-//?Barcelona
-@import url("http://fonts.cdnfonts.com/css/fc-barcelona");
+//?Raster
+@import url("http://fonts.cdnfonts.com/css/raster-slice");
+// font-family: 'Raster Slice', sans-serif;
 //?Allura
 @import url("https://fonts.googleapis.com/css2?family=Allura&display=swap");
 //?Tangerine
@@ -30,7 +29,7 @@ $uiHeadings: #918a8a;
 }
 
 .ui-input-fontFamily-lists {
-	@include borderTest(rgb(144, 144, 230));
+	// @include borderTest(rgb(144, 144, 230));
 	width: 90%;
 	text-align: center;
 	// @include flexSpaceAround;
@@ -38,11 +37,22 @@ $uiHeadings: #918a8a;
 	display: grid;
 	grid-template-columns: auto auto;
 	grid-gap: 10px;
-	> li {
-		@include borderTest(silver);
-		width: 10em;
-		padding: 0.4em;
-		border-radius: 0.2em;
-		cursor: pointer;
+}
+
+.ui-input-fontFamily-list {
+	@include borderTest(silver);
+	width: 10em;
+	padding: 0.4em;
+	border-radius: 0.2em;
+	cursor: pointer;
+	&:hover {
+		background-color: $primaryColor;
+	}
+	&__image {
+		height: 22px;
+	}
+	&__image#orbitron,
+	&__image#cookie {
+		height: 18px;
 	}
 }
