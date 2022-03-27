@@ -1,0 +1,48 @@
+//font family
+//?---Alexa
+@font-face {
+	font-family: "Alexa";
+	src: url("./ui-input/fonts/Alexa.ttf") format("truetype");
+}
+//?---amsterdam---plz beware of the liecensing
+@import url("http://fonts.cdnfonts.com/css/amsterdam-2");
+//? Amanda
+@import url("http://fonts.cdnfonts.com/css/amanda");
+//?Barcelona
+@import url("http://fonts.cdnfonts.com/css/fc-barcelona");
+//?Allura
+@import url("https://fonts.googleapis.com/css2?family=Allura&display=swap");
+//?Tangerine
+@import url("https://fonts.googleapis.com/css2?family=Tangerine&display=swap");
+//cookie
+@import url("https://fonts.googleapis.com/css2?family=Cookie&display=swap");
+//Herr von Muellerhoff
+@import url("https://fonts.googleapis.com/css2?family=Herr+Von+Muellerhoff&display=swap");
+
+// font-family: 'Herr Von Muellerhoff', cursive;
+
+//root color for headings
+$uiHeadings: #918a8a;
+
+.ui-input-form-fontFamily {
+	@include flexCentered;
+	flex-direction: column;
+}
+
+.ui-input-fontFamily-lists {
+	@include borderTest(rgb(144, 144, 230));
+	width: 90%;
+	text-align: center;
+	// @include flexSpaceAround;
+	// flex-wrap: wrap;
+	display: grid;
+	grid-template-columns: auto auto;
+	grid-gap: 10px;
+	> li {
+		@include borderTest(silver);
+		width: 10em;
+		padding: 0.4em;
+		border-radius: 0.2em;
+		cursor: pointer;
+	}
+}

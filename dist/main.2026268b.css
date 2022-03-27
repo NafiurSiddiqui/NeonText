@@ -1,3 +1,10 @@
+@import url("http://fonts.cdnfonts.com/css/amsterdam-2");
+@import url("http://fonts.cdnfonts.com/css/amanda");
+@import url("http://fonts.cdnfonts.com/css/fc-barcelona");
+@import url("https://fonts.googleapis.com/css2?family=Allura&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Tangerine&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Cookie&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Herr+Von+Muellerhoff&display=swap");
 *, *:before, *:after {
   margin: 0;
   padding: 0;
@@ -116,7 +123,7 @@ ul.ui-input-nav-lists > li {
   font-size: 1.4rem;
 }
 
-.ui-input-form-fontFamily,
+.ui-input-form-text,
 .ui-input-form-colour {
   display: none;
 }
@@ -176,6 +183,34 @@ section.ui-input-form-text > input:focus {
   background-color: #ffb5c2;
   color: white;
   cursor: auto;
+}
+
+@font-face {
+  font-family: "Alexa";
+  src: url("/Alexa.42c03e1f.ttf") format("truetype");
+}
+.ui-input-form-fontFamily {
+  display: flex;
+  -webkit-box-flex: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.ui-input-fontFamily-lists {
+  border: 1px solid #9090e6;
+  width: 90%;
+  text-align: center;
+  display: grid;
+  grid-template-columns: auto auto;
+  grid-gap: 10px;
+}
+.ui-input-fontFamily-lists > li {
+  border: 1px solid silver;
+  width: 10em;
+  padding: 0.4em;
+  border-radius: 0.2em;
+  cursor: pointer;
 }
 
 /*# sourceMappingURL=/main.2026268b.css.map */
