@@ -1,32 +1,60 @@
-
-*,*:before,*:after{
-    margin:0; 
-    padding:0; 
-    box-sizing:border-box;
-}
-   
-html{
-    box-sizing:inherit
+*,
+*:before,
+*:after {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
 }
 
-body{
-    font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
-   
+html {
+	box-sizing: inherit;
 }
 
-main.container{
-    width: 100%;
-    @include flexCentered;
-    flex-direction: column;
+body {
+	font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
+	background-color: rgb(243, 243, 243);
 }
 
-ul>li{
-    list-style-type: none;
+main.container {
+	width: 100%;
+	@include flexCentered;
+	flex-direction: column;
 }
 
+section.primary-heading {
+	@include flexCentered;
+	flex-direction: column;
+	margin-bottom: 1em;
+	& > h1 {
+		color: $primaryColor;
+		font-size: 2.2rem;
+		font-style: italic;
+	}
 
-section.ui-container{
-    @include borderTest(black);
-
+	& > h2 {
+		color: $secondaryColor;
+	}
 }
 
+ul > li {
+	list-style-type: none;
+}
+
+//same rule for fontFamily and color form
+
+.ui-input-form-colour,
+.ui-input-form-fontFamily {
+	@include flexCentered;
+	flex-direction: column;
+}
+
+.ui-input-color-lists,
+.ui-input-fontFamily-lists {
+	width: 90%;
+	text-align: center;
+	display: grid;
+	// grid-template-columns: auto auto;
+	grid-template-columns: repeat(auto-fill, minmax(5em, 1fr));
+	grid-gap: 10px;
+	justify-content: center;
+}

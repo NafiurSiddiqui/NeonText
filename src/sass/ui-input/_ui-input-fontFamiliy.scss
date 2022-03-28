@@ -23,17 +23,9 @@
 //root color for headings
 $uiHeadings: #918a8a;
 
-.ui-input-form-fontFamily {
-	@include flexCentered;
-	flex-direction: column;
-}
-
 .ui-input-fontFamily-lists {
-	// @include borderTest(rgb(144, 144, 230));
 	width: 90%;
 	text-align: center;
-	// @include flexSpaceAround;
-	// flex-wrap: wrap;
 	display: grid;
 	grid-template-columns: auto auto;
 	grid-gap: 10px;
@@ -45,6 +37,7 @@ $uiHeadings: #918a8a;
 	padding: 0.4em;
 	border-radius: 0.2em;
 	cursor: pointer;
+	transition: background-color 0.3s ease-in-out;
 	&:hover {
 		background-color: $primaryColor;
 	}

@@ -8,7 +8,8 @@ ul.ui-input-nav-lists {
 	}
 }
 
-.ui-input-form-text,
+// .ui-input-form-text,
+.ui-input-form-fontFamily,
 .ui-input-form-colour {
 	display: none;
 }
@@ -19,22 +20,26 @@ ul.ui-input-nav-lists {
 	padding: 0.2em;
 	transition: all 3ms linear;
 	&-nav {
-		border: 2px solid #f9adba;
-		border-top-left-radius: 1.2em;
-		border-top-right-radius: 1.2em;
-		// padding: 0.5em;
+		// border: 2px solid #f9adba;
+		// border-top-left-radius: 1.2em;
+		// border-top-right-radius: 1.2em;
+		// border-radius: 1.2em;
 		line-height: 2.6em;
 		&-list {
-			@include borderTest(rgb(240, 152, 206));
+			@include borderTest($primaryColor);
 			width: 100%;
 			text-align: center;
 			cursor: pointer;
+			color: #3a474b;
+			background-color: rgb(247, 247, 247);
 
 			&:nth-child(1) {
 				border-top-left-radius: 0.8em;
+				border-bottom-left-radius: 0.4em;
 			}
 			&:nth-child(3) {
 				border-top-right-radius: 0.8em;
+				border-bottom-right-radius: 0.4em;
 			}
 		}
 	}
@@ -45,6 +50,7 @@ ul.ui-input-nav-lists {
 
 	&-heading {
 		margin-bottom: 1em;
+		color: #444;
 	}
 }
 
