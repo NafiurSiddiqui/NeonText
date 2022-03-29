@@ -8,12 +8,6 @@ ul.ui-input-nav-lists {
 	}
 }
 
-.ui-input-form.text,
-.ui-input-form.fontFamily,
-.ui-input-form.color {
-	display: none;
-}
-
 .ui-input {
 	border: 1px solid silver;
 	border-radius: 1.2em;
@@ -111,6 +105,12 @@ ul.ui-input-nav-lists {
 	background-color: $primaryColor;
 	color: rgb(255, 255, 255);
 	cursor: auto;
+}
+
+.ui-input-form.text,
+.ui-input-form.fontFamily,
+.ui-input-form.color {
+	display: none;
 }
 
 .ui-active {

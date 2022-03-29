@@ -117,63 +117,160 @@ parcelRequire = (function (modules, cache, entry, globalName) {
   }
 
   return newRequire;
-})({"src/js/ui-inputNav.js":[function(require,module,exports) {
+})({"src/js/ui-inputNav_test.js":[function(require,module,exports) {
 var uiNav = document.querySelectorAll(".ui-input-nav-list");
 var uiInputText = document.querySelector(".ui-input-form.text");
 var uiInputFont = document.querySelector(".ui-input-form.fontFamily");
 var uiInputColor = document.querySelector(".ui-input-form.color");
 var uiForm = document.querySelectorAll(".ui-input-form");
-console.log(uiInputText, uiInputFont, uiInputColor);
+console.log(uiNav, uiInputText, uiInputFont, uiInputColor);
 
-function checkClass(child) {
-  return uiNav[child].classList.contains("nav-active");
+function checkClass(el, child, className) {
+  // return uiNav[child].classList.contains("nav-active");
+  return (el[child] || el).classList.contains(className);
 }
 
-function setClass(child) {
-  uiNav[child].classList.add("nav-active");
-}
+function setClass(el, child, className) {
+  var single = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : false;
 
-function removeClass(child) {
-  uiNav[child].classList.remove("nav-active");
-}
-
-function toggleDisplay(child, val) {
-  // if (uiNav[])
-  child.style.display = val;
-}
-
-function conditionalSet(targetText, arg1, arg2, arg3, arg4) {
-  if (targetText === arg1) {
-    if (checkClass(arg2)) {
-      removeClass(arg2);
-    }
-
-    if (checkClass(arg3)) {
-      removeClass(arg3);
-    }
-
-    setClass(arg4);
+  // uiNav[child].classList.add("nav-active");
+  if (single === true) {
+    //returns element only
+    return el.classList.add(className);
+  } else {
+    //returns element from an array like uiNav
+    return el[child].classList.add(className);
   }
 }
+
+function removeClass(el, child, className) {
+  // uiNav[child].classList.remove("nav-active");
+  (el[child] || el).classList.remove(className);
+}
+
+function toggleDisplay(el, on) {
+  if (on) {
+    el.style.display = "flex";
+  } else {
+    el.style.display = "none";
+  }
+}
+
+function conditionalSet(targetText, val) {
+  //refer to the individual function arguments in case of confusion
+  if (targetText === val) {
+    if (checkClass(arguments.length <= 2 ? undefined : arguments[2], arguments.length <= 3 ? undefined : arguments[3], arguments.length <= 4 ? undefined : arguments[4])) {
+      removeClass(arguments.length <= 2 ? undefined : arguments[2], arguments.length <= 3 ? undefined : arguments[3], arguments.length <= 4 ? undefined : arguments[4]);
+    }
+
+    if (checkClass(arguments.length <= 5 ? undefined : arguments[5], arguments.length <= 6 ? undefined : arguments[6], arguments.length <= 7 ? undefined : arguments[7])) {
+      removeClass(arguments.length <= 5 ? undefined : arguments[5], arguments.length <= 6 ? undefined : arguments[6], arguments.length <= 7 ? undefined : arguments[7]);
+    }
+
+    toggleDisplay(arguments.length <= 8 ? undefined : arguments[8]);
+    toggleDisplay(arguments.length <= 9 ? undefined : arguments[9]);
+    setClass(arguments.length <= 10 ? undefined : arguments[10], arguments.length <= 11 ? undefined : arguments[11], arguments.length <= 12 ? undefined : arguments[12], arguments.length <= 13 ? undefined : arguments[13]);
+    setClass(arguments.length <= 14 ? undefined : arguments[14], arguments.length <= 15 ? undefined : arguments[15], arguments.length <= 16 ? undefined : arguments[16], arguments.length <= 17 ? undefined : arguments[17]);
+  }
+} //for quick referencing
+
+
+var navActive = "nav-active";
+var uiActive = "ui-active"; //state checking
+
+var textNavState;
+var textUiState;
+var fontNavState;
+var fontUiState;
+var colorNavState;
+var colorUiState;
 
 function setValue(e) {
   console.log(e.target.innerText);
   var targetText = e.target.innerText; //TEXT NAV
 
-  conditionalSet(targetText, "Text", 1, 2, 0);
+  if (targetText === "Text") {
+    //check and remove any nav Activation
+    if (uiNav[1].classList.contains(navActive) || uiNav[2].classList.contains(navActive)) {
+      uiNav[1].classList.remove(navActive);
+      uiNav[2].classList.remove(navActive);
+      fontNavState = false;
+      colorNavState = false;
+    } //check and remove any uiActivation
 
-  if (uiInputFont.classList.contains("ui-active") || uiInputColor.classList.contains("ui-active")) {
-    uiInputFont.classList.remove("ui-active");
-    uiInputColor.classList.remove("ui-active");
+
+    if (uiInputFont.classList.contains(uiActive) || uiInputColor.classList.contains(uiActive)) {
+      uiInputFont.classList.remove(uiActive);
+      uiInputColor.classList.remove(uiActive);
+      fontUiState = false;
+      colorUiState = false;
+    } //activate text Nav
+
+
+    uiNav[0].classList.add(navActive);
+    textNavState = true; //activate text input area
+    // uiInputText.style.display = "flex";
+
+    uiInputText.classList.add(uiActive); //set the state to true
+
+    textUiState = true;
+  } //font famly
+
+
+  if (targetText === "Font Family") {
+    //check and remove any nav Activation
+    if (uiNav[0].classList.contains(navActive) || uiNav[2].classList.contains(navActive)) {
+      uiNav[0].classList.remove(navActive);
+      uiNav[2].classList.remove(navActive);
+      textNavState = false;
+      colorNavState = false;
+    } //check and remove any uiActivation
+
+
+    if (uiInputText.classList.contains(uiActive) || uiInputColor.classList.contains(uiActive)) {
+      uiInputText.classList.remove(uiActive);
+      uiInputColor.classList.remove(uiActive);
+      textUiState = false;
+      colorUiState = false;
+    } //activate text Nav
+
+
+    uiNav[1].classList.add(navActive);
+    fontNavState = true; //activate text input area
+    // uiInputFont.style.display = "flex";
+
+    uiInputFont.classList.add(uiActive); //set the state to true
+
+    fontUiState = true;
+  } //color
+
+
+  if (targetText === "Color") {
+    //check and remove any nav Activation
+    if (uiNav[0].classList.contains(navActive) || uiNav[1].classList.contains(navActive)) {
+      uiNav[0].classList.remove(navActive);
+      uiNav[1].classList.remove(navActive);
+      textNavState = false;
+      fontNavState = false;
+    } //check and remove any uiActivation
+
+
+    if (uiInputText.classList.contains(uiActive) || uiInputFont.classList.contains(uiActive)) {
+      uiInputText.classList.remove(uiActive);
+      uiInputFont.classList.remove(uiActive);
+      textUiState = false;
+      fontUiState = false;
+    } //activate text Nav
+
+
+    uiNav[2].classList.add(navActive);
+    colorNavState = true; //activate text input area
+    // uiInputFont.style.display = "flex";
+
+    uiInputColor.classList.add(uiActive); //set the state to true
+
+    colorUiState = true;
   }
-
-  uiInputFont.style.display = "none";
-  uiInputColor.style.display = "none";
-  uiInputText.classList.add("ui-active"); //fONT FAMILY
-
-  conditionalSet(targetText, "Font Family", 0, 2, 1); //color
-
-  conditionalSet(targetText, "Color", 0, 1, 2);
 } // console.log(checkClass(1));
 
 
@@ -183,8 +280,8 @@ uiNav.forEach(function (list) {
 },{}],"src/js/index.js":[function(require,module,exports) {
 "use strict";
 
-require("./ui-inputNav");
-},{"./ui-inputNav":"src/js/ui-inputNav.js"}],"node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
+require("./ui-inputNav_test");
+},{"./ui-inputNav_test":"src/js/ui-inputNav_test.js"}],"node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
 var OVERLAY_ID = '__parcel__error__overlay__';
 var OldModule = module.bundle.Module;
@@ -212,7 +309,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "52964" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "54719" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

@@ -167,12 +167,6 @@ ul.ui-input-nav-lists > li {
   font-size: 1.4rem;
 }
 
-.ui-input-form.text,
-.ui-input-form.fontFamily,
-.ui-input-form.color {
-  display: none;
-}
-
 .ui-input {
   border: 1px solid silver;
   border-radius: 1.2em;
@@ -254,6 +248,12 @@ ul.ui-input-nav-lists > li {
   background-color: #3c7a89;
   color: white;
   cursor: auto;
+}
+
+.ui-input-form.text,
+.ui-input-form.fontFamily,
+.ui-input-form.color {
+  display: none;
 }
 
 .ui-active {
