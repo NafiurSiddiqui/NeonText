@@ -39,22 +39,3 @@ section.primary-heading {
 ul > li {
 	list-style-type: none;
 }
-
-//same rule for fontFamily and color form
-
-.ui-input-form-colour,
-.ui-input-form-fontFamily {
-	@include flexCentered;
-	flex-direction: column;
-}
-
-.ui-input-color-lists,
-.ui-input-fontFamily-lists {
-	width: 90%;
-	text-align: center;
-	display: grid;
-	// grid-template-columns: auto auto;
-	grid-template-columns: repeat(auto-fill, minmax(5em, 1fr));
-	grid-gap: 10px;
-	justify-content: center;
-}

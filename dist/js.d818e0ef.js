@@ -119,10 +119,11 @@ parcelRequire = (function (modules, cache, entry, globalName) {
   return newRequire;
 })({"src/js/ui-inputNav.js":[function(require,module,exports) {
 var uiNav = document.querySelectorAll(".ui-input-nav-list");
-var uiInputText = document.querySelector(".ui-input-form-text");
-var fontFamilyArea = document.querySelector(".ui-input-fontFamily-lists");
-var colorArea = document.querySelector(".ui-input-color-lists");
-console.log(uiInputText.style);
+var uiInputText = document.querySelector(".ui-input-form.text");
+var uiInputFont = document.querySelector(".ui-input-form.fontFamily");
+var uiInputColor = document.querySelector(".ui-input-form.color");
+var uiForm = document.querySelectorAll(".ui-input-form");
+console.log(uiInputText, uiInputFont, uiInputColor);
 
 function checkClass(child) {
   return uiNav[child].classList.contains("nav-active");
@@ -153,26 +154,22 @@ function conditionalSet(targetText, arg1, arg2, arg3, arg4) {
 
     setClass(arg4);
   }
-} // function conditionalSet(...args) {
-// 	if (args === args) {
-// 		if (checkClass(args)) {
-// 			removeClass(args);
-// 		}
-// 		if (checkClass(args)) {
-// 			removeClass(args);
-// 		}
-// 		setClass(args);
-// 		toggleDisplay(args, args);
-// 	}
-// }
-
+}
 
 function setValue(e) {
   console.log(e.target.innerText);
-  var targetText = e.target.innerText; //conditionally set the styling for element
-  //TEXT NAV
+  var targetText = e.target.innerText; //TEXT NAV
 
-  conditionalSet(targetText, "Text", 1, 2, 0); //fONT FAMILY
+  conditionalSet(targetText, "Text", 1, 2, 0);
+
+  if (uiInputFont.classList.contains("ui-active") || uiInputColor.classList.contains("ui-active")) {
+    uiInputFont.classList.remove("ui-active");
+    uiInputColor.classList.remove("ui-active");
+  }
+
+  uiInputFont.style.display = "none";
+  uiInputColor.style.display = "none";
+  uiInputText.classList.add("ui-active"); //fONT FAMILY
 
   conditionalSet(targetText, "Font Family", 0, 2, 1); //color
 
@@ -215,7 +212,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "64368" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "52964" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
