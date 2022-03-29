@@ -21,21 +21,6 @@ main.container {
 	flex-direction: column;
 }
 
-section.primary-heading {
-	@include flexCentered;
-	flex-direction: column;
-	margin-bottom: 1em;
-	& > h1 {
-		color: $primaryColor;
-		font-size: 2.2rem;
-		font-style: italic;
-	}
-
-	& > h2 {
-		color: $secondaryColor;
-	}
-}
-
 ul > li {
 	list-style-type: none;
 }

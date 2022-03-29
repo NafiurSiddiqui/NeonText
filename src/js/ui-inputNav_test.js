@@ -1,29 +1,23 @@
-const uiNav = document.querySelectorAll(".ui-input-nav-list");
-const uiInputText = document.querySelector(".ui-input-form.text");
-const uiInputFont = document.querySelector(".ui-input-form.fontFamily");
-const uiInputColor = document.querySelector(".ui-input-form.color");
-const uiForm = document.querySelectorAll(".ui-input-form");
-
-console.log(uiNav, uiInputText, uiInputFont, uiInputColor);
+// import "./globalVariables";
+import { globalVar } from "./globalVariables";
+("./globalVariables");
+// console.log(globalVar.uiNav, globalVar.uiInputText, globalVar.uiInputFont, globalVar.uiInputColor);
 
 function checkClass(el, child, className) {
-	// return uiNav[child].classList.contains("nav-active");
 	return (el[child] || el).classList.contains(className);
 }
 
 function setClass(el, child, className, single = false) {
-	// uiNav[child].classList.add("nav-active");
 	if (single === true) {
 		//returns element only
 		return el.classList.add(className);
 	} else {
-		//returns element from an array like uiNav
+		//returns element from an array like globalVar.uiNav
 		return el[child].classList.add(className);
 	}
 }
 
 function removeClass(el, child, className) {
-	// uiNav[child].classList.remove("nav-active");
 	(el[child] || el).classList.remove(className);
 }
 
@@ -64,7 +58,7 @@ let colorNavState;
 let colorUiState;
 
 function setValue(e) {
-	console.log(e.target.innerText);
+	// console.log(e.target.innerText);
 
 	let targetText = e.target.innerText;
 
@@ -72,31 +66,31 @@ function setValue(e) {
 	if (targetText === "Text") {
 		//check and remove any nav Activation
 		if (
-			uiNav[1].classList.contains(navActive) ||
-			uiNav[2].classList.contains(navActive)
+			globalVar.uiNav[1].classList.contains(navActive) ||
+			globalVar.uiNav[2].classList.contains(navActive)
 		) {
-			uiNav[1].classList.remove(navActive);
-			uiNav[2].classList.remove(navActive);
+			globalVar.uiNav[1].classList.remove(navActive);
+			globalVar.uiNav[2].classList.remove(navActive);
 			fontNavState = false;
 			colorNavState = false;
 		}
 		//check and remove any uiActivation
 		if (
-			uiInputFont.classList.contains(uiActive) ||
-			uiInputColor.classList.contains(uiActive)
+			globalVar.uiInputFont.classList.contains(uiActive) ||
+			globalVar.uiInputColor.classList.contains(uiActive)
 		) {
-			uiInputFont.classList.remove(uiActive);
-			uiInputColor.classList.remove(uiActive);
+			globalVar.uiInputFont.classList.remove(uiActive);
+			globalVar.uiInputColor.classList.remove(uiActive);
 			fontUiState = false;
 			colorUiState = false;
 		}
 
 		//activate text Nav
-		uiNav[0].classList.add(navActive);
+		globalVar.uiNav[0].classList.add(navActive);
 		textNavState = true;
 		//activate text input area
-		// uiInputText.style.display = "flex";
-		uiInputText.classList.add(uiActive);
+		// globalVar.uiInputText.style.display = "flex";
+		globalVar.uiInputText.classList.add(uiActive);
 		//set the state to true
 		textUiState = true;
 	}
@@ -106,31 +100,31 @@ function setValue(e) {
 	if (targetText === "Font Family") {
 		//check and remove any nav Activation
 		if (
-			uiNav[0].classList.contains(navActive) ||
-			uiNav[2].classList.contains(navActive)
+			globalVar.uiNav[0].classList.contains(navActive) ||
+			globalVar.uiNav[2].classList.contains(navActive)
 		) {
-			uiNav[0].classList.remove(navActive);
-			uiNav[2].classList.remove(navActive);
+			globalVar.uiNav[0].classList.remove(navActive);
+			globalVar.uiNav[2].classList.remove(navActive);
 			textNavState = false;
 			colorNavState = false;
 		}
 		//check and remove any uiActivation
 		if (
-			uiInputText.classList.contains(uiActive) ||
-			uiInputColor.classList.contains(uiActive)
+			globalVar.uiInputText.classList.contains(uiActive) ||
+			globalVar.uiInputColor.classList.contains(uiActive)
 		) {
-			uiInputText.classList.remove(uiActive);
-			uiInputColor.classList.remove(uiActive);
+			globalVar.uiInputText.classList.remove(uiActive);
+			globalVar.uiInputColor.classList.remove(uiActive);
 			textUiState = false;
 			colorUiState = false;
 		}
 
 		//activate text Nav
-		uiNav[1].classList.add(navActive);
+		globalVar.uiNav[1].classList.add(navActive);
 		fontNavState = true;
 		//activate text input area
-		// uiInputFont.style.display = "flex";
-		uiInputFont.classList.add(uiActive);
+		// globalVar.uiInputFont.style.display = "flex";
+		globalVar.uiInputFont.classList.add(uiActive);
 		//set the state to true
 		fontUiState = true;
 	}
@@ -139,31 +133,31 @@ function setValue(e) {
 	if (targetText === "Color") {
 		//check and remove any nav Activation
 		if (
-			uiNav[0].classList.contains(navActive) ||
-			uiNav[1].classList.contains(navActive)
+			globalVar.uiNav[0].classList.contains(navActive) ||
+			globalVar.uiNav[1].classList.contains(navActive)
 		) {
-			uiNav[0].classList.remove(navActive);
-			uiNav[1].classList.remove(navActive);
+			globalVar.uiNav[0].classList.remove(navActive);
+			globalVar.uiNav[1].classList.remove(navActive);
 			textNavState = false;
 			fontNavState = false;
 		}
 		//check and remove any uiActivation
 		if (
-			uiInputText.classList.contains(uiActive) ||
-			uiInputFont.classList.contains(uiActive)
+			globalVar.uiInputText.classList.contains(uiActive) ||
+			globalVar.uiInputFont.classList.contains(uiActive)
 		) {
-			uiInputText.classList.remove(uiActive);
-			uiInputFont.classList.remove(uiActive);
+			globalVar.uiInputText.classList.remove(uiActive);
+			globalVar.uiInputFont.classList.remove(uiActive);
 			textUiState = false;
 			fontUiState = false;
 		}
 
 		//activate text Nav
-		uiNav[2].classList.add(navActive);
+		globalVar.uiNav[2].classList.add(navActive);
 		colorNavState = true;
 		//activate text input area
-		// uiInputFont.style.display = "flex";
-		uiInputColor.classList.add(uiActive);
+		// globalVar.uiInputFont.style.display = "flex";
+		globalVar.uiInputColor.classList.add(uiActive);
 		//set the state to true
 		colorUiState = true;
 	}
@@ -171,6 +165,6 @@ function setValue(e) {
 
 // console.log(checkClass(1));
 
-uiNav.forEach((list) => {
+globalVar.uiNav.forEach((list) => {
 	list.addEventListener("click", setValue);
 });

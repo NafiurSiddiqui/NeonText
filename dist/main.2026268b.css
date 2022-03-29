@@ -34,23 +34,6 @@ main.container {
   flex-direction: column;
 }
 
-section.primary-heading {
-  display: flex;
-  -webkit-box-flex: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
-  margin-bottom: 1em;
-}
-section.primary-heading > h1 {
-  color: #3c7a89;
-  font-size: 2.2rem;
-  font-style: italic;
-}
-section.primary-heading > h2 {
-  color: #f16bbc;
-}
-
 ul > li {
   list-style-type: none;
 }
@@ -60,6 +43,32 @@ article.ui-display {
   background: linear-gradient(180deg, #0a0a0e 18%, rgba(0, 0, 0, 0.8183474073) 100%);
   padding: 1em;
   border-radius: 1.2em;
+}
+
+.ui-display-userText-container {
+  border: 1px solid white;
+  width: 100%;
+  height: 20em;
+  background-color: #302f2f;
+  margin-top: 5em;
+  display: flex;
+  -webkit-box-flex: flex;
+  justify-content: center;
+  align-items: center;
+}
+@media screen and (max-width: 1200px) {
+  .ui-display-userText-container {
+    margin-top: 2em;
+  }
+}
+.ui-display-userText-text {
+  color: #f4f4f4;
+  font-size: 5rem;
+  text-shadow: #b5b5b5 0px 1px 0px, darkgray 0px 2px 0px, #949494 0px 3px 0px, #7d7d7d 0px 4px 0px, rgba(0, 0, 0, 0.23) 0px 0px 5px, rgba(0, 0, 0, 0.43) 0px 1px 3px, rgba(0, 0, 0, 0.4) 1px 4px 6px, rgba(0, 0, 0, 0.38) 0px 5px 10px, rgba(0, 0, 0, 0.25) 3px 7px 12px;
+}
+
+.neonOn {
+  text-shadow: white 0px 0px 5px, white 0px 0px 10px, #ff90ff 0px 0px 20px, #ff90ff 0px 0px 30px, #ff90ff 0px 0px 40px, #ff90ff 0px 0px 55px, #ff90ff 0px 0px 75px;
 }
 
 /* The switch - the box around the slider */
@@ -148,13 +157,44 @@ input:checked ~ span span:first-of-type {
 
 section.ui-container {
   display: grid;
-  grid-template-columns: 25em 1fr;
+  grid-template-columns: 25em 25em;
   width: 70%;
   grid-gap: 20px;
   padding: 1rem 2rem;
   height: 80vh;
   min-height: 38rem;
   justify-content: center;
+}
+@media screen and (max-width: 1200px) {
+  section.ui-container {
+    grid-template-columns: 100%;
+    width: 100%;
+  }
+}
+
+section.primary-heading {
+  display: flex;
+  -webkit-box-flex: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  margin-bottom: 1em;
+}
+section.primary-heading > h1 {
+  color: #3c7a89;
+  font-size: 2.2rem;
+  font-style: italic;
+}
+section.primary-heading > h2 {
+  color: #f16bbc;
+}
+@media screen and (max-width: 500px) {
+  section.primary-heading > h1 {
+    font-size: calc(2rem - 2px);
+  }
+  section.primary-heading > h2 {
+    font-size: calc(1.5rem - 2px);
+  }
 }
 
 ul.ui-input-nav-lists {
@@ -416,7 +456,7 @@ i[data-color=white] {
 
 header {
   width: 100%;
-  height: 20%;
+  height: 15%;
 }
 
 .logo {
