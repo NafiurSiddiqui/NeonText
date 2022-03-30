@@ -322,16 +322,39 @@ var _globalVariables = require("./globalVariables");
 
 //need NavText, UiText, display
 // console.log(globalVar.display);
-var navText = _globalVariables.globalVar.uiInputText;
-var uiText = _globalVariables.globalVar.display; // console.log(navText, uiText);
-//set the default states
-//set navTextState to true
-//get the input value, store it, return it
-//persist data in local storage
-//show each letter upon typing
-//measure each letter by 9 cm each
-//wait for 3 seconds and show the measurement bar
-//setTimout for session storage and remove items from local storage, if there is data
+var navText = _globalVariables.globalVar.uiInputText.firstElementChild;
+var textDisplay = _globalVariables.globalVar.display; // let userText = "";
+
+console.log(textDisplay); //state variables
+
+var textInputState = false; //set the default states
+//---text = Your text
+
+var userText = "Your text"; //---fontFamily = selected from the list of fontFamily
+//---color = selected from the list of color
+
+function init() {
+  //initial default state
+  textDisplay.textContent = userText;
+}
+
+init();
+navText.addEventListener("input", function (e) {
+  // console.log(e.target.value);
+  //get the input value, store it, return it
+  userText = e.target.value; //persist data in local storage
+  //show each letter upon typing
+
+  textDisplay.textContent = userText; //measure each letter by 9 cm each
+  //check if the state is true
+
+  if (userText.length > 0) {
+    textInputState = true;
+  } //wait for 3 seconds and show the measurement bar
+  //setTimout for session storage and remove items from local storage, if there is data
+  //set navTextState to true
+
+});
 },{"./globalVariables":"src/js/globalVariables.js"}],"src/js/index.js":[function(require,module,exports) {
 "use strict";
 
@@ -368,7 +391,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "63960" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "63789" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

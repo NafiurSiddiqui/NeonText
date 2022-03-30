@@ -17,6 +17,7 @@ article.ui-display {
 		background-color: rgb(48, 47, 47);
 		margin-top: 5em;
 		@include flexCentered;
+		flex-direction: column;
 		@media screen and (max-width: 1200px) {
 			margin-top: 2em;
 		}
@@ -30,6 +31,22 @@ article.ui-display {
 			rgba(0, 0, 0, 0.23) 0px 0px 5px, rgba(0, 0, 0, 0.43) 0px 1px 3px,
 			rgba(0, 0, 0, 0.4) 1px 4px 6px, rgba(0, 0, 0, 0.38) 0px 5px 10px,
 			rgba(0, 0, 0, 0.25) 3px 7px 12px;
+	}
+}
+
+//measurement bar
+
+.measurementBar {
+	&-container {
+		@include borderTest(white);
+		color: whitesmoke;
+	}
+
+	&-left {
+		@include measurementBarBorder(left);
+	}
+	&-right {
+		@include measurementBarBorder(right);
 	}
 }
 
