@@ -11,7 +11,7 @@ console.log(textDisplay);
 //state variables
 
 let textInputState = false;
-
+console.log(globalVar.uiInputText);
 //set the default states
 
 //---text = Your text

@@ -327,7 +327,8 @@ var textDisplay = _globalVariables.globalVar.display; // let userText = "";
 
 console.log(textDisplay); //state variables
 
-var textInputState = false; //set the default states
+var textInputState = false;
+console.log(_globalVariables.globalVar.uiInputText); //set the default states
 //---text = Your text
 
 var userText = "Your text"; //---fontFamily = selected from the list of fontFamily
@@ -391,7 +392,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "63789" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "55365" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
