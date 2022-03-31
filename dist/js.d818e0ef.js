@@ -129,7 +129,18 @@ var uiInputText = document.querySelector(".ui-input-form.text");
 var uiInputFont = document.querySelector(".ui-input-form.fontFamily");
 var uiInputColor = document.querySelector(".ui-input-form.color");
 var uiForm = document.querySelectorAll(".ui-input-form");
-var display = document.querySelector(".ui-display-userText-text"); // console.log(display);
+var display = document.querySelector(".ui-display-userText-text");
+var barLeft = document.querySelector(".measurementBar-left");
+var barRight = document.querySelector(".measurementBar-right");
+var barLength = document.querySelector(".measurement-length");
+var bottomBarContainer = document.querySelector(".measurementBar-container-bottom"); //----------- Measurment Bar
+
+var barStyleLeft = getComputedStyle(barLeft);
+var barLeftWidth = barStyleLeft.width;
+var barStyleRight = getComputedStyle(barRight);
+var barRightWidth = barStyleRight.width;
+var barSize = barLength.textContent;
+console.log(barLeftWidth, barRightWidth, barSize, bottomBarContainer); //exporting these as globalVariable
 
 var globalVar = {
   uiNav: uiNav,
@@ -137,7 +148,11 @@ var globalVar = {
   uiInputFont: uiInputFont,
   uiInputColor: uiInputColor,
   uiForm: uiForm,
-  display: display
+  display: display,
+  barLeftWidth: barLeftWidth,
+  barRightWidth: barRightWidth,
+  barSize: barSize,
+  bottomBarContainer: bottomBarContainer
 };
 exports.globalVar = globalVar;
 },{}],"src/js/ui-inputNav_test.js":[function(require,module,exports) {
@@ -146,14 +161,26 @@ exports.globalVar = globalVar;
 var _globalVariables = require("./globalVariables");
 
 // import "./globalVariables";
-"./globalVariables"; // console.log(globalVar.uiNav, globalVar.uiInputText, globalVar.uiInputFont, globalVar.uiInputColor);
+"./globalVariables";
 
-function checkClass(el, child, className) {
-  return (el[child] || el).classList.contains(className);
+function checkClass() {
+  var single = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : false;
+  var el = arguments.length > 1 ? arguments[1] : undefined;
+  var child = arguments.length > 2 ? arguments[2] : undefined;
+  var className = arguments.length > 3 ? arguments[3] : undefined;
+
+  if (single === true) {
+    return el.classList.contains(className);
+  } else {
+    return el[child].classList.contains(className);
+  }
 }
 
-function setClass(el, child, className) {
-  var single = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : false;
+function setClass() {
+  var single = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : false;
+  var el = arguments.length > 1 ? arguments[1] : undefined;
+  var child = arguments.length > 2 ? arguments[2] : undefined;
+  var className = arguments.length > 3 ? arguments[3] : undefined;
 
   if (single === true) {
     //returns element only
@@ -164,8 +191,17 @@ function setClass(el, child, className) {
   }
 }
 
-function removeClass(el, child, className) {
-  (el[child] || el).classList.remove(className);
+function removeClass() {
+  var single = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : false;
+  var el = arguments.length > 1 ? arguments[1] : undefined;
+  var child = arguments.length > 2 ? arguments[2] : undefined;
+  var className = arguments.length > 3 ? arguments[3] : undefined;
+
+  if (single === true) {
+    el.classList.remove(className);
+  } else {
+    el[child].classList.remove(className);
+  }
 }
 
 function toggleDisplay(el, on) {
@@ -198,12 +234,19 @@ function conditionalSet(targetText, val) {
 var navActive = "nav-active";
 var uiActive = "ui-active"; //state checking
 
-var textNavState;
-var textUiState;
-var fontNavState;
-var fontUiState;
-var colorNavState;
-var colorUiState;
+var textState = false;
+var fontState = false;
+var colorState = false; //global Var destructured
+
+var uiNav = _globalVariables.globalVar.uiNav,
+    uiInputText = _globalVariables.globalVar.uiInputText,
+    uiInputFont = _globalVariables.globalVar.uiInputFont,
+    uiInputColor = _globalVariables.globalVar.uiInputColor,
+    uiForm = _globalVariables.globalVar.uiForm,
+    display = _globalVariables.globalVar.display; // console.log(uiNav[0]);
+// checkClass(false, uiNav, 0, navActive);
+
+checkClass(true, uiInputText, null, uiActive);
 
 function setValue(e) {
   // console.log(e.target.innerText);
@@ -211,124 +254,109 @@ function setValue(e) {
 
   if (targetText === "Text") {
     //check and remove any nav Activation
-    if (_globalVariables.globalVar.uiNav[1].classList.contains(navActive) || _globalVariables.globalVar.uiNav[2].classList.contains(navActive)) {
-      _globalVariables.globalVar.uiNav[1].classList.remove(navActive);
-
-      _globalVariables.globalVar.uiNav[2].classList.remove(navActive);
-
-      fontNavState = false;
-      colorNavState = false;
+    if (checkClass(false, uiNav, 1, navActive) || checkClass(false, uiNav, 2, navActive)) {
+      removeClass(false, uiNav, 1, navActive);
+      removeClass(false, uiNav, 2, navActive);
+      fontState = false;
+      colorState = false;
     } //check and remove any uiActivation
 
 
-    if (_globalVariables.globalVar.uiInputFont.classList.contains(uiActive) || _globalVariables.globalVar.uiInputColor.classList.contains(uiActive)) {
-      _globalVariables.globalVar.uiInputFont.classList.remove(uiActive);
-
-      _globalVariables.globalVar.uiInputColor.classList.remove(uiActive);
-
-      fontUiState = false;
-      colorUiState = false;
+    if (checkClass(true, uiInputFont, null, uiActive) || checkClass(true, uiInputColor, null, uiActive)) {
+      removeClass(true, uiInputFont, null, uiActive);
+      removeClass(true, uiInputColor, null, uiActive);
     } //activate text Nav
 
 
-    _globalVariables.globalVar.uiNav[0].classList.add(navActive);
+    setClass(false, uiNav, 0, navActive); //activate text input area
 
-    textNavState = true; //activate text input area
-    // globalVar.uiInputText.style.display = "flex";
+    setClass(true, uiInputText, null, uiActive); //set the state to true
 
-    _globalVariables.globalVar.uiInputText.classList.add(uiActive); //set the state to true
-
-
-    textUiState = true;
+    return textState = true;
   } //font famly
 
 
   if (targetText === "Font Family") {
     //check and remove any nav Activation
-    if (_globalVariables.globalVar.uiNav[0].classList.contains(navActive) || _globalVariables.globalVar.uiNav[2].classList.contains(navActive)) {
-      _globalVariables.globalVar.uiNav[0].classList.remove(navActive);
-
-      _globalVariables.globalVar.uiNav[2].classList.remove(navActive);
-
-      textNavState = false;
-      colorNavState = false;
+    if ( // globalVar.uiNav[0].classList.contains(navActive) ||
+    // globalVar.uiNav[2].classList.contains(navActive)
+    checkClass(false, uiNav, 0, navActive) || checkClass(false, uiNav, 2, navActive)) {
+      // globalVar.uiNav[0].classList.remove(navActive);
+      // globalVar.uiNav[2].classList.remove(navActive);
+      removeClass(false, uiNav, 0, navActive);
+      removeClass(false, uiNav, 2, navActive);
+      textState = false;
+      colorState = false;
     } //check and remove any uiActivation
 
 
-    if (_globalVariables.globalVar.uiInputText.classList.contains(uiActive) || _globalVariables.globalVar.uiInputColor.classList.contains(uiActive)) {
-      _globalVariables.globalVar.uiInputText.classList.remove(uiActive);
-
-      _globalVariables.globalVar.uiInputColor.classList.remove(uiActive);
-
-      textUiState = false;
-      colorUiState = false;
-    } //activate text Nav
-
-
-    _globalVariables.globalVar.uiNav[1].classList.add(navActive);
-
-    fontNavState = true; //activate text input area
-    // globalVar.uiInputFont.style.display = "flex";
-
-    _globalVariables.globalVar.uiInputFont.classList.add(uiActive); //set the state to true
+    if ( // globalVar.uiInputText.classList.contains(uiActive) ||
+    // globalVar.uiInputColor.classList.contains(uiActive)
+    checkClass(true, uiInputText, null, uiActive) || checkClass(true, uiInputColor, null, uiActive)) {
+      // globalVar.uiInputText.classList.remove(uiActive);
+      // globalVar.uiInputColor.classList.remove(uiActive);
+      removeClass(true, uiInputText, null, uiActive);
+      removeClass(true, uiInputColor, null, uiActive);
+    } //activate font Nav
+    // globalVar.uiNav[1].classList.add(navActive);
 
 
-    fontUiState = true;
+    setClass(false, uiNav, 1, navActive); //activate font btn area
+    // globalVar.uiInputFont.classList.add(uiActive);
+
+    setClass(true, uiInputFont, null, uiActive); //set the state to true
+
+    fontState = true;
   } //color
 
 
   if (targetText === "Color") {
     //check and remove any nav Activation
-    if (_globalVariables.globalVar.uiNav[0].classList.contains(navActive) || _globalVariables.globalVar.uiNav[1].classList.contains(navActive)) {
-      _globalVariables.globalVar.uiNav[0].classList.remove(navActive);
-
-      _globalVariables.globalVar.uiNav[1].classList.remove(navActive);
-
-      textNavState = false;
-      fontNavState = false;
+    if (checkClass(false, uiNav, 0, navActive) || checkClass(false, uiNav, 1, navActive)) {
+      removeClass(false, uiNav, 0, navActive);
+      removeClass(false, uiNav, 1, navActive);
+      textState = false;
+      fontState = false;
     } //check and remove any uiActivation
 
 
-    if (_globalVariables.globalVar.uiInputText.classList.contains(uiActive) || _globalVariables.globalVar.uiInputFont.classList.contains(uiActive)) {
-      _globalVariables.globalVar.uiInputText.classList.remove(uiActive);
-
-      _globalVariables.globalVar.uiInputFont.classList.remove(uiActive);
-
-      textUiState = false;
-      fontUiState = false;
-    } //activate text Nav
-
-
-    _globalVariables.globalVar.uiNav[2].classList.add(navActive);
-
-    colorNavState = true; //activate text input area
-    // globalVar.uiInputFont.style.display = "flex";
-
-    _globalVariables.globalVar.uiInputColor.classList.add(uiActive); //set the state to true
+    if ( // globalVar.uiInputText.classList.contains(uiActive) ||
+    // globalVar.uiInputFont.classList.contains(uiActive)
+    checkClass(true, uiInputText, null, uiActive) || checkClass(true, uiInputFont, null, uiActive)) {
+      // globalVar.uiInputText.classList.remove(uiActive);
+      // globalVar.uiInputFont.classList.remove(uiActive);
+      removeClass(true, uiInputText, null, uiActive);
+      removeClass(true, uiInputFont, null, uiActive);
+    } //activate color Nav
 
 
-    colorUiState = true;
+    setClass(false, uiNav, 2, navActive); //activate color bulb area
+
+    setClass(true, uiInputColor, null, uiActive); //set the state to true
+
+    return colorState = true;
   }
-} // console.log(checkClass(1));
+}
 
+console.log(textState);
 
 _globalVariables.globalVar.uiNav.forEach(function (list) {
   list.addEventListener("click", setValue);
 });
+/**
+ * @ERRORs -
+ * In case of any TypeError:el.classlist is undefined, try turning the booleans true or false. Understanding these helper function beforehand will save your time!
+ */
 },{"./globalVariables":"src/js/globalVariables.js"}],"src/js/textInput.js":[function(require,module,exports) {
 "use strict";
 
 var _globalVariables = require("./globalVariables");
 
 //need NavText, UiText, display
-// console.log(globalVar.display);
 var navText = _globalVariables.globalVar.uiInputText.firstElementChild;
-var textDisplay = _globalVariables.globalVar.display; // let userText = "";
+var textDisplay = _globalVariables.globalVar.display; //state variables
 
-console.log(textDisplay); //state variables
-
-var textInputState = false;
-console.log(_globalVariables.globalVar.uiInputText); //set the default states
+var textInputState = false; //set the default states
 //---text = Your text
 
 var userText = "Your text"; //---fontFamily = selected from the list of fontFamily
@@ -346,15 +374,19 @@ navText.addEventListener("input", function (e) {
   userText = e.target.value; //persist data in local storage
   //show each letter upon typing
 
-  textDisplay.textContent = userText; //measure each letter by 9 cm each
-  //check if the state is true
+  textDisplay.textContent = userText; //check if the state is true
 
   if (userText.length > 0) {
     textInputState = true;
-  } //wait for 3 seconds and show the measurement bar
+  } //calculate each length
+
+
+  console.log(userText.length * 9);
+  setTimeout(function () {// console.log("time");
+    //wait for 3 seconds and show the measurement bar
+  }, 3000); //------measure each letter by 9 cm each
   //setTimout for session storage and remove items from local storage, if there is data
   //set navTextState to true
-
 });
 },{"./globalVariables":"src/js/globalVariables.js"}],"src/js/index.js":[function(require,module,exports) {
 "use strict";
@@ -392,7 +424,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "55365" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "51955" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

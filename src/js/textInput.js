@@ -1,17 +1,13 @@
 import { globalVar } from "./globalVariables";
 
 //need NavText, UiText, display
-// console.log(globalVar.display);
+
 let navText = globalVar.uiInputText.firstElementChild;
 let textDisplay = globalVar.display;
 
-// let userText = "";
-console.log(textDisplay);
-
 //state variables
-
 let textInputState = false;
-console.log(globalVar.uiInputText);
+
 //set the default states
 
 //---text = Your text
@@ -36,14 +32,20 @@ navText.addEventListener("input", (e) => {
 
 	//show each letter upon typing
 	textDisplay.textContent = userText;
-	//measure each letter by 9 cm each
 
 	//check if the state is true
 	if (userText.length > 0) {
 		textInputState = true;
 	}
 
-	//wait for 3 seconds and show the measurement bar
+	//calculate each length
+	console.log(userText.length * 9);
+
+	setTimeout(() => {
+		// console.log("time");
+		//wait for 3 seconds and show the measurement bar
+	}, 3000);
+	//------measure each letter by 9 cm each
 
 	//setTimout for session storage and remove items from local storage, if there is data
 	//set navTextState to true

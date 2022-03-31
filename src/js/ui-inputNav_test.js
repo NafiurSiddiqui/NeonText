@@ -1,13 +1,16 @@
 // import "./globalVariables";
 import { globalVar } from "./globalVariables";
 ("./globalVariables");
-// console.log(globalVar.uiNav, globalVar.uiInputText, globalVar.uiInputFont, globalVar.uiInputColor);
 
-function checkClass(el, child, className) {
-	return (el[child] || el).classList.contains(className);
+function checkClass(single = false, el, child, className) {
+	if (single === true) {
+		return el.classList.contains(className);
+	} else {
+		return el[child].classList.contains(className);
+	}
 }
 
-function setClass(el, child, className, single = false) {
+function setClass(single = false, el, child, className) {
 	if (single === true) {
 		//returns element only
 		return el.classList.add(className);
@@ -17,8 +20,12 @@ function setClass(el, child, className, single = false) {
 	}
 }
 
-function removeClass(el, child, className) {
-	(el[child] || el).classList.remove(className);
+function removeClass(single = false, el, child, className) {
+	if (single === true) {
+		el.classList.remove(className);
+	} else {
+		el[child].classList.remove(className);
+	}
 }
 
 function toggleDisplay(el, on) {
@@ -50,12 +57,19 @@ function conditionalSet(targetText, val, ...args) {
 const navActive = "nav-active";
 const uiActive = "ui-active";
 //state checking
-let textNavState;
-let textUiState;
-let fontNavState;
-let fontUiState;
-let colorNavState;
-let colorUiState;
+let textState = false;
+let fontState = false;
+let colorState = false;
+
+//global Var destructured
+let { uiNav, uiInputText, uiInputFont, uiInputColor, uiForm, display } =
+	globalVar;
+
+// console.log(uiNav[0]);
+
+// checkClass(false, uiNav, 0, navActive);
+
+checkClass(true, uiInputText, null, uiActive);
 
 function setValue(e) {
 	// console.log(e.target.innerText);
@@ -66,33 +80,29 @@ function setValue(e) {
 	if (targetText === "Text") {
 		//check and remove any nav Activation
 		if (
-			globalVar.uiNav[1].classList.contains(navActive) ||
-			globalVar.uiNav[2].classList.contains(navActive)
+			checkClass(false, uiNav, 1, navActive) ||
+			checkClass(false, uiNav, 2, navActive)
 		) {
-			globalVar.uiNav[1].classList.remove(navActive);
-			globalVar.uiNav[2].classList.remove(navActive);
-			fontNavState = false;
-			colorNavState = false;
+			removeClass(false, uiNav, 1, navActive);
+			removeClass(false, uiNav, 2, navActive);
+			fontState = false;
+			colorState = false;
 		}
 		//check and remove any uiActivation
 		if (
-			globalVar.uiInputFont.classList.contains(uiActive) ||
-			globalVar.uiInputColor.classList.contains(uiActive)
+			checkClass(true, uiInputFont, null, uiActive) ||
+			checkClass(true, uiInputColor, null, uiActive)
 		) {
-			globalVar.uiInputFont.classList.remove(uiActive);
-			globalVar.uiInputColor.classList.remove(uiActive);
-			fontUiState = false;
-			colorUiState = false;
+			removeClass(true, uiInputFont, null, uiActive);
+			removeClass(true, uiInputColor, null, uiActive);
 		}
 
 		//activate text Nav
-		globalVar.uiNav[0].classList.add(navActive);
-		textNavState = true;
+		setClass(false, uiNav, 0, navActive);
 		//activate text input area
-		// globalVar.uiInputText.style.display = "flex";
-		globalVar.uiInputText.classList.add(uiActive);
+		setClass(true, uiInputText, null, uiActive);
 		//set the state to true
-		textUiState = true;
+		return (textState = true);
 	}
 
 	//font famly
@@ -100,71 +110,86 @@ function setValue(e) {
 	if (targetText === "Font Family") {
 		//check and remove any nav Activation
 		if (
-			globalVar.uiNav[0].classList.contains(navActive) ||
-			globalVar.uiNav[2].classList.contains(navActive)
+			// globalVar.uiNav[0].classList.contains(navActive) ||
+			// globalVar.uiNav[2].classList.contains(navActive)
+
+			checkClass(false, uiNav, 0, navActive) ||
+			checkClass(false, uiNav, 2, navActive)
 		) {
-			globalVar.uiNav[0].classList.remove(navActive);
-			globalVar.uiNav[2].classList.remove(navActive);
-			textNavState = false;
-			colorNavState = false;
+			// globalVar.uiNav[0].classList.remove(navActive);
+			// globalVar.uiNav[2].classList.remove(navActive);
+			removeClass(false, uiNav, 0, navActive);
+			removeClass(false, uiNav, 2, navActive);
+			textState = false;
+			colorState = false;
 		}
 		//check and remove any uiActivation
 		if (
-			globalVar.uiInputText.classList.contains(uiActive) ||
-			globalVar.uiInputColor.classList.contains(uiActive)
+			// globalVar.uiInputText.classList.contains(uiActive) ||
+			// globalVar.uiInputColor.classList.contains(uiActive)
+			checkClass(true, uiInputText, null, uiActive) ||
+			checkClass(true, uiInputColor, null, uiActive)
 		) {
-			globalVar.uiInputText.classList.remove(uiActive);
-			globalVar.uiInputColor.classList.remove(uiActive);
-			textUiState = false;
-			colorUiState = false;
+			// globalVar.uiInputText.classList.remove(uiActive);
+			// globalVar.uiInputColor.classList.remove(uiActive);
+			removeClass(true, uiInputText, null, uiActive);
+			removeClass(true, uiInputColor, null, uiActive);
 		}
 
-		//activate text Nav
-		globalVar.uiNav[1].classList.add(navActive);
-		fontNavState = true;
-		//activate text input area
-		// globalVar.uiInputFont.style.display = "flex";
-		globalVar.uiInputFont.classList.add(uiActive);
+		//activate font Nav
+		// globalVar.uiNav[1].classList.add(navActive);
+		setClass(false, uiNav, 1, navActive);
+
+		//activate font btn area
+		// globalVar.uiInputFont.classList.add(uiActive);
+		setClass(true, uiInputFont, null, uiActive);
 		//set the state to true
-		fontUiState = true;
+		fontState = true;
 	}
 
 	//color
 	if (targetText === "Color") {
 		//check and remove any nav Activation
 		if (
-			globalVar.uiNav[0].classList.contains(navActive) ||
-			globalVar.uiNav[1].classList.contains(navActive)
+			checkClass(false, uiNav, 0, navActive) ||
+			checkClass(false, uiNav, 1, navActive)
 		) {
-			globalVar.uiNav[0].classList.remove(navActive);
-			globalVar.uiNav[1].classList.remove(navActive);
-			textNavState = false;
-			fontNavState = false;
+			removeClass(false, uiNav, 0, navActive);
+			removeClass(false, uiNav, 1, navActive);
+			textState = false;
+			fontState = false;
 		}
 		//check and remove any uiActivation
 		if (
-			globalVar.uiInputText.classList.contains(uiActive) ||
-			globalVar.uiInputFont.classList.contains(uiActive)
+			// globalVar.uiInputText.classList.contains(uiActive) ||
+			// globalVar.uiInputFont.classList.contains(uiActive)
+			checkClass(true, uiInputText, null, uiActive) ||
+			checkClass(true, uiInputFont, null, uiActive)
 		) {
-			globalVar.uiInputText.classList.remove(uiActive);
-			globalVar.uiInputFont.classList.remove(uiActive);
-			textUiState = false;
-			fontUiState = false;
+			// globalVar.uiInputText.classList.remove(uiActive);
+			// globalVar.uiInputFont.classList.remove(uiActive);
+			removeClass(true, uiInputText, null, uiActive);
+			removeClass(true, uiInputFont, null, uiActive);
 		}
 
-		//activate text Nav
-		globalVar.uiNav[2].classList.add(navActive);
-		colorNavState = true;
-		//activate text input area
-		// globalVar.uiInputFont.style.display = "flex";
-		globalVar.uiInputColor.classList.add(uiActive);
+		//activate color Nav
+
+		setClass(false, uiNav, 2, navActive);
+
+		//activate color bulb area
+		setClass(true, uiInputColor, null, uiActive);
 		//set the state to true
-		colorUiState = true;
+		return (colorState = true);
 	}
 }
 
-// console.log(checkClass(1));
+console.log(textState);
 
 globalVar.uiNav.forEach((list) => {
 	list.addEventListener("click", setValue);
 });
+
+/**
+ * @ERRORs -
+ * In case of any TypeError:el.classlist is undefined, try turning the booleans true or false. Understanding these helper function beforehand will save your time!
+ */

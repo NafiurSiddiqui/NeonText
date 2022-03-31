@@ -37,7 +37,7 @@ article.ui-display {
 //measurement bar
 
 .measurementBar {
-	&-container {
+	&-container-bottom {
 		@include borderTest(white);
 		color: whitesmoke;
 	}
