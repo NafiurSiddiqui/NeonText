@@ -132,14 +132,13 @@ var uiForm = document.querySelectorAll(".ui-input-form");
 var display = document.querySelector(".ui-display-userText-text");
 var barLeft = document.querySelector(".measurementBar-left");
 var barRight = document.querySelector(".measurementBar-right");
-var barLength = document.querySelector(".measurementBar-length");
+var barSize = document.querySelector(".measurementBar-length");
 var bottomBarContainer = document.querySelector(".measurementBar-container-bottom"); //----------- Measurment Bar
-
-var barStyleLeft = getComputedStyle(barLeft);
-var barLeftWidth = barStyleLeft.width;
-var barStyleRight = getComputedStyle(barRight);
-var barRightWidth = barStyleRight.width;
-var barSize = barLength.textContent; //exporting these as globalVariable
+// let barStyleLeft = getComputedStyle(barLeft);
+// let barLeftWidth = barStyleLeft.width;
+// let barStyleRight = getComputedStyle(barRight);
+// let barRightWidth = barStyleRight.width;
+//exporting these as globalVariable
 
 var globalVar = {
   uiNav: uiNav,
@@ -369,10 +368,11 @@ var textDisplay = _globalVariables.globalVar.display;
 var bottomBarContainer = _globalVariables.globalVar.bottomBarContainer,
     barLeft = _globalVariables.globalVar.barLeft,
     barRight = _globalVariables.globalVar.barRight,
-    barSize = _globalVariables.globalVar.barSize;
-barLeft.style.width = "9px"; //state variables
+    barSize = _globalVariables.globalVar.barSize; // barLeft.style.width = "9px";
+//state variables
 
-var textInputState = false; //set the default states
+var textInputState = false;
+console.log(barSize); //set the default states
 
 var userText = "Your text"; //---fontFamily = selected from the list of fontFamily
 //---color = selected from the list of color
@@ -385,48 +385,65 @@ function init() {
 
 init();
 navText.addEventListener("input", function (e) {
-  // console.log(e.target.value);
+  e.preventDefault(); // console.log();
   //get the input value, store it, return it
+
   userText = e.target.value; //persist data in local storage
   //show each letter upon typing
 
-  textDisplay.textContent = userText; //check if the state is true
+  textDisplay.textContent = userText.trim(); //check if the state is true
 
   if (userText.length > 0) {
     textInputState = true;
-  } //calculate each length
+  } //any space should be omitted from calculating
+
+
+  if (e.data === " ") {
+    return;
+  }
+
+  var textLength = userText.length * 9 + 2; // let textLength = userText.length * 10;
+  // ? HOW about you calculate the size of the textBox and grow shrink the bar accordingly?
+  //calculate each length
   // console.log(userText.length * 9);
-  //*if..input is true, clearTimeout and re-run the measurement() on 3seconds.
+
+  barLeft.style.width = textLength + "px";
+  barRight.style.width = "".concat(textLength, "px");
+  barSize.textContent = "".concat(textLength, " CM");
+
+  if (userText.length > 0) {
+    (0, _globalFuntions.default)(bottomBarContainer, true);
+  } else {
+    (0, _globalFuntions.default)(bottomBarContainer, null);
+  } //*if..input is true, clearTimeout and re-run the measurement() on 3seconds.
   //* or re-evaluate this function on every keystroke or input
   //setTimout for session storage and remove items from local storage, if there is data
-  //set navTextState to true
 
-});
-console.log(barLeft.style.width);
-
-function setBarMeasurement() {
-  console.log("💥 time 💥"); //calculate each length
-
-  var textLength = userText.length * 9;
-  console.log(textLength); //add the caluculation to each side of the bar
-  // barSize = textLength;
-  //wait for 3 seconds and show the measurement bar
-
-  (0, _globalFuntions.default)(bottomBarContainer, true);
-}
-
-navText.addEventListener("keyup", function () {
-  // console.log("measurment calculation ran!");
-  // console.log(`From the keyup: ${userText}`);
-  // barLeft.style.width = `${20 + userText}px`;
-  //wait for 3 seconds and show the measurement
-  setTimeout(setBarMeasurement, 3000);
-});
-navText.addEventListener("keydown", function () {
-  console.log("KEY DOWN!");
-  clearTimeout(setBarMeasurement);
-  console.log("CLEARED TIMEOUT");
-});
+}); // console.log(barLeft.style.width);
+// function setBarMeasurement() {
+// 	console.log("💥 time 💥");
+// 	// barSize = textLength;
+// 	//wait for 3 seconds and show the measurement bar
+// 	setDisplay(bottomBarContainer, true);
+// }
+// navText.addEventListener("keyup", () => {
+// 	// console.log("measurment calculation ran!");
+// 	// console.log(`From the keyup: ${userText}`);
+// 	barLeft.style.width = `${userText}px`;
+// 	console.log(userText);
+// 	//wait for 3 seconds and show the measurement
+// 	clearTimeout(setBarMeasurement);
+// 	setDisplay(bottomBarContainer, null);
+// 	console.log("CLEARED TIMEOUT");
+// });
+// navText.addEventListener("keydown", () => {
+// 	// console.log("KEY DOWN!");
+// 	//calculate each length
+// 	let textLength = userText.length * 9;
+// 	console.log(textLength);
+// 	//add the caluculation to each side of the bar
+// 	setTimeout(setBarMeasurement, 3000);
+// });
 },{"./globalVariables":"src/js/globalVariables.js","./globalFuntions":"src/js/globalFuntions.js"}],"src/js/index.js":[function(require,module,exports) {
 "use strict";
 
@@ -465,7 +482,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "63693" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "55900" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

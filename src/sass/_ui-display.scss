@@ -24,8 +24,10 @@ article.ui-display {
 	}
 
 	&-text {
+		// @include borderTest(white);
+		width: auto;
 		color: rgb(244, 244, 244);
-		font-size: 5rem;
+		font-size: 4rem;
 		text-shadow: rgb(181, 181, 181) 0px 1px 0px, rgb(169, 169, 169) 0px 2px 0px,
 			rgb(148, 148, 148) 0px 3px 0px, rgb(125, 125, 125) 0px 4px 0px,
 			rgba(0, 0, 0, 0.23) 0px 0px 5px, rgba(0, 0, 0, 0.43) 0px 1px 3px,
@@ -39,10 +41,25 @@ article.ui-display {
 .measurementBar {
 	&-container-bottom {
 		@include flexCentered;
-		@include borderTest(white);
+		// @include borderTest(white);
 		color: whitesmoke;
 	}
 
+	//----------TEST------------------
+
+	// &-container-bottom {
+	// 	@include flexCentered;
+	// 	@include borderTest(white);
+	// 	color: whitesmoke;
+	// 	border-top: none;
+	// 	border-bottom: 1px solid white;
+	// 	border-left: 1px solid white;
+	// 	border-right: 1px solid white;
+	// 	width: 20px;
+	// 	height: 4px;
+	// }
+
+	//--------------TEST end!--------
 	&-left {
 		@include measurementBarBorder(left);
 	}
