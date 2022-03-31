@@ -38,6 +38,7 @@ article.ui-display {
 
 .measurementBar {
 	&-container-bottom {
+		@include flexCentered;
 		@include borderTest(white);
 		color: whitesmoke;
 	}
@@ -47,6 +48,10 @@ article.ui-display {
 	}
 	&-right {
 		@include measurementBarBorder(right);
+	}
+
+	&-length {
+		padding: 0 4px;
 	}
 }
 

@@ -28,14 +28,6 @@ function removeClass(single = false, el, child, className) {
 	}
 }
 
-function toggleDisplay(el, on) {
-	if (on) {
-		el.style.display = "flex";
-	} else {
-		el.style.display = "none";
-	}
-}
-
 function conditionalSet(targetText, val, ...args) {
 	//refer to the individual function arguments in case of confusion
 
@@ -173,9 +165,7 @@ function setValue(e) {
 		}
 
 		//activate color Nav
-
 		setClass(false, uiNav, 2, navActive);
-
 		//activate color bulb area
 		setClass(true, uiInputColor, null, uiActive);
 		//set the state to true
@@ -183,7 +173,7 @@ function setValue(e) {
 	}
 }
 
-console.log(textState);
+// console.log(textState);
 
 globalVar.uiNav.forEach((list) => {
 	list.addEventListener("click", setValue);

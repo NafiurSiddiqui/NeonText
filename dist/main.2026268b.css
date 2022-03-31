@@ -69,6 +69,10 @@ article.ui-display {
 }
 
 .measurementBar-container-bottom {
+  display: flex;
+  -webkit-box-flex: flex;
+  justify-content: center;
+  align-items: center;
   border: 1px solid white;
   color: whitesmoke;
 }
@@ -85,6 +89,9 @@ article.ui-display {
   height: 7px;
   border-bottom: 2px solid white;
   border-right: 2px solid white;
+}
+.measurementBar-length {
+  padding: 0 4px;
 }
 
 .neonOn {

@@ -132,15 +132,14 @@ var uiForm = document.querySelectorAll(".ui-input-form");
 var display = document.querySelector(".ui-display-userText-text");
 var barLeft = document.querySelector(".measurementBar-left");
 var barRight = document.querySelector(".measurementBar-right");
-var barLength = document.querySelector(".measurement-length");
+var barLength = document.querySelector(".measurementBar-length");
 var bottomBarContainer = document.querySelector(".measurementBar-container-bottom"); //----------- Measurment Bar
 
 var barStyleLeft = getComputedStyle(barLeft);
 var barLeftWidth = barStyleLeft.width;
 var barStyleRight = getComputedStyle(barRight);
 var barRightWidth = barStyleRight.width;
-var barSize = barLength.textContent;
-console.log(barLeftWidth, barRightWidth, barSize, bottomBarContainer); //exporting these as globalVariable
+var barSize = barLength.textContent; //exporting these as globalVariable
 
 var globalVar = {
   uiNav: uiNav,
@@ -149,12 +148,29 @@ var globalVar = {
   uiInputColor: uiInputColor,
   uiForm: uiForm,
   display: display,
-  barLeftWidth: barLeftWidth,
-  barRightWidth: barRightWidth,
+  barLeft: barLeft,
+  barRight: barRight,
   barSize: barSize,
   bottomBarContainer: bottomBarContainer
 };
 exports.globalVar = globalVar;
+},{}],"src/js/globalFuntions.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = toggleDisplay;
+
+function toggleDisplay(el) {
+  var on = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : false;
+
+  if (on === true) {
+    el.style.display = "flex";
+  } else {
+    el.style.display = "none";
+  }
+}
 },{}],"src/js/ui-inputNav_test.js":[function(require,module,exports) {
 "use strict";
 
@@ -201,14 +217,6 @@ function removeClass() {
     el.classList.remove(className);
   } else {
     el[child].classList.remove(className);
-  }
-}
-
-function toggleDisplay(el, on) {
-  if (on) {
-    el.style.display = "flex";
-  } else {
-    el.style.display = "none";
   }
 }
 
@@ -336,9 +344,8 @@ function setValue(e) {
 
     return colorState = true;
   }
-}
+} // console.log(textState);
 
-console.log(textState);
 
 _globalVariables.globalVar.uiNav.forEach(function (list) {
   list.addEventListener("click", setValue);
@@ -352,12 +359,20 @@ _globalVariables.globalVar.uiNav.forEach(function (list) {
 
 var _globalVariables = require("./globalVariables");
 
+var _globalFuntions = _interopRequireDefault(require("./globalFuntions"));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
 //need NavText, UiText, display
 var navText = _globalVariables.globalVar.uiInputText.firstElementChild;
-var textDisplay = _globalVariables.globalVar.display; //state variables
+var textDisplay = _globalVariables.globalVar.display;
+var bottomBarContainer = _globalVariables.globalVar.bottomBarContainer,
+    barLeft = _globalVariables.globalVar.barLeft,
+    barRight = _globalVariables.globalVar.barRight,
+    barSize = _globalVariables.globalVar.barSize;
+barLeft.style.width = "9px"; //state variables
 
 var textInputState = false; //set the default states
-//---text = Your text
 
 var userText = "Your text"; //---fontFamily = selected from the list of fontFamily
 //---color = selected from the list of color
@@ -365,6 +380,7 @@ var userText = "Your text"; //---fontFamily = selected from the list of fontFami
 function init() {
   //initial default state
   textDisplay.textContent = userText;
+  (0, _globalFuntions.default)(bottomBarContainer, null);
 }
 
 init();
@@ -379,24 +395,49 @@ navText.addEventListener("input", function (e) {
   if (userText.length > 0) {
     textInputState = true;
   } //calculate each length
-
-
-  console.log(userText.length * 9);
-  setTimeout(function () {// console.log("time");
-    //wait for 3 seconds and show the measurement bar
-  }, 3000); //------measure each letter by 9 cm each
+  // console.log(userText.length * 9);
+  //*if..input is true, clearTimeout and re-run the measurement() on 3seconds.
+  //* or re-evaluate this function on every keystroke or input
   //setTimout for session storage and remove items from local storage, if there is data
   //set navTextState to true
+
 });
-},{"./globalVariables":"src/js/globalVariables.js"}],"src/js/index.js":[function(require,module,exports) {
+console.log(barLeft.style.width);
+
+function setBarMeasurement() {
+  console.log("💥 time 💥"); //calculate each length
+
+  var textLength = userText.length * 9;
+  console.log(textLength); //add the caluculation to each side of the bar
+  // barSize = textLength;
+  //wait for 3 seconds and show the measurement bar
+
+  (0, _globalFuntions.default)(bottomBarContainer, true);
+}
+
+navText.addEventListener("keyup", function () {
+  // console.log("measurment calculation ran!");
+  // console.log(`From the keyup: ${userText}`);
+  // barLeft.style.width = `${20 + userText}px`;
+  //wait for 3 seconds and show the measurement
+  setTimeout(setBarMeasurement, 3000);
+});
+navText.addEventListener("keydown", function () {
+  console.log("KEY DOWN!");
+  clearTimeout(setBarMeasurement);
+  console.log("CLEARED TIMEOUT");
+});
+},{"./globalVariables":"src/js/globalVariables.js","./globalFuntions":"src/js/globalFuntions.js"}],"src/js/index.js":[function(require,module,exports) {
 "use strict";
 
 require("./globalVariables");
 
+require("./globalFuntions");
+
 require("./ui-inputNav_test");
 
 require("./textInput");
-},{"./globalVariables":"src/js/globalVariables.js","./ui-inputNav_test":"src/js/ui-inputNav_test.js","./textInput":"src/js/textInput.js"}],"node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
+},{"./globalVariables":"src/js/globalVariables.js","./globalFuntions":"src/js/globalFuntions.js","./ui-inputNav_test":"src/js/ui-inputNav_test.js","./textInput":"src/js/textInput.js"}],"node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
 var OVERLAY_ID = '__parcel__error__overlay__';
 var OldModule = module.bundle.Module;
@@ -424,7 +465,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "51955" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "63693" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
