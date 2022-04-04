@@ -4,12 +4,11 @@ import setDisplay from "./globalFuntions";
 
 let navText = globalVar.uiInputText.firstElementChild;
 let textDisplay = globalVar.display;
-let { bottomBarContainer, barLeft, barRight, barSize } = globalVar;
+let { bottomBarContainer, barLeft, barRight, barSize, barBottom } = globalVar;
 
-// barLeft.style.width = "9px";
 //state variables
 let textInputState = false;
-console.log(barSize);
+// console.log(globalVar.barBottom);
 //set the default states
 
 let userText = "Your text";
@@ -19,7 +18,8 @@ let userText = "Your text";
 function init() {
 	//initial default state
 	textDisplay.textContent = userText;
-	setDisplay(bottomBarContainer, null);
+	// setDisplay(bottomBarContainer, null);
+	setDisplay(barBottom, null);
 }
 
 init();
@@ -45,19 +45,48 @@ navText.addEventListener("input", (e) => {
 	if (e.data === " ") {
 		return;
 	}
-	let textLength = userText.length * 9 + 2;
+
+	let textLength = userText.length;
+	let displayWidth = getComputedStyle(textDisplay).width;
+	let displayString = displayWidth.slice(0, -2);
+	let displaySize = Math.ceil(+displayString);
+
+	console.log();
+	console.log(textLength);
+
+	if (textLength >= 6) {
+		textLength = textLength * 14;
+	} else {
+		textLength = textLength * 9;
+	}
 	// let textLength = userText.length * 10;
 
 	// ? HOW about you calculate the size of the textBox and grow shrink the bar accordingly?
 	//calculate each length
-	// console.log(userText.length * 9);
-	barLeft.style.width = textLength + "px";
-	barRight.style.width = `${textLength}px`;
+
+	//!TEST
+	// barLeft.style.width = `${displaySize}px`;
+	// barRight.style.width = `${displaySize}px`;
+
+	barBottom.style.width = `${displaySize}px`;
 	barSize.textContent = `${textLength} CM`;
+
+	//PROTOTYPE----------
+	// barLeft.style.width = textLength + "px";
+	// barRight.style.width = `${textLength}px`;
+	// barSize.textContent = `${textLength} CM`;
+
+	// if (userText.length > 0) {
+	// 	setDisplay(bottomBarContainer, true);
+	// } else {
+	// 	setDisplay(bottomBarContainer, null);
+	// }
+
+	//!TEST
 	if (userText.length > 0) {
-		setDisplay(bottomBarContainer, true);
+		setDisplay(barBottom, true);
 	} else {
-		setDisplay(bottomBarContainer, null);
+		setDisplay(barBottom, null);
 	}
 
 	//*if..input is true, clearTimeout and re-run the measurement() on 3seconds.

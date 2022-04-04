@@ -133,11 +133,9 @@ var display = document.querySelector(".ui-display-userText-text");
 var barLeft = document.querySelector(".measurementBar-left");
 var barRight = document.querySelector(".measurementBar-right");
 var barSize = document.querySelector(".measurementBar-length");
-var bottomBarContainer = document.querySelector(".measurementBar-container-bottom"); //----------- Measurment Bar
-// let barStyleLeft = getComputedStyle(barLeft);
-// let barLeftWidth = barStyleLeft.width;
-// let barStyleRight = getComputedStyle(barRight);
-// let barRightWidth = barStyleRight.width;
+var bottomBarContainer = document.querySelector(".measurementBar-container-bottom");
+var barBottom = document.querySelector(".measurementBar");
+console.log(barBottom); //----------- Measurment Bar
 //exporting these as globalVariable
 
 var globalVar = {
@@ -150,7 +148,8 @@ var globalVar = {
   barLeft: barLeft,
   barRight: barRight,
   barSize: barSize,
-  bottomBarContainer: bottomBarContainer
+  bottomBarContainer: bottomBarContainer,
+  barBottom: barBottom
 };
 exports.globalVar = globalVar;
 },{}],"src/js/globalFuntions.js":[function(require,module,exports) {
@@ -368,19 +367,20 @@ var textDisplay = _globalVariables.globalVar.display;
 var bottomBarContainer = _globalVariables.globalVar.bottomBarContainer,
     barLeft = _globalVariables.globalVar.barLeft,
     barRight = _globalVariables.globalVar.barRight,
-    barSize = _globalVariables.globalVar.barSize; // barLeft.style.width = "9px";
-//state variables
+    barSize = _globalVariables.globalVar.barSize,
+    barBottom = _globalVariables.globalVar.barBottom; //state variables
 
-var textInputState = false;
-console.log(barSize); //set the default states
+var textInputState = false; // console.log(globalVar.barBottom);
+//set the default states
 
 var userText = "Your text"; //---fontFamily = selected from the list of fontFamily
 //---color = selected from the list of color
 
 function init() {
   //initial default state
-  textDisplay.textContent = userText;
-  (0, _globalFuntions.default)(bottomBarContainer, null);
+  textDisplay.textContent = userText; // setDisplay(bottomBarContainer, null);
+
+  (0, _globalFuntions.default)(barBottom, null);
 }
 
 init();
@@ -402,19 +402,41 @@ navText.addEventListener("input", function (e) {
     return;
   }
 
-  var textLength = userText.length * 9 + 2; // let textLength = userText.length * 10;
+  var textLength = userText.length;
+  var displayWidth = getComputedStyle(textDisplay).width;
+  var displayString = displayWidth.slice(0, -2);
+  var displaySize = Math.ceil(+displayString);
+  console.log();
+  console.log(textLength);
+
+  if (textLength >= 6) {
+    textLength = textLength * 14;
+  } else {
+    textLength = textLength * 9;
+  } // let textLength = userText.length * 10;
   // ? HOW about you calculate the size of the textBox and grow shrink the bar accordingly?
   //calculate each length
-  // console.log(userText.length * 9);
+  //!TEST
+  // barLeft.style.width = `${displaySize}px`;
+  // barRight.style.width = `${displaySize}px`;
 
-  barLeft.style.width = textLength + "px";
-  barRight.style.width = "".concat(textLength, "px");
-  barSize.textContent = "".concat(textLength, " CM");
+
+  barBottom.style.width = "".concat(displaySize, "px");
+  barSize.textContent = "".concat(textLength, " CM"); //PROTOTYPE----------
+  // barLeft.style.width = textLength + "px";
+  // barRight.style.width = `${textLength}px`;
+  // barSize.textContent = `${textLength} CM`;
+  // if (userText.length > 0) {
+  // 	setDisplay(bottomBarContainer, true);
+  // } else {
+  // 	setDisplay(bottomBarContainer, null);
+  // }
+  //!TEST
 
   if (userText.length > 0) {
-    (0, _globalFuntions.default)(bottomBarContainer, true);
+    (0, _globalFuntions.default)(barBottom, true);
   } else {
-    (0, _globalFuntions.default)(bottomBarContainer, null);
+    (0, _globalFuntions.default)(barBottom, null);
   } //*if..input is true, clearTimeout and re-run the measurement() on 3seconds.
   //* or re-evaluate this function on every keystroke or input
   //setTimout for session storage and remove items from local storage, if there is data
@@ -482,7 +504,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "55900" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "58232" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

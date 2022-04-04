@@ -10,12 +10,11 @@ let barSize = document.querySelector(".measurementBar-length");
 const bottomBarContainer = document.querySelector(
 	".measurementBar-container-bottom"
 );
-//----------- Measurment Bar
 
-// let barStyleLeft = getComputedStyle(barLeft);
-// let barLeftWidth = barStyleLeft.width;
-// let barStyleRight = getComputedStyle(barRight);
-// let barRightWidth = barStyleRight.width;
+let barBottom = document.querySelector(".measurementBar");
+
+console.log(barBottom);
+//----------- Measurment Bar
 
 //exporting these as globalVariable
 export const globalVar = {
@@ -29,4 +28,5 @@ export const globalVar = {
 	barRight,
 	barSize,
 	bottomBarContainer,
+	barBottom,
 };
