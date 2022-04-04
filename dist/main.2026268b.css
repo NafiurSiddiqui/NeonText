@@ -62,6 +62,12 @@ article.ui-display {
     margin-top: 2em;
   }
 }
+.ui-display-userText-wrapper {
+  display: flex;
+  -webkit-box-flex: flex;
+  justify-content: space-between;
+  align-items: center;
+}
 .ui-display-userText-text {
   width: auto;
   color: #f4f4f4;
@@ -69,13 +75,32 @@ article.ui-display {
   text-shadow: #b5b5b5 0px 1px 0px, darkgray 0px 2px 0px, #949494 0px 3px 0px, #7d7d7d 0px 4px 0px, rgba(0, 0, 0, 0.23) 0px 0px 5px, rgba(0, 0, 0, 0.43) 0px 1px 3px, rgba(0, 0, 0, 0.4) 1px 4px 6px, rgba(0, 0, 0, 0.38) 0px 5px 10px, rgba(0, 0, 0, 0.25) 3px 7px 12px;
 }
 
-.measurementBar {
+.measurementBar-width {
   width: 20px;
   display: inline-block;
   height: 7px;
   border-bottom: 2px solid white;
   border-left: 2px solid white;
   border-right: 2px solid white;
+}
+.measurementBar-width-length {
+  padding: 4px 0;
+}
+.measurementBar-height {
+  display: inline-block;
+  width: 2px;
+  height: 8px;
+  background: white;
+  position: relative;
+  right: -1em;
+}
+.measurementBar-height-length {
+  color: white;
+  position: relative;
+  right: -1em;
+  writing-mode: vertical-rl;
+  text-orientation: upright;
+  text-align: left;
 }
 .measurementBar-container-bottom {
   display: flex;
@@ -84,23 +109,8 @@ article.ui-display {
   align-items: center;
   color: whitesmoke;
   flex-direction: column;
-}
-.measurementBar-left {
-  width: 20px;
-  display: inline-block;
-  height: 7px;
-  border-bottom: 2px solid white;
-  border-left: 2px solid white;
-}
-.measurementBar-right {
-  width: 20px;
-  display: inline-block;
-  height: 7px;
-  border-bottom: 2px solid white;
-  border-right: 2px solid white;
-}
-.measurementBar-length {
-  padding: 0 4px;
+  position: relative;
+  left: -1em;
 }
 
 .neonOn {

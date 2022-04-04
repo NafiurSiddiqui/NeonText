@@ -23,6 +23,10 @@ article.ui-display {
 		}
 	}
 
+	&-wrapper {
+		@include flexSpaceBetween;
+	}
+
 	&-text {
 		// @include borderTest(white);
 		width: auto;
@@ -39,17 +43,42 @@ article.ui-display {
 //measurement bar
 
 .measurementBar {
-	width: 20px;
-	display: inline-block;
-	height: 7px;
-	border-bottom: 2px solid white;
-	border-left: 2px solid white;
-	border-right: 2px solid white;
+	&-width {
+		width: 20px;
+		display: inline-block;
+		height: 7px;
+		border-bottom: 2px solid white;
+		border-left: 2px solid white;
+		border-right: 2px solid white;
+		&-length {
+			padding: 4px 0;
+		}
+	}
+
+	&-height {
+		display: inline-block;
+		width: 2px;
+		height: 8px;
+		background: white;
+		position: relative;
+		right: -1em;
+
+		&-length {
+			color: white;
+			position: relative;
+			right: -1em;
+			writing-mode: vertical-rl;
+			text-orientation: upright;
+			text-align: left;
+		}
+	}
 
 	&-container-bottom {
 		@include flexCentered;
 		color: whitesmoke;
 		flex-direction: column;
+		position: relative;
+		left: -1em;
 	}
 
 	//----------TEST------------------
@@ -67,16 +96,9 @@ article.ui-display {
 	// }
 
 	//--------------TEST end!--------
-	&-left {
-		@include measurementBarBorder(left);
-	}
-	&-right {
-		@include measurementBarBorder(right);
-	}
-
-	&-length {
-		padding: 0 4px;
-	}
+	// &-left {
+	// 	@include measurementBarBorder(left);
+	// }
 }
 
 .neonOn {

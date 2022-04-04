@@ -6,12 +6,12 @@ const uiForm = document.querySelectorAll(".ui-input-form");
 const display = document.querySelector(".ui-display-userText-text");
 let barLeft = document.querySelector(".measurementBar-left");
 let barRight = document.querySelector(".measurementBar-right");
-let barSize = document.querySelector(".measurementBar-length");
+let barSize = document.querySelector(".measurementBar-width-length");
 const bottomBarContainer = document.querySelector(
 	".measurementBar-container-bottom"
 );
 
-let barBottom = document.querySelector(".measurementBar");
+let barBottom = document.querySelector(".measurementBar-width");
 
 console.log(barBottom);
 //----------- Measurment Bar

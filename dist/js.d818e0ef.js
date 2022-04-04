@@ -132,9 +132,9 @@ var uiForm = document.querySelectorAll(".ui-input-form");
 var display = document.querySelector(".ui-display-userText-text");
 var barLeft = document.querySelector(".measurementBar-left");
 var barRight = document.querySelector(".measurementBar-right");
-var barSize = document.querySelector(".measurementBar-length");
+var barSize = document.querySelector(".measurementBar-width-length");
 var bottomBarContainer = document.querySelector(".measurementBar-container-bottom");
-var barBottom = document.querySelector(".measurementBar");
+var barBottom = document.querySelector(".measurementBar-width");
 console.log(barBottom); //----------- Measurment Bar
 //exporting these as globalVariable
 
@@ -364,14 +364,11 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 //need NavText, UiText, display
 var navText = _globalVariables.globalVar.uiInputText.firstElementChild;
 var textDisplay = _globalVariables.globalVar.display;
-var bottomBarContainer = _globalVariables.globalVar.bottomBarContainer,
-    barLeft = _globalVariables.globalVar.barLeft,
-    barRight = _globalVariables.globalVar.barRight,
+var barRight = _globalVariables.globalVar.barRight,
     barSize = _globalVariables.globalVar.barSize,
     barBottom = _globalVariables.globalVar.barBottom; //state variables
 
-var textInputState = false; // console.log(globalVar.barBottom);
-//set the default states
+var textInputState = false; //set the default states
 
 var userText = "Your text"; //---fontFamily = selected from the list of fontFamily
 //---color = selected from the list of color
@@ -379,8 +376,7 @@ var userText = "Your text"; //---fontFamily = selected from the list of fontFami
 function init() {
   //initial default state
   textDisplay.textContent = userText; // setDisplay(bottomBarContainer, null);
-
-  (0, _globalFuntions.default)(barBottom, null);
+  // setDisplay(barBottom, null);
 }
 
 init();
@@ -402,10 +398,12 @@ navText.addEventListener("input", function (e) {
     return;
   }
 
-  var textLength = userText.length;
+  var textLength = userText.length; //width
+
   var displayWidth = getComputedStyle(textDisplay).width;
   var displayString = displayWidth.slice(0, -2);
-  var displaySize = Math.ceil(+displayString);
+  var displaySize = Math.ceil(+displayString); //height
+
   console.log();
   console.log(textLength);
 
@@ -504,7 +502,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "58232" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "52685" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

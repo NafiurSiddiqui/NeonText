@@ -4,11 +4,11 @@ import setDisplay from "./globalFuntions";
 
 let navText = globalVar.uiInputText.firstElementChild;
 let textDisplay = globalVar.display;
-let { bottomBarContainer, barLeft, barRight, barSize, barBottom } = globalVar;
+let { barRight, barSize, barBottom } = globalVar;
 
 //state variables
 let textInputState = false;
-// console.log(globalVar.barBottom);
+
 //set the default states
 
 let userText = "Your text";
@@ -19,7 +19,7 @@ function init() {
 	//initial default state
 	textDisplay.textContent = userText;
 	// setDisplay(bottomBarContainer, null);
-	setDisplay(barBottom, null);
+	// setDisplay(barBottom, null);
 }
 
 init();
@@ -47,9 +47,11 @@ navText.addEventListener("input", (e) => {
 	}
 
 	let textLength = userText.length;
+	//width
 	let displayWidth = getComputedStyle(textDisplay).width;
 	let displayString = displayWidth.slice(0, -2);
 	let displaySize = Math.ceil(+displayString);
+	//height
 
 	console.log();
 	console.log(textLength);
