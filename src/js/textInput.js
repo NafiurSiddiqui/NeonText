@@ -1,6 +1,5 @@
 import { globalVar } from "./globalVariables";
 import setDisplay from "./globalFuntions";
-//need NavText, UiText, display
 
 let navText = globalVar.uiInputText.firstElementChild;
 let textDisplay = globalVar.display;
@@ -24,10 +23,11 @@ function init() {
 
 init();
 
+// !!! 👉 stackoverflow research: https://stackoverflow.com/questions/3341496/how-to-get-the-height-of-the-text-inside-of-a-textarea
+
 navText.addEventListener("input", (e) => {
 	e.preventDefault();
 
-	// console.log();
 	//get the input value, store it, return it
 	userText = e.target.value;
 
@@ -49,11 +49,12 @@ navText.addEventListener("input", (e) => {
 	let textLength = userText.length;
 	//width
 	let displayWidth = getComputedStyle(textDisplay).width;
+	let displayHeight = getComputedStyle(textDisplay).height;
 	let displayString = displayWidth.slice(0, -2);
 	let displaySize = Math.ceil(+displayString);
 	//height
 
-	console.log();
+	console.log(textDisplay.innerHTML.offsetHeight);
 	console.log(textLength);
 
 	if (textLength >= 6) {

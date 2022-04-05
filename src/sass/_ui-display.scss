@@ -30,6 +30,7 @@ article.ui-display {
 	&-text {
 		// @include borderTest(white);
 		width: auto;
+		height: auto;
 		color: rgb(244, 244, 244);
 		font-size: 4rem;
 		text-shadow: rgb(181, 181, 181) 0px 1px 0px, rgb(169, 169, 169) 0px 2px 0px,
@@ -57,11 +58,14 @@ article.ui-display {
 
 	&-height {
 		display: inline-block;
-		width: 2px;
-		height: 8px;
-		background: white;
+		width: 4px;
+		// height: 30px;
+		height: auto;
 		position: relative;
 		right: -1em;
+		border-right: 2px solid white;
+		border-top: 2px solid white;
+		border-bottom: 2px solid white;
 
 		&-length {
 			color: white;
@@ -78,7 +82,7 @@ article.ui-display {
 		color: whitesmoke;
 		flex-direction: column;
 		position: relative;
-		left: -1em;
+		left: -10px;
 	}
 
 	//----------TEST------------------

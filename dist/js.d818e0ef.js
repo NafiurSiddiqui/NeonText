@@ -130,12 +130,11 @@ var uiInputFont = document.querySelector(".ui-input-form.fontFamily");
 var uiInputColor = document.querySelector(".ui-input-form.color");
 var uiForm = document.querySelectorAll(".ui-input-form");
 var display = document.querySelector(".ui-display-userText-text");
-var barLeft = document.querySelector(".measurementBar-left");
-var barRight = document.querySelector(".measurementBar-right");
 var barSize = document.querySelector(".measurementBar-width-length");
 var bottomBarContainer = document.querySelector(".measurementBar-container-bottom");
 var barBottom = document.querySelector(".measurementBar-width");
-console.log(barBottom); //----------- Measurment Bar
+var barHeight = document.querySelector(".measurementBar-height");
+var barHeightSize = document.querySelector(".measurementBar-height-length"); //----------- Measurment Bar
 //exporting these as globalVariable
 
 var globalVar = {
@@ -145,11 +144,11 @@ var globalVar = {
   uiInputColor: uiInputColor,
   uiForm: uiForm,
   display: display,
-  barLeft: barLeft,
-  barRight: barRight,
   barSize: barSize,
   bottomBarContainer: bottomBarContainer,
-  barBottom: barBottom
+  barBottom: barBottom,
+  barHeight: barHeight,
+  barHeightSize: barHeightSize
 };
 exports.globalVar = globalVar;
 },{}],"src/js/globalFuntions.js":[function(require,module,exports) {
@@ -361,7 +360,6 @@ var _globalFuntions = _interopRequireDefault(require("./globalFuntions"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-//need NavText, UiText, display
 var navText = _globalVariables.globalVar.uiInputText.firstElementChild;
 var textDisplay = _globalVariables.globalVar.display;
 var barRight = _globalVariables.globalVar.barRight,
@@ -379,10 +377,10 @@ function init() {
   // setDisplay(barBottom, null);
 }
 
-init();
+init(); // !!! 👉 stackoverflow research: https://stackoverflow.com/questions/3341496/how-to-get-the-height-of-the-text-inside-of-a-textarea
+
 navText.addEventListener("input", function (e) {
-  e.preventDefault(); // console.log();
-  //get the input value, store it, return it
+  e.preventDefault(); //get the input value, store it, return it
 
   userText = e.target.value; //persist data in local storage
   //show each letter upon typing
@@ -401,10 +399,11 @@ navText.addEventListener("input", function (e) {
   var textLength = userText.length; //width
 
   var displayWidth = getComputedStyle(textDisplay).width;
+  var displayHeight = getComputedStyle(textDisplay).height;
   var displayString = displayWidth.slice(0, -2);
   var displaySize = Math.ceil(+displayString); //height
 
-  console.log();
+  console.log(textDisplay.innerHTML.offsetHeight);
   console.log(textLength);
 
   if (textLength >= 6) {
@@ -502,7 +501,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "52685" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "64389" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

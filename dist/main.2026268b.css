@@ -70,6 +70,7 @@ article.ui-display {
 }
 .ui-display-userText-text {
   width: auto;
+  height: auto;
   color: #f4f4f4;
   font-size: 4rem;
   text-shadow: #b5b5b5 0px 1px 0px, darkgray 0px 2px 0px, #949494 0px 3px 0px, #7d7d7d 0px 4px 0px, rgba(0, 0, 0, 0.23) 0px 0px 5px, rgba(0, 0, 0, 0.43) 0px 1px 3px, rgba(0, 0, 0, 0.4) 1px 4px 6px, rgba(0, 0, 0, 0.38) 0px 5px 10px, rgba(0, 0, 0, 0.25) 3px 7px 12px;
@@ -88,11 +89,13 @@ article.ui-display {
 }
 .measurementBar-height {
   display: inline-block;
-  width: 2px;
-  height: 8px;
-  background: white;
+  width: 4px;
+  height: auto;
   position: relative;
   right: -1em;
+  border-right: 2px solid white;
+  border-top: 2px solid white;
+  border-bottom: 2px solid white;
 }
 .measurementBar-height-length {
   color: white;
@@ -110,7 +113,7 @@ article.ui-display {
   color: whitesmoke;
   flex-direction: column;
   position: relative;
-  left: -1em;
+  left: -10px;
 }
 
 .neonOn {
