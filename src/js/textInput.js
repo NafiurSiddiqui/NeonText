@@ -49,13 +49,9 @@ navText.addEventListener("input", (e) => {
 	let textLength = userText.length;
 	//width
 	let displayWidth = getComputedStyle(textDisplay).width;
-	let displayHeight = getComputedStyle(textDisplay).height;
 	let displayString = displayWidth.slice(0, -2);
 	let displaySize = Math.ceil(+displayString);
 	//height
-
-	console.log(textDisplay.innerHTML.offsetHeight);
-	console.log(textLength);
 
 	if (textLength >= 6) {
 		textLength = textLength * 14;

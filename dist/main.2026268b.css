@@ -38,172 +38,6 @@ ul > li {
   list-style-type: none;
 }
 
-article.ui-display {
-  background-color: #202020;
-  background: linear-gradient(180deg, #0a0a0e 18%, rgba(0, 0, 0, 0.8183474073) 100%);
-  padding: 1em;
-  border-radius: 1.2em;
-}
-
-.ui-display-userText-container {
-  border: 1px solid white;
-  width: 100%;
-  height: 20em;
-  background-color: #302f2f;
-  margin-top: 5em;
-  display: flex;
-  -webkit-box-flex: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
-}
-@media screen and (max-width: 1200px) {
-  .ui-display-userText-container {
-    margin-top: 2em;
-  }
-}
-.ui-display-userText-wrapper {
-  display: flex;
-  -webkit-box-flex: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-.ui-display-userText-text {
-  width: auto;
-  height: auto;
-  color: #f4f4f4;
-  font-size: 4rem;
-  text-shadow: #b5b5b5 0px 1px 0px, darkgray 0px 2px 0px, #949494 0px 3px 0px, #7d7d7d 0px 4px 0px, rgba(0, 0, 0, 0.23) 0px 0px 5px, rgba(0, 0, 0, 0.43) 0px 1px 3px, rgba(0, 0, 0, 0.4) 1px 4px 6px, rgba(0, 0, 0, 0.38) 0px 5px 10px, rgba(0, 0, 0, 0.25) 3px 7px 12px;
-}
-
-.measurementBar-width {
-  width: 20px;
-  display: inline-block;
-  height: 7px;
-  border-bottom: 2px solid white;
-  border-left: 2px solid white;
-  border-right: 2px solid white;
-}
-.measurementBar-width-length {
-  padding: 4px 0;
-}
-.measurementBar-height {
-  display: inline-block;
-  width: 4px;
-  height: auto;
-  position: relative;
-  right: -1em;
-  border-right: 2px solid white;
-  border-top: 2px solid white;
-  border-bottom: 2px solid white;
-}
-.measurementBar-height-length {
-  color: white;
-  position: relative;
-  right: -1em;
-  writing-mode: vertical-rl;
-  text-orientation: upright;
-  text-align: left;
-}
-.measurementBar-container-bottom {
-  display: flex;
-  -webkit-box-flex: flex;
-  justify-content: center;
-  align-items: center;
-  color: whitesmoke;
-  flex-direction: column;
-  position: relative;
-  left: -10px;
-}
-
-.neonOn {
-  text-shadow: white 0px 0px 5px, white 0px 0px 10px, #ff90ff 0px 0px 20px, #ff90ff 0px 0px 30px, #ff90ff 0px 0px 40px, #ff90ff 0px 0px 55px, #ff90ff 0px 0px 75px;
-}
-
-/* The switch - the box around the slider */
-.switch {
-  position: relative;
-  display: inline-block;
-  width: 65px;
-  height: 30px;
-}
-
-/* Hide default HTML checkbox */
-.switch input {
-  opacity: 0;
-  width: 0;
-  height: 0;
-}
-
-/* The slider */
-.slider {
-  position: absolute;
-  cursor: pointer;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background-color: #ccc;
-  -webkit-transition: 0.4s;
-  transition: 0.4s;
-  display: flex;
-  -webkit-box-flex: flex;
-  justify-content: center;
-  align-items: center;
-}
-.slider > span {
-  color: #5c5a5a;
-  font-weight: 600;
-}
-
-.slider:before {
-  position: absolute;
-  content: "";
-  height: 23px;
-  width: 23px;
-  left: 4px;
-  bottom: 4px;
-  background-color: white;
-  -webkit-transition: 0.4s;
-  transition: 0.4s;
-}
-
-input ~ span span:first-of-type {
-  opacity: 0;
-}
-
-input:checked + .slider {
-  background-color: #4397db;
-}
-
-input:focus + .slider {
-  box-shadow: 0 0 1px #2196f3;
-}
-
-input:checked + .slider:before {
-  -webkit-transform: translateX(31px);
-  -ms-transform: translateX(31px);
-  transform: translateX(31px);
-}
-
-input:checked ~ span span:last-of-type {
-  opacity: 0;
-}
-
-input:checked ~ span span:first-of-type {
-  opacity: 1;
-  color: whitesmoke;
-}
-
-/* Rounded sliders */
-.slider.round {
-  border-radius: 34px;
-}
-
-.slider.round:before {
-  border-radius: 50%;
-}
-
 section.ui-container {
   display: grid;
   grid-template-columns: 25em 45em;
@@ -529,6 +363,173 @@ header {
   position: absolute;
   left: 0;
   top: 30px;
+}
+
+article.ui-display {
+  background-color: #202020;
+  background: linear-gradient(180deg, #0a0a0e 18%, rgba(0, 0, 0, 0.8183474073) 100%);
+  padding: 1em;
+  border-radius: 1.2em;
+}
+
+.ui-display-userText-container {
+  border: 1px solid white;
+  width: 100%;
+  height: 20em;
+  background-color: #302f2f;
+  margin-top: 5em;
+  display: flex;
+  -webkit-box-flex: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+@media screen and (max-width: 1200px) {
+  .ui-display-userText-container {
+    margin-top: 2em;
+  }
+}
+.ui-display-userText-wrapper {
+  display: flex;
+  -webkit-box-flex: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.ui-display-userText-text {
+  width: auto;
+  height: auto;
+  color: #f4f4f4;
+  font-size: 4rem;
+  text-shadow: #b5b5b5 0px 1px 0px, darkgray 0px 2px 0px, #949494 0px 3px 0px, #7d7d7d 0px 4px 0px, rgba(0, 0, 0, 0.23) 0px 0px 5px, rgba(0, 0, 0, 0.43) 0px 1px 3px, rgba(0, 0, 0, 0.4) 1px 4px 6px, rgba(0, 0, 0, 0.38) 0px 5px 10px, rgba(0, 0, 0, 0.25) 3px 7px 12px;
+}
+
+.measurementBar-width {
+  width: 20px;
+  display: inline-block;
+  height: 7px;
+  border-bottom: 2px solid white;
+  border-left: 2px solid white;
+  border-right: 2px solid white;
+}
+.measurementBar-width-length {
+  padding: 4px 0;
+}
+.measurementBar-height {
+  display: inline-block;
+  width: 4px;
+  height: 46px;
+  position: relative;
+  right: -1em;
+  top: 4px;
+  border-right: 2px solid white;
+  border-top: 2px solid white;
+  border-bottom: 2px solid white;
+}
+.measurementBar-height-length {
+  color: white;
+  position: relative;
+  right: -1em;
+  writing-mode: vertical-rl;
+  text-orientation: upright;
+  text-align: left;
+}
+.measurementBar-container-bottom {
+  display: flex;
+  -webkit-box-flex: flex;
+  justify-content: center;
+  align-items: center;
+  color: whitesmoke;
+  flex-direction: column;
+  position: relative;
+  left: -10px;
+}
+
+.neonOn {
+  text-shadow: white 0px 0px 5px, white 0px 0px 10px, #ff90ff 0px 0px 20px, #ff90ff 0px 0px 30px, #ff90ff 0px 0px 40px, #ff90ff 0px 0px 55px, #ff90ff 0px 0px 75px;
+}
+
+/* The switch - the box around the slider */
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 65px;
+  height: 30px;
+}
+
+/* Hide default HTML checkbox */
+.switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+/* The slider */
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #ccc;
+  -webkit-transition: 0.4s;
+  transition: 0.4s;
+  display: flex;
+  -webkit-box-flex: flex;
+  justify-content: center;
+  align-items: center;
+}
+.slider > span {
+  color: #5c5a5a;
+  font-weight: 600;
+}
+
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 23px;
+  width: 23px;
+  left: 4px;
+  bottom: 4px;
+  background-color: white;
+  -webkit-transition: 0.4s;
+  transition: 0.4s;
+}
+
+input ~ span span:first-of-type {
+  opacity: 0;
+}
+
+input:checked + .slider {
+  background-color: #4397db;
+}
+
+input:focus + .slider {
+  box-shadow: 0 0 1px #2196f3;
+}
+
+input:checked + .slider:before {
+  -webkit-transform: translateX(31px);
+  -ms-transform: translateX(31px);
+  transform: translateX(31px);
+}
+
+input:checked ~ span span:last-of-type {
+  opacity: 0;
+}
+
+input:checked ~ span span:first-of-type {
+  opacity: 1;
+  color: whitesmoke;
+}
+
+/* Rounded sliders */
+.slider.round {
+  border-radius: 34px;
+}
+
+.slider.round:before {
+  border-radius: 50%;
 }
 
 /*# sourceMappingURL=/main.2026268b.css.map */

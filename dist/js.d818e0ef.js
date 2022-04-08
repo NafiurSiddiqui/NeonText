@@ -399,12 +399,8 @@ navText.addEventListener("input", function (e) {
   var textLength = userText.length; //width
 
   var displayWidth = getComputedStyle(textDisplay).width;
-  var displayHeight = getComputedStyle(textDisplay).height;
   var displayString = displayWidth.slice(0, -2);
   var displaySize = Math.ceil(+displayString); //height
-
-  console.log(textDisplay.innerHTML.offsetHeight);
-  console.log(textLength);
 
   if (textLength >= 6) {
     textLength = textLength * 14;
@@ -501,7 +497,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "64389" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "50726" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
