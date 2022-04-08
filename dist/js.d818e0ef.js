@@ -368,17 +368,17 @@ var barRight = _globalVariables.globalVar.barRight,
 
 var textInputState = false; //set the default states
 
-var userText = "Your text"; //---fontFamily = selected from the list of fontFamily
+var userText = ""; //---fontFamily = selected from the list of fontFamily
 //---color = selected from the list of color
 
 function init() {
   //initial default state
+  userText = "Your Text";
   textDisplay.textContent = userText; // setDisplay(bottomBarContainer, null);
   // setDisplay(barBottom, null);
 }
 
-init(); // !!! 👉 stackoverflow research: https://stackoverflow.com/questions/3341496/how-to-get-the-height-of-the-text-inside-of-a-textarea
-
+init();
 navText.addEventListener("input", function (e) {
   e.preventDefault(); //get the input value, store it, return it
 
@@ -402,40 +402,37 @@ navText.addEventListener("input", function (e) {
   var displayString = displayWidth.slice(0, -2);
   var displaySize = Math.ceil(+displayString); //height
 
+  var canvaUserText = ctx.fillText(userText, 100, 50);
+  var metrics = ctx.measureText(userText);
+  var textTop = Math.abs(metrics.actualBoundingBoxAscent).toFixed(2);
+  var textBottom = Math.abs(metrics.actualBoundingBoxDescent);
+  var height = (Math.abs(metrics.actualBoundingBoxAscent) + Math.abs(metrics.actualBoundingBoxDescent)).toFixed(2);
+  console.log(" TOP: ".concat(textTop, " \n Bottom: ").concat(textBottom, " \n totalHeight: ").concat(height));
+
   if (textLength >= 6) {
     textLength = textLength * 14;
   } else {
     textLength = textLength * 9;
-  } // let textLength = userText.length * 10;
-  // ? HOW about you calculate the size of the textBox and grow shrink the bar accordingly?
-  //calculate each length
-  //!TEST
-  // barLeft.style.width = `${displaySize}px`;
-  // barRight.style.width = `${displaySize}px`;
+  }
 
+  if (textLength === 0) {
+    ctx.clearRect(0, 0, canva.width, canva.height);
+  }
 
   barBottom.style.width = "".concat(displaySize, "px");
-  barSize.textContent = "".concat(textLength, " CM"); //PROTOTYPE----------
-  // barLeft.style.width = textLength + "px";
-  // barRight.style.width = `${textLength}px`;
-  // barSize.textContent = `${textLength} CM`;
-  // if (userText.length > 0) {
-  // 	setDisplay(bottomBarContainer, true);
-  // } else {
-  // 	setDisplay(bottomBarContainer, null);
-  // }
-  //!TEST
+  barSize.textContent = "".concat(textLength, " CM");
 
   if (userText.length > 0) {
     (0, _globalFuntions.default)(barBottom, true);
   } else {
     (0, _globalFuntions.default)(barBottom, null);
-  } //*if..input is true, clearTimeout and re-run the measurement() on 3seconds.
-  //* or re-evaluate this function on every keystroke or input
-  //setTimout for session storage and remove items from local storage, if there is data
+  } //setTimout for session storage and remove items from local storage, if there is data
 
-}); // console.log(barLeft.style.width);
-// function setBarMeasurement() {
+});
+var canva = document.getElementById("displayText");
+var ctx = canva.getContext("2d");
+ctx.font = "50px serif";
+ctx.fillStyle = "White"; // function setBarMeasurement() {
 // 	console.log("💥 time 💥");
 // 	// barSize = textLength;
 // 	//wait for 3 seconds and show the measurement bar
@@ -497,7 +494,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "50726" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "64593" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

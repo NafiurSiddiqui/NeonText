@@ -10,20 +10,19 @@ let textInputState = false;
 
 //set the default states
 
-let userText = "Your text";
+let userText = "";
 //---fontFamily = selected from the list of fontFamily
 //---color = selected from the list of color
 
 function init() {
 	//initial default state
+	userText = "Your Text";
 	textDisplay.textContent = userText;
 	// setDisplay(bottomBarContainer, null);
 	// setDisplay(barBottom, null);
 }
 
 init();
-
-// !!! 👉 stackoverflow research: https://stackoverflow.com/questions/3341496/how-to-get-the-height-of-the-text-inside-of-a-textarea
 
 navText.addEventListener("input", (e) => {
 	e.preventDefault();
@@ -53,49 +52,46 @@ navText.addEventListener("input", (e) => {
 	let displaySize = Math.ceil(+displayString);
 	//height
 
+	let canvaUserText = ctx.fillText(userText, 100, 50);
+	let metrics = ctx.measureText(userText);
+
+	let textTop = Math.abs(metrics.actualBoundingBoxAscent).toFixed(2);
+	let textBottom = Math.abs(metrics.actualBoundingBoxDescent);
+	let height = (
+		Math.abs(metrics.actualBoundingBoxAscent) +
+		Math.abs(metrics.actualBoundingBoxDescent)
+	).toFixed(2);
+
+	console.log(
+		` TOP: ${textTop} \n Bottom: ${textBottom} \n totalHeight: ${height}`
+	);
+
 	if (textLength >= 6) {
 		textLength = textLength * 14;
 	} else {
 		textLength = textLength * 9;
 	}
-	// let textLength = userText.length * 10;
 
-	// ? HOW about you calculate the size of the textBox and grow shrink the bar accordingly?
-	//calculate each length
-
-	//!TEST
-	// barLeft.style.width = `${displaySize}px`;
-	// barRight.style.width = `${displaySize}px`;
+	if (textLength === 0) {
+		ctx.clearRect(0, 0, canva.width, canva.height);
+	}
 
 	barBottom.style.width = `${displaySize}px`;
 	barSize.textContent = `${textLength} CM`;
 
-	//PROTOTYPE----------
-	// barLeft.style.width = textLength + "px";
-	// barRight.style.width = `${textLength}px`;
-	// barSize.textContent = `${textLength} CM`;
-
-	// if (userText.length > 0) {
-	// 	setDisplay(bottomBarContainer, true);
-	// } else {
-	// 	setDisplay(bottomBarContainer, null);
-	// }
-
-	//!TEST
 	if (userText.length > 0) {
 		setDisplay(barBottom, true);
 	} else {
 		setDisplay(barBottom, null);
 	}
 
-	//*if..input is true, clearTimeout and re-run the measurement() on 3seconds.
-
-	//* or re-evaluate this function on every keystroke or input
-
 	//setTimout for session storage and remove items from local storage, if there is data
 });
 
-// console.log(barLeft.style.width);
+const canva = document.getElementById("displayText");
+const ctx = canva.getContext("2d");
+ctx.font = "50px serif";
+ctx.fillStyle = "White";
 
 // function setBarMeasurement() {
 // 	console.log("💥 time 💥");
