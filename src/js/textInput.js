@@ -1,9 +1,10 @@
 import { globalVar } from "./globalVariables";
+import { globalFont } from "./setFonts";
 import setDisplay from "./globalFuntions";
 
 let navText = globalVar.uiInputText.firstElementChild;
 let textDisplay = globalVar.display;
-let { barRight, barSize, barBottom } = globalVar;
+let { barSize, barBottom, barHeight, barHeightSize } = globalVar;
 
 //state variables
 let textInputState = false;
@@ -23,6 +24,17 @@ function init() {
 }
 
 init();
+
+// function loadFont(font, fontName, inputText) {
+// 	font.load().then((fontFam) => {
+// 		document.fonts.add(fontFam);
+// 		console.log("Font loaded");
+// 		var ctx = canva.getContext("2d");
+// 		ctx.fillStyle = "White";
+// 		ctx.font = `4rem ${fontName}`;
+// 		ctx.fillText(inputText, 100, 50);
+// 	});
+// }
 
 navText.addEventListener("input", (e) => {
 	e.preventDefault();
@@ -66,6 +78,8 @@ navText.addEventListener("input", (e) => {
 		` TOP: ${textTop} \n Bottom: ${textBottom} \n totalHeight: ${height}`
 	);
 
+	//load the font
+
 	if (textLength >= 6) {
 		textLength = textLength * 14;
 	} else {
@@ -78,6 +92,8 @@ navText.addEventListener("input", (e) => {
 
 	barBottom.style.width = `${displaySize}px`;
 	barSize.textContent = `${textLength} CM`;
+	barHeight.style.height = `${height}px`;
+	barHeightSize.textContent = `${Math.round(height)}Cm`;
 
 	if (userText.length > 0) {
 		setDisplay(barBottom, true);
@@ -90,8 +106,9 @@ navText.addEventListener("input", (e) => {
 
 const canva = document.getElementById("displayText");
 const ctx = canva.getContext("2d");
-ctx.font = "50px serif";
+ctx.font = "4rem Orbitron";
 ctx.fillStyle = "White";
+// loadFont(globalFont.orbitron, "orbitron", "hello user");
 
 // function setBarMeasurement() {
 // 	console.log("💥 time 💥");

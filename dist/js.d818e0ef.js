@@ -129,13 +129,45 @@ var uiInputText = document.querySelector(".ui-input-form.text");
 var uiInputFont = document.querySelector(".ui-input-form.fontFamily");
 var uiInputColor = document.querySelector(".ui-input-form.color");
 var uiForm = document.querySelectorAll(".ui-input-form");
-var display = document.querySelector(".ui-display-userText-text");
+var display = document.querySelector(".ui-display-userText-text"); //measurement bars
+
 var barSize = document.querySelector(".measurementBar-width-length");
 var bottomBarContainer = document.querySelector(".measurementBar-container-bottom");
 var barBottom = document.querySelector(".measurementBar-width");
 var barHeight = document.querySelector(".measurementBar-height");
-var barHeightSize = document.querySelector(".measurementBar-height-length"); //----------- Measurment Bar
-//exporting these as globalVariable
+var barHeightSize = document.querySelector(".measurementBar-height-length"); //font family
+
+var fontBtn = document.querySelectorAll(".ui-input-fontFamily-list");
+var fontBtnsBlack = document.querySelectorAll(".ui-input-fontFamily-list__image");
+console.log(fontBtn[0].lastChild);
+var fontBtnsWhite = document.querySelectorAll(".ui-input-fontFamily-list__imageWhite");
+fontBtnsWhite.forEach(function (btn) {
+  btn.classList.add("hide");
+});
+
+function fontBtnHover() {//on hover hide black and remove hide from white from the target class only
+  //add hide to the black
+  //remove hide from the white
+}
+
+fontBtnsBlack.forEach(function (btns) {
+  var mouseOver = false;
+  btns.addEventListener("mouseover", function (event) {
+    mouseOver = true;
+    event.target.classList.add("hide"); // console.log("works on black!");
+  });
+  btns.classList.remove("hide"); // btns.addEventListener("mouseout", (event) => {
+  // 	event.target.classList.remove("hide");
+  // });
+});
+fontBtnsWhite.forEach(function (btns) {
+  btns.addEventListener("mouseover", function (event) {
+    event.target.classList.remove("hide"); // console.log("works on white!");
+  });
+  btns.addEventListener("mouseout", function (event) {
+    event.target.classList.add("hide"); // console.log("works on white!");
+  });
+}); //exporting these as globalVariable
 
 var globalVar = {
   uiNav: uiNav,
@@ -351,10 +383,14 @@ _globalVariables.globalVar.uiNav.forEach(function (list) {
  * @ERRORs -
  * In case of any TypeError:el.classlist is undefined, try turning the booleans true or false. Understanding these helper function beforehand will save your time!
  */
-},{"./globalVariables":"src/js/globalVariables.js"}],"src/js/textInput.js":[function(require,module,exports) {
+},{"./globalVariables":"src/js/globalVariables.js"}],"src/js/setFonts.js":[function(require,module,exports) {
+
+},{}],"src/js/textInput.js":[function(require,module,exports) {
 "use strict";
 
 var _globalVariables = require("./globalVariables");
+
+var _setFonts = require("./setFonts");
 
 var _globalFuntions = _interopRequireDefault(require("./globalFuntions"));
 
@@ -362,9 +398,10 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 var navText = _globalVariables.globalVar.uiInputText.firstElementChild;
 var textDisplay = _globalVariables.globalVar.display;
-var barRight = _globalVariables.globalVar.barRight,
-    barSize = _globalVariables.globalVar.barSize,
-    barBottom = _globalVariables.globalVar.barBottom; //state variables
+var barSize = _globalVariables.globalVar.barSize,
+    barBottom = _globalVariables.globalVar.barBottom,
+    barHeight = _globalVariables.globalVar.barHeight,
+    barHeightSize = _globalVariables.globalVar.barHeightSize; //state variables
 
 var textInputState = false; //set the default states
 
@@ -378,7 +415,17 @@ function init() {
   // setDisplay(barBottom, null);
 }
 
-init();
+init(); // function loadFont(font, fontName, inputText) {
+// 	font.load().then((fontFam) => {
+// 		document.fonts.add(fontFam);
+// 		console.log("Font loaded");
+// 		var ctx = canva.getContext("2d");
+// 		ctx.fillStyle = "White";
+// 		ctx.font = `4rem ${fontName}`;
+// 		ctx.fillText(inputText, 100, 50);
+// 	});
+// }
+
 navText.addEventListener("input", function (e) {
   e.preventDefault(); //get the input value, store it, return it
 
@@ -407,7 +454,7 @@ navText.addEventListener("input", function (e) {
   var textTop = Math.abs(metrics.actualBoundingBoxAscent).toFixed(2);
   var textBottom = Math.abs(metrics.actualBoundingBoxDescent);
   var height = (Math.abs(metrics.actualBoundingBoxAscent) + Math.abs(metrics.actualBoundingBoxDescent)).toFixed(2);
-  console.log(" TOP: ".concat(textTop, " \n Bottom: ").concat(textBottom, " \n totalHeight: ").concat(height));
+  console.log(" TOP: ".concat(textTop, " \n Bottom: ").concat(textBottom, " \n totalHeight: ").concat(height)); //load the font
 
   if (textLength >= 6) {
     textLength = textLength * 14;
@@ -421,6 +468,8 @@ navText.addEventListener("input", function (e) {
 
   barBottom.style.width = "".concat(displaySize, "px");
   barSize.textContent = "".concat(textLength, " CM");
+  barHeight.style.height = "".concat(height, "px");
+  barHeightSize.textContent = "".concat(Math.round(height), "Cm");
 
   if (userText.length > 0) {
     (0, _globalFuntions.default)(barBottom, true);
@@ -431,8 +480,9 @@ navText.addEventListener("input", function (e) {
 });
 var canva = document.getElementById("displayText");
 var ctx = canva.getContext("2d");
-ctx.font = "50px serif";
-ctx.fillStyle = "White"; // function setBarMeasurement() {
+ctx.font = "4rem Orbitron";
+ctx.fillStyle = "White"; // loadFont(globalFont.orbitron, "orbitron", "hello user");
+// function setBarMeasurement() {
 // 	console.log("💥 time 💥");
 // 	// barSize = textLength;
 // 	//wait for 3 seconds and show the measurement bar
@@ -456,7 +506,7 @@ ctx.fillStyle = "White"; // function setBarMeasurement() {
 // 	//add the caluculation to each side of the bar
 // 	setTimeout(setBarMeasurement, 3000);
 // });
-},{"./globalVariables":"src/js/globalVariables.js","./globalFuntions":"src/js/globalFuntions.js"}],"src/js/index.js":[function(require,module,exports) {
+},{"./globalVariables":"src/js/globalVariables.js","./setFonts":"src/js/setFonts.js","./globalFuntions":"src/js/globalFuntions.js"}],"src/js/index.js":[function(require,module,exports) {
 "use strict";
 
 require("./globalVariables");
@@ -466,7 +516,14 @@ require("./globalFuntions");
 require("./ui-inputNav_test");
 
 require("./textInput");
-},{"./globalVariables":"src/js/globalVariables.js","./globalFuntions":"src/js/globalFuntions.js","./ui-inputNav_test":"src/js/ui-inputNav_test.js","./textInput":"src/js/textInput.js"}],"node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
+
+require("./setFonts");
+
+// import "./ui-inputNav";
+if (module.hot) {
+  module.hot.accept();
+}
+},{"./globalVariables":"src/js/globalVariables.js","./globalFuntions":"src/js/globalFuntions.js","./ui-inputNav_test":"src/js/ui-inputNav_test.js","./textInput":"src/js/textInput.js","./setFonts":"src/js/setFonts.js"}],"node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
 var OVERLAY_ID = '__parcel__error__overlay__';
 var OldModule = module.bundle.Module;
@@ -494,7 +551,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "64593" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "49818" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

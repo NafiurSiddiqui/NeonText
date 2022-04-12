@@ -1,22 +1,22 @@
 //font family
 //?---Orbitron
-@import url("https://fonts.googleapis.com/css2?family=Orbitron&display=swap");
+// @import url("https://fonts.googleapis.com/css2?family=Orbitron&display=swap");
 // font-family: "Orbitron", sans-serif;
 //?---Amsterdam
-@import url("http://fonts.cdnfonts.com/css/amsterdam-2");
-//? Amanda
-@import url("http://fonts.cdnfonts.com/css/amanda");
-//?Raster
-@import url("http://fonts.cdnfonts.com/css/raster-slice");
-// font-family: 'Raster Slice', sans-serif;
-//?Allura
-@import url("https://fonts.googleapis.com/css2?family=Allura&display=swap");
-//?Tangerine
-@import url("https://fonts.googleapis.com/css2?family=Tangerine&display=swap");
-//cookie
-@import url("https://fonts.googleapis.com/css2?family=Cookie&display=swap");
-//Herr von Muellerhoff
-@import url("https://fonts.googleapis.com/css2?family=Herr+Von+Muellerhoff&display=swap");
+// @import url("http://fonts.cdnfonts.com/css/amsterdam-2");
+// //? Amanda
+// @import url("http://fonts.cdnfonts.com/css/amanda");
+// //?Raster
+// @import url("http://fonts.cdnfonts.com/css/raster-slice");
+// // font-family: 'Raster Slice', sans-serif;
+// //?Allura
+// @import url("https://fonts.googleapis.com/css2?family=Allura&display=swap");
+// //?Tangerine
+// @import url("https://fonts.googleapis.com/css2?family=Tangerine&display=swap");
+// //cookie
+// @import url("https://fonts.googleapis.com/css2?family=Cookie&display=swap");
+// //Herr von Muellerhoff
+// @import url("https://fonts.googleapis.com/css2?family=Herr+Von+Muellerhoff&display=swap");
 
 // font-family: 'Herr Von Muellerhoff', cursive;
 
@@ -40,12 +40,12 @@ $uiHeadings: #918a8a;
 	transition: background-color 0.3s ease-in-out;
 	&:hover {
 		background-color: $primaryColor;
+
+		& > image.ui-input-fontFamily-list__imageWhite {
+			display: flex !important;
+		}
 	}
 	&__image {
 		height: 22px;
-	}
-	&__image#orbitron,
-	&__image#cookie {
-		height: 18px;
 	}
 }

@@ -32,17 +32,27 @@ article.ui-display {
 		width: auto;
 		height: auto;
 		color: rgb(244, 244, 244);
-		font-size: 4rem;
+		font-size: 3.4rem;
+		letter-spacing: 2px;
 		// font-family: "Orbitron", sans-serif;
 		// font-family: "Amsterdam", sans-serif;
 		// font-family: "Amanda", sans-serif;
-		// font-family: "Raster Slice", sans-serif;
+		font-family: "Raster Slice", sans-serif;
+		// font-family: "Cookie", cursive;
+		// font-family: "Herr Von Muellerhoff", cursive;
+		// font-family: "Tangerine", cursive;
+		// font-family: "Allura", cursive;
 		text-shadow: rgb(181, 181, 181) 0px 1px 0px, rgb(169, 169, 169) 0px 2px 0px,
 			rgb(148, 148, 148) 0px 3px 0px, rgb(125, 125, 125) 0px 4px 0px,
 			rgba(0, 0, 0, 0.23) 0px 0px 5px, rgba(0, 0, 0, 0.43) 0px 1px 3px,
 			rgba(0, 0, 0, 0.4) 1px 4px 6px, rgba(0, 0, 0, 0.38) 0px 5px 10px,
 			rgba(0, 0, 0, 0.25) 3px 7px 12px;
 	}
+}
+
+#Amsterdam,
+#RasterSlice {
+	font-size: 2rem;
 }
 
 //measurement bar
@@ -88,25 +98,6 @@ article.ui-display {
 		position: relative;
 		left: -10px;
 	}
-
-	//----------TEST------------------
-
-	// &-container-bottom {
-	// 	@include flexCentered;
-	// 	@include borderTest(white);
-	// 	color: whitesmoke;
-	// 	border-top: none;
-	// 	border-bottom: 1px solid white;
-	// 	border-left: 1px solid white;
-	// 	border-right: 1px solid white;
-	// 	width: 20px;
-	// 	height: 4px;
-	// }
-
-	//--------------TEST end!--------
-	// &-left {
-	// 	@include measurementBarBorder(left);
-	// }
 }
 
 .neonOn {
@@ -114,6 +105,13 @@ article.ui-display {
 		rgb(255, 144, 255) 0px 0px 20px, rgb(255, 144, 255) 0px 0px 30px,
 		rgb(255, 144, 255) 0px 0px 40px, rgb(255, 144, 255) 0px 0px 55px,
 		rgb(255, 144, 255) 0px 0px 75px;
+}
+
+//canvas
+
+canvas#displayText {
+	@include borderTest(orange);
+	display: none;
 }
 
 /* The switch - the box around the slider */
