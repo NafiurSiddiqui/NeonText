@@ -3,8 +3,8 @@ import "./globalVariables";
 import "./globalFuntions";
 import "./ui-inputNav_test";
 import "./textInput";
-import "./setFonts";
+import "./font family/setFonts";
 
-if (module.hot) {
-	module.hot.accept();
-}
+// if (module.hot) {
+// 	module.hot.accept();
+// }
