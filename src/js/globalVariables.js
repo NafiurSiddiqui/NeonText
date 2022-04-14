@@ -8,11 +8,14 @@ const displayWrapper = document.querySelector(".ui-display-userText-wrapper");
 const canva = document.getElementById("displayText");
 const ctx = canva.getContext("2d");
 //measurement bars
-let barSize = document.querySelector(".measurementBar-width-length");
-const bottomBarContainer = document.querySelector(
+const widthContainer = document.querySelector(
 	".measurementBar-container-bottom"
 );
-let barBottom = document.querySelector(".measurementBar-width");
+let barWidth = document.querySelector(".measurementBar-width");
+let barWidthSize = document.querySelector(".measurementBar-width-length");
+const heightContainer = document.querySelector(
+	".measurementBar-height-wrapper"
+);
 const barHeight = document.querySelector(".measurementBar-height");
 const barHeightSize = document.querySelector(".measurementBar-height-length");
 
@@ -26,11 +29,7 @@ let fontBtnsWhite = document.querySelectorAll(
 	".ui-input-fontFamily-list__imageWhite"
 );
 
-function fontBtnHover() {
-	//on hover hide black and remove hide from white from the target class only
-	//add hide to the black
-	//remove hide from the white
-}
+console.log(widthContainer);
 
 //exporting these as globalVariable
 export const globalVar = {
@@ -43,9 +42,10 @@ export const globalVar = {
 	displayWrapper,
 	canva,
 	ctx,
-	barSize,
-	bottomBarContainer,
-	barBottom,
+	widthContainer,
+	barWidth,
+	barWidthSize,
+	heightContainer,
 	barHeight,
 	barHeightSize,
 };

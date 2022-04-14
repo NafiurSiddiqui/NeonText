@@ -46,7 +46,6 @@ article.ui-display {
 //measurement bar
 
 .measurementBar {
-	position: absolute;
 	&-width {
 		width: 20px;
 		display: inline-block;
@@ -72,6 +71,9 @@ article.ui-display {
 
 		&-wrapper {
 			@include flexCentered;
+			right: -1.3em;
+			position: relative;
+			// width: 6px;
 		}
 
 		&-length {

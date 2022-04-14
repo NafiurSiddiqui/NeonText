@@ -3,8 +3,10 @@ import { globalFont } from "./font family/setFonts";
 import setDisplay from "./globalFuntions";
 
 let {
-	barSize,
-	barBottom,
+	widthContainer,
+	barWidth,
+	barWidthSize,
+	heightContainer,
 	barHeight,
 	barHeightSize,
 	uiInputText,
@@ -28,14 +30,16 @@ function init() {
 	//initial default state
 	userText = "Your Text";
 	display.textContent = userText;
-	// display.style.fontFamiliy = "Tangerine";
-	// setDisplay(bottomBarContainer, null);
-	// setDisplay(barBottom, null);
+	setDisplay(widthContainer, null);
+	setDisplay(heightContainer, null);
+
 	ctx.font = "4rem arial";
 	ctx.fillStyle = "White";
 }
 
 init();
+
+let textWrapper = document.querySelector(".ui-display-userText-wrapper");
 
 navText.addEventListener("input", (e) => {
 	e.preventDefault();
@@ -63,9 +67,13 @@ navText.addEventListener("input", (e) => {
 	let displayWidth = getComputedStyle(display).width;
 	let displayString = displayWidth.slice(0, -2);
 	let displaySize = Math.ceil(+displayString);
-
-	let canvaUserText = ctx.fillText(userText, 0, 50);
+	console.log(getComputedStyle(textWrapper));
+	ctx.fillText(userText, 0, 50);
 	let metrics = ctx.measureText(userText);
+	// let width = metrics.width;
+	let width = metrics.actualBoundingBoxLeft + metrics.actualBoundingBoxRight;
+	// console.log(`Width: ${width}`);
+	// console.log(displayWidth);
 
 	// let textTop = Math.abs(metrics.actualBoundingBoxAscent).toFixed(2);
 	// let textBottom = Math.abs(metrics.actualBoundingBoxDescent);
@@ -76,7 +84,7 @@ navText.addEventListener("input", (e) => {
 		Math.abs(metrics.actualBoundingBoxDescent)
 	).toFixed(2);
 
-	console.log(`totalHeight: ${height}`);
+	// console.log(`Width: ${displaySize}`);
 
 	if (textLength >= 6) {
 		textLength = textLength * 14;
@@ -88,53 +96,36 @@ navText.addEventListener("input", (e) => {
 		ctx.clearRect(0, 0, canva.width, canva.height);
 	}
 	//measurement bars
-	barBottom.style.width = `${displaySize}px`;
-	barSize.textContent = `${textLength} CM`;
+	// barWidth.style.width = `${width}px`;
+	barWidth.style.width = `${displaySize}px`;
+	barWidthSize.textContent = `${textLength} CM`;
 	barHeight.style.height = `${height}px`;
 	barHeightSize.textContent = `${Math.round(height)}Cm`;
 
 	if (userText.length > 0) {
-		setDisplay(barBottom, true);
+		setDisplay(widthContainer, true);
 	} else {
-		setDisplay(barBottom, null);
+		setDisplay(widthContainer, null);
 	}
 
 	//setTimout for session storage and remove items from local storage, if there is data
 });
 
-//load canvas
+function setBarMeasurement() {
+	console.log("💥 time 💥");
 
-// const canva = document.getElementById("displayText");
+	setDisplay(widthContainer, true);
+	setDisplay(heightContainer, true);
+}
 
-// loadFont(globalFont.orbitron, "orbitron", "hello user");
+navText.addEventListener("keyup", () => {
+	//wait for 3 seconds and show the measurement
+	clearTimeout(setBarMeasurement);
+	setDisplay(widthContainer, null);
+	setDisplay(heightContainer, null);
+	console.log("CLEARED TIMEOUT");
+});
 
-// function setBarMeasurement() {
-// 	console.log("💥 time 💥");
-
-// 	// barSize = textLength;
-
-// 	//wait for 3 seconds and show the measurement bar
-// 	setDisplay(bottomBarContainer, true);
-// }
-
-// navText.addEventListener("keyup", () => {
-// 	// console.log("measurment calculation ran!");
-
-// 	// console.log(`From the keyup: ${userText}`);
-// 	barLeft.style.width = `${userText}px`;
-// 	console.log(userText);
-// 	//wait for 3 seconds and show the measurement
-// 	clearTimeout(setBarMeasurement);
-// 	setDisplay(bottomBarContainer, null);
-// 	console.log("CLEARED TIMEOUT");
-// });
-
-// navText.addEventListener("keydown", () => {
-// 	// console.log("KEY DOWN!");
-// 	//calculate each length
-// 	let textLength = userText.length * 9;
-// 	console.log(textLength);
-// 	//add the caluculation to each side of the bar
-
-// 	setTimeout(setBarMeasurement, 3000);
-// });
+navText.addEventListener("keydown", () => {
+	setTimeout(setBarMeasurement, 3000);
+});
