@@ -143,8 +143,11 @@ var barHeightSize = document.querySelector(".measurementBar-height-length"); //f
 
 var fontBtn = document.querySelectorAll(".ui-input-fontFamily-list");
 var fontBtnsBlack = document.querySelectorAll(".ui-input-fontFamily-list__image");
-var fontBtnsWhite = document.querySelectorAll(".ui-input-fontFamily-list__imageWhite");
-console.log(widthContainer); //exporting these as globalVariable
+var fontBtnsWhite = document.querySelectorAll(".ui-input-fontFamily-list__imageWhite"); //neonSwitch
+
+var neonSwitch = document.getElementById("neonSwitch"); //colorList
+
+var colorList = document.querySelectorAll(".input-color-list"); //exporting these as globalVariable
 
 var globalVar = {
   uiNav: uiNav,
@@ -161,10 +164,11 @@ var globalVar = {
   barWidthSize: barWidthSize,
   heightContainer: heightContainer,
   barHeight: barHeight,
-  barHeightSize: barHeightSize
+  barHeightSize: barHeightSize,
+  neonSwitch: neonSwitch,
+  colorList: colorList
 };
 exports.globalVar = globalVar;
-console.log(globalVar.canva);
 var globalFonts = {
   fontBtn: fontBtn,
   fontBtnsWhite: fontBtnsWhite,
@@ -189,10 +193,10 @@ function toggleDisplay(el) {
     el.style.display = "none";
   }
 }
-},{}],"src/js/ui-inputNav_test.js":[function(require,module,exports) {
+},{}],"src/js/ui nav/ui-inputNav_test.js":[function(require,module,exports) {
 "use strict";
 
-var _globalVariables = require("./globalVariables");
+var _globalVariables = require("../globalVariables");
 
 // import "./globalVariables";
 "./globalVariables";
@@ -372,7 +376,7 @@ _globalVariables.globalVar.uiNav.forEach(function (list) {
  * @ERRORs -
  * In case of any TypeError:el.classlist is undefined, try turning the booleans true or false. Understanding these helper function beforehand will save your time!
  */
-},{"./globalVariables":"src/js/globalVariables.js"}],"src/js/font family/setFonts.js":[function(require,module,exports) {
+},{"../globalVariables":"src/js/globalVariables.js"}],"src/js/font family/setFonts.js":[function(require,module,exports) {
 "use strict";
 
 var _globalVariables = _interopRequireWildcard(require("../globalVariables"));
@@ -553,19 +557,87 @@ navText.addEventListener("keyup", function () {
 navText.addEventListener("keydown", function () {
   setTimeout(setBarMeasurement, 3000);
 });
-},{"./globalVariables":"src/js/globalVariables.js","./font family/setFonts":"src/js/font family/setFonts.js","./globalFuntions":"src/js/globalFuntions.js"}],"src/js/index.js":[function(require,module,exports) {
+},{"./globalVariables":"src/js/globalVariables.js","./font family/setFonts":"src/js/font family/setFonts.js","./globalFuntions":"src/js/globalFuntions.js"}],"src/js/neonSwitch.js":[function(require,module,exports) {
+"use strict";
+
+var _globalVariables = require("./globalVariables");
+
+var neonSwitch = _globalVariables.globalVar.neonSwitch,
+    display = _globalVariables.globalVar.display;
+neonSwitch.checked = true;
+neonSwitch.addEventListener("click", function () {
+  if (neonSwitch.checked === true) {
+    display.classList.add("neonOn");
+  } else {
+    display.classList.remove("neonOn");
+  }
+});
+},{"./globalVariables":"src/js/globalVariables.js"}],"src/js/ui color/uiColor.js":[function(require,module,exports) {
+"use strict";
+
+var _globalVariables = require("../globalVariables");
+
+var display = _globalVariables.globalVar.display,
+    colorList = _globalVariables.globalVar.colorList,
+    neonSwitch = _globalVariables.globalVar.neonSwitch;
+var colorPalette = {
+  orange: "orange",
+  lightRed: "rgb(255, 117, 117)",
+  red: "red",
+  deepBlue: "rgb(2, 116, 252)",
+  electricBlue: "rgb(99, 170, 255)",
+  tropicalBlue: "rgb(36, 183, 222)",
+  iceBlue: "rgb(144, 220, 255)",
+  green: "#20f020",
+  mintGreen: "rgb(128, 255, 217)",
+  deepGreen: "rgba(14, 185, 14, 0.884)",
+  warmWhite: "rgb(240, 238, 199)",
+  white: "rgb(225, 227, 230)"
+};
+var listColor = "";
+
+function setColor(color) {
+  display.style.textShadow = "rgb(255, 255, 255) 0px 0px 5px, rgb(255, 255, 255) 0px 0px 10px,\n\t\t".concat(color, " 0px 0px 20px, ").concat(color, " 0px 0px 30px,\n\t\t").concat(color, " 0px 0px 40px, ").concat(color, " 0px 0px 55px,\n\t\t").concat(color, " 0px 0px 75px");
+}
+
+console.log(display);
+colorList.forEach(function (list) {
+  list.addEventListener("click", function (e) {
+    console.log(e.target); //wherever it is clicked, alwyas make it happen on the parent <li>
+
+    var listEl = e.target.closest("li"); //send the color to whoever needs it
+
+    listColor = listEl.classList[1]; //if the neonSwitch is unchecked, alert to turn the switchOn
+
+    if (neonSwitch.checked !== true) {
+      alert("Please turn the neon switch on.");
+      return;
+    } //if the list color is equal to other custom color
+    //  if (listColor === )
+    //set color
+
+
+    setColor(listColor);
+  });
+}); // console.log(listColor);
+// setColor(listColor);
+},{"../globalVariables":"src/js/globalVariables.js"}],"src/js/index.js":[function(require,module,exports) {
 "use strict";
 
 require("./globalVariables");
 
 require("./globalFuntions");
 
-require("./ui-inputNav_test");
+require("./ui nav/ui-inputNav_test");
 
 require("./textInput");
 
 require("./font family/setFonts");
-},{"./globalVariables":"src/js/globalVariables.js","./globalFuntions":"src/js/globalFuntions.js","./ui-inputNav_test":"src/js/ui-inputNav_test.js","./textInput":"src/js/textInput.js","./font family/setFonts":"src/js/font family/setFonts.js"}],"node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
+
+require("./neonSwitch");
+
+require("./ui color/uiColor");
+},{"./globalVariables":"src/js/globalVariables.js","./globalFuntions":"src/js/globalFuntions.js","./ui nav/ui-inputNav_test":"src/js/ui nav/ui-inputNav_test.js","./textInput":"src/js/textInput.js","./font family/setFonts":"src/js/font family/setFonts.js","./neonSwitch":"src/js/neonSwitch.js","./ui color/uiColor":"src/js/ui color/uiColor.js"}],"node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
 var OVERLAY_ID = '__parcel__error__overlay__';
 var OldModule = module.bundle.Module;
@@ -593,7 +665,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "59034" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "50190" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

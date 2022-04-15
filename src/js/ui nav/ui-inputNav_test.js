@@ -1,5 +1,5 @@
 // import "./globalVariables";
-import { globalVar } from "./globalVariables";
+import { globalVar } from "../globalVariables";
 ("./globalVariables");
 
 function checkClass(single = false, el, child, className) {

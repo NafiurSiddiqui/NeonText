@@ -28,8 +28,11 @@ let fontBtnsBlack = document.querySelectorAll(
 let fontBtnsWhite = document.querySelectorAll(
 	".ui-input-fontFamily-list__imageWhite"
 );
+//neonSwitch
+const neonSwitch = document.getElementById("neonSwitch");
+//colorList
 
-console.log(widthContainer);
+const colorList = document.querySelectorAll(".input-color-list");
 
 //exporting these as globalVariable
 export const globalVar = {
@@ -48,9 +51,9 @@ export const globalVar = {
 	heightContainer,
 	barHeight,
 	barHeightSize,
+	neonSwitch,
+	colorList,
 };
-
-console.log(globalVar.canva);
 
 let globalFonts = {
 	fontBtn,
