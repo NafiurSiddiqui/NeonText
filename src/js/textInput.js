@@ -1,6 +1,7 @@
 import { globalVar } from "./globalVariables";
 import { globalFont } from "./font family/setFonts";
 import setDisplay from "./globalFuntions";
+import { fontClicked } from "./font family/setFonts";
 
 let {
 	widthContainer,
@@ -67,24 +68,15 @@ navText.addEventListener("input", (e) => {
 	let displayWidth = getComputedStyle(display).width;
 	let displayString = displayWidth.slice(0, -2);
 	let displaySize = Math.ceil(+displayString);
-	console.log(getComputedStyle(textWrapper));
+	// console.log(getComputedStyle(textWrapper));
 	ctx.fillText(userText, 0, 50);
 	let metrics = ctx.measureText(userText);
-	// let width = metrics.width;
-	let width = metrics.actualBoundingBoxLeft + metrics.actualBoundingBoxRight;
-	// console.log(`Width: ${width}`);
-	// console.log(displayWidth);
-
-	// let textTop = Math.abs(metrics.actualBoundingBoxAscent).toFixed(2);
-	// let textBottom = Math.abs(metrics.actualBoundingBoxDescent);
 
 	//height
 	let height = (
 		Math.abs(metrics.actualBoundingBoxAscent) +
 		Math.abs(metrics.actualBoundingBoxDescent)
 	).toFixed(2);
-
-	// console.log(`Width: ${displaySize}`);
 
 	if (textLength >= 6) {
 		textLength = textLength * 14;
@@ -95,6 +87,7 @@ navText.addEventListener("input", (e) => {
 	if (textLength === 0) {
 		ctx.clearRect(0, 0, canva.width, canva.height);
 	}
+
 	//measurement bars
 	// barWidth.style.width = `${width}px`;
 	barWidth.style.width = `${displaySize}px`;

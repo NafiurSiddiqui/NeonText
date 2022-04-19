@@ -30,7 +30,6 @@ const mouseOut = (event) => {
 //write the loadFont function
 
 function loadFont(targetFont) {
-	//set the targetFont
 	//---one for the display
 	display.style.fontFamily = targetFont;
 	//---one for the canvas
@@ -38,14 +37,16 @@ function loadFont(targetFont) {
 	ctx.fillStyle = "White";
 }
 
-//font hover
+export let fontClicked = false;
+
+//font hover and action
 fontBtn.forEach((btns) => {
 	btns.addEventListener("mouseenter", mouseIn);
 
 	btns.addEventListener("mouseleave", mouseOut);
 
 	btns.addEventListener("click", (e) => {
-		// console.log();
+		fontClicked = true;
 		let target = e.target;
 		//if it is is  the parent
 		if (target.className === "ui-input-fontFamily-list") {
@@ -57,11 +58,7 @@ fontBtn.forEach((btns) => {
 			console.log(`From Child: ${target.id}`);
 			loadFont(target.id);
 		}
+		console.log(fontClicked);
+		return fontClicked;
 	});
 });
-
-//get the value of the selected font
-
-//set the value of the selected font to display, to canvas
-
-//Helper functions

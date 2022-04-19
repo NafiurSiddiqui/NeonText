@@ -379,6 +379,11 @@ _globalVariables.globalVar.uiNav.forEach(function (list) {
 },{"../globalVariables":"src/js/globalVariables.js"}],"src/js/font family/setFonts.js":[function(require,module,exports) {
 "use strict";
 
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.fontClicked = void 0;
+
 var _globalVariables = _interopRequireWildcard(require("../globalVariables"));
 
 function _getRequireWildcardCache(nodeInterop) { if (typeof WeakMap !== "function") return null; var cacheBabelInterop = new WeakMap(); var cacheNodeInterop = new WeakMap(); return (_getRequireWildcardCache = function (nodeInterop) { return nodeInterop ? cacheNodeInterop : cacheBabelInterop; })(nodeInterop); }
@@ -413,20 +418,21 @@ var mouseOut = function mouseOut(event) {
 
 
 function loadFont(targetFont) {
-  //set the targetFont
   //---one for the display
   display.style.fontFamily = targetFont; //---one for the canvas
 
   ctx.font = "4rem ".concat(targetFont, " ");
   ctx.fillStyle = "White";
-} //font hover
+}
 
+var fontClicked = false; //font hover and action
 
+exports.fontClicked = fontClicked;
 fontBtn.forEach(function (btns) {
   btns.addEventListener("mouseenter", mouseIn);
   btns.addEventListener("mouseleave", mouseOut);
   btns.addEventListener("click", function (e) {
-    // console.log();
+    exports.fontClicked = fontClicked = true;
     var target = e.target; //if it is is  the parent
 
     if (target.className === "ui-input-fontFamily-list") {
@@ -438,10 +444,11 @@ fontBtn.forEach(function (btns) {
       console.log("From Child: ".concat(target.id));
       loadFont(target.id);
     }
+
+    console.log(fontClicked);
+    return fontClicked;
   });
-}); //get the value of the selected font
-//set the value of the selected font to display, to canvas
-//Helper functions
+});
 },{"../globalVariables":"src/js/globalVariables.js"}],"src/js/textInput.js":[function(require,module,exports) {
 "use strict";
 
@@ -503,18 +510,12 @@ navText.addEventListener("input", function (e) {
 
   var displayWidth = getComputedStyle(display).width;
   var displayString = displayWidth.slice(0, -2);
-  var displaySize = Math.ceil(+displayString);
-  console.log(getComputedStyle(textWrapper));
+  var displaySize = Math.ceil(+displayString); // console.log(getComputedStyle(textWrapper));
+
   ctx.fillText(userText, 0, 50);
-  var metrics = ctx.measureText(userText); // let width = metrics.width;
+  var metrics = ctx.measureText(userText); //height
 
-  var width = metrics.actualBoundingBoxLeft + metrics.actualBoundingBoxRight; // console.log(`Width: ${width}`);
-  // console.log(displayWidth);
-  // let textTop = Math.abs(metrics.actualBoundingBoxAscent).toFixed(2);
-  // let textBottom = Math.abs(metrics.actualBoundingBoxDescent);
-  //height
-
-  var height = (Math.abs(metrics.actualBoundingBoxAscent) + Math.abs(metrics.actualBoundingBoxDescent)).toFixed(2); // console.log(`Width: ${displaySize}`);
+  var height = (Math.abs(metrics.actualBoundingBoxAscent) + Math.abs(metrics.actualBoundingBoxDescent)).toFixed(2);
 
   if (textLength >= 6) {
     textLength = textLength * 14;
