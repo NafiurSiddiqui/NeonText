@@ -580,24 +580,61 @@ var _globalVariables = require("../globalVariables");
 var display = _globalVariables.globalVar.display,
     colorList = _globalVariables.globalVar.colorList,
     neonSwitch = _globalVariables.globalVar.neonSwitch;
-var colorPalette = {
-  orange: "orange",
-  lightRed: "rgb(255, 117, 117)",
-  red: "red",
-  deepBlue: "rgb(2, 116, 252)",
-  electricBlue: "rgb(99, 170, 255)",
-  tropicalBlue: "rgb(36, 183, 222)",
-  iceBlue: "rgb(144, 220, 255)",
-  green: "#20f020",
-  mintGreen: "rgb(128, 255, 217)",
-  deepGreen: "rgba(14, 185, 14, 0.884)",
-  warmWhite: "rgb(240, 238, 199)",
-  white: "rgb(225, 227, 230)"
-};
+var colorPalette = [{
+  id: "orange",
+  code: "orange"
+}, {
+  id: "lightRed",
+  code: "rgb(255, 117, 117)"
+}, {
+  id: "red",
+  code: "red"
+}, {
+  id: "deepBlue",
+  code: "rgb(2, 116, 252)"
+}, {
+  id: "electricBlue",
+  code: "rgb(99, 170, 255)"
+}, {
+  id: "tropicalBlue",
+  code: "rgb(36, 183, 222)"
+}, {
+  id: "iceBlue",
+  code: "rgb(144, 220, 255)"
+}, {
+  id: "green",
+  code: "#20f020"
+}, {
+  id: "mintGreen",
+  code: "rgb(128, 255, 217)"
+}, {
+  id: "deepGreen",
+  code: "rgba(14, 185, 14, 0.884)"
+}, {
+  id: "warmWhite",
+  code: "rgb(240, 238, 199)"
+}, {
+  id: "white",
+  code: "rgb(225, 227, 230)"
+}];
 var listColor = "";
 
 function setColor(color) {
   display.style.textShadow = "rgb(255, 255, 255) 0px 0px 5px, rgb(255, 255, 255) 0px 0px 10px,\n\t\t".concat(color, " 0px 0px 20px, ").concat(color, " 0px 0px 30px,\n\t\t").concat(color, " 0px 0px 40px, ").concat(color, " 0px 0px 55px,\n\t\t").concat(color, " 0px 0px 75px");
+}
+
+function checkColor(listColor) {
+  var response = colorPalette.filter(function (color) {
+    //get the matched colorId
+    return listColor.includes(color.id);
+  }); // console.log(Object.assign({}, response));
+
+  console.log(response.map(function (code) {
+    return code.code;
+  }));
+  return response.map(function (code) {
+    return code.code;
+  });
 }
 
 console.log(display);
@@ -613,11 +650,11 @@ colorList.forEach(function (list) {
       alert("Please turn the neon switch on.");
       return;
     } //if the list color is equal to other custom color
-    //  if (listColor === )
-    //set color
 
 
-    setColor(listColor);
+    console.log(listColor); //set color
+
+    setColor(checkColor(listColor));
   });
 }); // console.log(listColor);
 // setColor(listColor);
@@ -665,7 +702,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "50190" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "49554" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
