@@ -102,7 +102,7 @@ article.ui-display {
 
 canvas#displayText {
 	@include borderTest(orange);
-	display: none;
+	// display: none;
 }
 
 /* The switch - the box around the slider */

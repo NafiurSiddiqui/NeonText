@@ -182,9 +182,18 @@ exports.default = _default;
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.default = toggleDisplay;
+exports.clearCanvas = clearCanvas;
+exports.default = setDisplay;
+exports.measureBars = measureBars;
+exports.showBars = showBars;
+exports.writeOnCanvas = writeOnCanvas;
 
-function toggleDisplay(el) {
+var _globalVariables = require("./globalVariables");
+
+var heightContainer = _globalVariables.globalVar.heightContainer,
+    widthContainer = _globalVariables.globalVar.widthContainer;
+
+function setDisplay(el) {
   var on = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : false;
 
   if (on === true) {
@@ -193,7 +202,39 @@ function toggleDisplay(el) {
     el.style.display = "none";
   }
 }
-},{}],"src/js/ui nav/ui-inputNav_test.js":[function(require,module,exports) {
+
+function clearCanvas(ctx, canva) {
+  ctx.clearRect(0, 0, canva.width, canva.height);
+}
+
+function writeOnCanvas(ctx, userText) {
+  ctx.fillText(userText, 0, 50);
+}
+
+function measureBars(display, metrics, barWidth, barWidthSize, barHeight, barHeightSize, textLength) {
+  //width
+  var displayWidth = getComputedStyle(display).width;
+  var displayString = displayWidth.slice(0, -2);
+  var displaySize = Math.ceil(+displayString); //height
+
+  var height = (Math.abs(metrics.actualBoundingBoxAscent) + Math.abs(metrics.actualBoundingBoxDescent)).toFixed(2); //measurement bars
+
+  barWidth.style.width = "".concat(displaySize, "px");
+  barWidthSize.textContent = "".concat(textLength, " CM");
+  barHeight.style.height = "".concat(height, "px");
+  barHeightSize.textContent = "".concat(Math.round(height), "Cm");
+}
+
+function showBars(show) {
+  if (show === true) {
+    setDisplay(heightContainer, true);
+    setDisplay(widthContainer, true);
+  } else {
+    setDisplay(heightContainer, null);
+    setDisplay(widthContainer, null);
+  }
+}
+},{"./globalVariables":"src/js/globalVariables.js"}],"src/js/ui nav/ui-inputNav_test.js":[function(require,module,exports) {
 "use strict";
 
 var _globalVariables = require("../globalVariables");
@@ -386,15 +427,24 @@ exports.fontClicked = void 0;
 
 var _globalVariables = _interopRequireWildcard(require("../globalVariables"));
 
+var _globalFuntions = _interopRequireWildcard(require("../globalFuntions"));
+
+var _textInput = require("../textInput");
+
 function _getRequireWildcardCache(nodeInterop) { if (typeof WeakMap !== "function") return null; var cacheBabelInterop = new WeakMap(); var cacheNodeInterop = new WeakMap(); return (_getRequireWildcardCache = function (nodeInterop) { return nodeInterop ? cacheNodeInterop : cacheBabelInterop; })(nodeInterop); }
 
 function _interopRequireWildcard(obj, nodeInterop) { if (!nodeInterop && obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(nodeInterop); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (key !== "default" && Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
 
 //destructured vars
 var fontBtn = _globalVariables.default.fontBtn,
-    fontBtnsWhite = _globalVariables.default.fontBtnsWhite,
-    fontBtnBlack = _globalVariables.default.fontBtnBlack;
-var display = _globalVariables.globalVar.display,
+    fontBtnsWhite = _globalVariables.default.fontBtnsWhite;
+var widthContainer = _globalVariables.globalVar.widthContainer,
+    barWidth = _globalVariables.globalVar.barWidth,
+    barWidthSize = _globalVariables.globalVar.barWidthSize,
+    heightContainer = _globalVariables.globalVar.heightContainer,
+    barHeight = _globalVariables.globalVar.barHeight,
+    barHeightSize = _globalVariables.globalVar.barHeightSize,
+    display = _globalVariables.globalVar.display,
     canva = _globalVariables.globalVar.canva,
     ctx = _globalVariables.globalVar.ctx; //defaults
 
@@ -425,40 +475,77 @@ function loadFont(targetFont) {
   ctx.fillStyle = "White";
 }
 
-var fontClicked = false; //font hover and action
-
+var fontClicked = false;
 exports.fontClicked = fontClicked;
+var fontUserText = ""; //font hover and action
+
 fontBtn.forEach(function (btns) {
-  btns.addEventListener("mouseenter", mouseIn);
-  btns.addEventListener("mouseleave", mouseOut);
+  //mouseIN
+  btns.addEventListener("mouseenter", mouseIn); //mouseOUt
+
+  btns.addEventListener("mouseleave", mouseOut); //select font
+
   btns.addEventListener("click", function (e) {
     exports.fontClicked = fontClicked = true;
-    var target = e.target; //if it is is  the parent
+    var target = e.target;
+    console.log(_textInput.userText);
+    fontUserText = _textInput.userText;
+    fontUserText = "";
+    console.log(fontUserText);
+    console.log("FROM FONT: ".concat(fontUserText));
+    var textLength = _textInput.userText.length; //Clear displays
+
+    (0, _globalFuntions.default)(widthContainer, false);
+    (0, _globalFuntions.default)(heightContainer, false);
+    (0, _globalFuntions.clearCanvas)(ctx, canva); //if it is is  the parent
 
     if (target.className === "ui-input-fontFamily-list") {
       var lastChildId = target.lastElementChild.id;
-      console.log("From Parent : ".concat(lastChildId));
+      console.log("From Parent : ".concat(lastChildId)); // measureBars(
+      // 	display,
+      // 	metrics,
+      // 	barWidth,
+      // 	barWidthSize,
+      // 	barHeight,
+      // 	barHeightSize,
+      // 	textLength
+      // );
+
       loadFont(lastChildId);
+      (0, _globalFuntions.writeOnCanvas)(ctx, _textInput.userText); // showBars(true);
     } else {
       //if it is the child
       console.log("From Child: ".concat(target.id));
       loadFont(target.id);
-    }
+      (0, _globalFuntions.writeOnCanvas)(ctx, _textInput.userText);
+    } //recalculate the fonts
+    //-----fill the canvas with the text value
 
+
+    (0, _globalFuntions.measureBars)(display, _textInput.metrics, barWidth, barWidthSize, barHeight, barHeightSize, textLength); //setthe display for bars
+
+    (0, _globalFuntions.showBars)(true);
     console.log(fontClicked);
     return fontClicked;
   });
 });
-},{"../globalVariables":"src/js/globalVariables.js"}],"src/js/textInput.js":[function(require,module,exports) {
+},{"../globalVariables":"src/js/globalVariables.js","../globalFuntions":"src/js/globalFuntions.js","../textInput":"src/js/textInput.js"}],"src/js/textInput.js":[function(require,module,exports) {
 "use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.userText = exports.textLength = exports.metrics = void 0;
 
 var _globalVariables = require("./globalVariables");
 
 var _setFonts = require("./font family/setFonts");
 
-var _globalFuntions = _interopRequireDefault(require("./globalFuntions"));
+var _globalFuntions = _interopRequireWildcard(require("./globalFuntions"));
 
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+function _getRequireWildcardCache(nodeInterop) { if (typeof WeakMap !== "function") return null; var cacheBabelInterop = new WeakMap(); var cacheNodeInterop = new WeakMap(); return (_getRequireWildcardCache = function (nodeInterop) { return nodeInterop ? cacheNodeInterop : cacheBabelInterop; })(nodeInterop); }
+
+function _interopRequireWildcard(obj, nodeInterop) { if (!nodeInterop && obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(nodeInterop); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (key !== "default" && Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
 
 var widthContainer = _globalVariables.globalVar.widthContainer,
     barWidth = _globalVariables.globalVar.barWidth,
@@ -474,12 +561,18 @@ var navText = uiInputText.firstElementChild; //state variables
 
 var textInputState = false; //set the default states
 
-var userText = ""; //---fontFamily = selected from the list of fontFamily
+var userText = "";
+exports.userText = userText;
+var textLength = null;
+exports.textLength = textLength;
+var metrics = null; //---fontFamily = selected from the list of fontFamily
 //---color = selected from the list of color
+
+exports.metrics = metrics;
 
 function init() {
   //initial default state
-  userText = "Your Text";
+  exports.userText = userText = "Your Text";
   display.textContent = userText;
   (0, _globalFuntions.default)(widthContainer, null);
   (0, _globalFuntions.default)(heightContainer, null);
@@ -487,12 +580,12 @@ function init() {
   ctx.fillStyle = "White";
 }
 
-init();
-var textWrapper = document.querySelector(".ui-display-userText-wrapper");
+init(); // let textWrapper = document.querySelector(".ui-display-userText-wrapper");
+
 navText.addEventListener("input", function (e) {
   e.preventDefault(); //get the input value, store it, return it
 
-  userText = e.target.value; //persist data in local storage
+  exports.userText = userText = e.target.value; //persist data in local storage
   //show each letter upon typing
 
   display.textContent = userText.trim(); //check if the state is true
@@ -506,33 +599,25 @@ navText.addEventListener("input", function (e) {
     return;
   }
 
-  var textLength = userText.length; //width
+  var textLength = userText.length; // ctx.fillText(userText, 0, 50);
 
-  var displayWidth = getComputedStyle(display).width;
-  var displayString = displayWidth.slice(0, -2);
-  var displaySize = Math.ceil(+displayString); // console.log(getComputedStyle(textWrapper));
+  (0, _globalFuntions.writeOnCanvas)(ctx, userText);
+  exports.metrics = metrics = ctx.measureText(userText); //width
+  // let displayWidth = getComputedStyle(display).width;
+  // let displayString = displayWidth.slice(0, -2);
+  // let displaySize = Math.ceil(+displayString);
+  // //height
+  // let height = (
+  // 	Math.abs(metrics.actualBoundingBoxAscent) +
+  // 	Math.abs(metrics.actualBoundingBoxDescent)
+  // ).toFixed(2);
 
-  ctx.fillText(userText, 0, 50);
-  var metrics = ctx.measureText(userText); //height
-
-  var height = (Math.abs(metrics.actualBoundingBoxAscent) + Math.abs(metrics.actualBoundingBoxDescent)).toFixed(2);
-
-  if (textLength >= 6) {
-    textLength = textLength * 14;
-  } else {
-    textLength = textLength * 9;
-  }
+  (0, _globalFuntions.measureBars)(display, metrics, barWidth, barWidthSize, barHeight, barHeightSize, textLength);
 
   if (textLength === 0) {
-    ctx.clearRect(0, 0, canva.width, canva.height);
-  } //measurement bars
-  // barWidth.style.width = `${width}px`;
-
-
-  barWidth.style.width = "".concat(displaySize, "px");
-  barWidthSize.textContent = "".concat(textLength, " CM");
-  barHeight.style.height = "".concat(height, "px");
-  barHeightSize.textContent = "".concat(Math.round(height), "Cm");
+    // ctx.clearRect(0, 0, canva.width, canva.height);
+    (0, _globalFuntions.clearCanvas)(ctx, canva);
+  }
 
   if (userText.length > 0) {
     (0, _globalFuntions.default)(widthContainer, true);
@@ -540,19 +625,23 @@ navText.addEventListener("input", function (e) {
     (0, _globalFuntions.default)(widthContainer, null);
   } //setTimout for session storage and remove items from local storage, if there is data
 
+
+  return [userText, metrics];
 });
 
 function setBarMeasurement() {
-  console.log("💥 time 💥");
-  (0, _globalFuntions.default)(widthContainer, true);
-  (0, _globalFuntions.default)(heightContainer, true);
+  console.log("💥 time 💥"); // setDisplay(widthContainer, true);
+  // setDisplay(heightContainer, true);
+
+  (0, _globalFuntions.showBars)(true);
 }
 
 navText.addEventListener("keyup", function () {
   //wait for 3 seconds and show the measurement
-  clearTimeout(setBarMeasurement);
-  (0, _globalFuntions.default)(widthContainer, null);
-  (0, _globalFuntions.default)(heightContainer, null);
+  clearTimeout(setBarMeasurement); // setDisplay(widthContainer, null);
+  // setDisplay(heightContainer, null);
+
+  (0, _globalFuntions.showBars)(null);
   console.log("CLEARED TIMEOUT");
 });
 navText.addEventListener("keydown", function () {
@@ -703,7 +792,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "49554" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "50232" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

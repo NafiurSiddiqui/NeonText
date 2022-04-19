@@ -458,7 +458,6 @@ article.ui-display {
 
 canvas#displayText {
   border: 1px solid orange;
-  display: none;
 }
 
 /* The switch - the box around the slider */
