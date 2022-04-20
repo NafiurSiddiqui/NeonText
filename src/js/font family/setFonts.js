@@ -10,6 +10,7 @@ import { userText, metrics } from "../textInput";
 //destructured vars
 let { fontBtn, fontBtnsWhite } = globalFonts;
 
+console.log(fontBtn);
 let {
 	widthContainer,
 	barWidth,
@@ -67,11 +68,11 @@ fontBtn.forEach((btns) => {
 	btns.addEventListener("click", (e) => {
 		fontClicked = true;
 		let target = e.target;
-		console.log(userText);
+		// console.log(userText);
 		fontUserText = userText;
 		fontUserText = "";
-		console.log(fontUserText);
-		console.log(`FROM FONT: ${fontUserText}`);
+		// console.log(fontUserText);
+		// console.log(`FROM FONT: ${fontUserText}`);
 		let textLength = userText.length;
 
 		//Clear displays
@@ -81,41 +82,47 @@ fontBtn.forEach((btns) => {
 		//if it is is  the parent
 		if (target.className === "ui-input-fontFamily-list") {
 			let lastChildId = target.lastElementChild.id;
-			console.log(`From Parent : ${lastChildId}`);
-
-			// measureBars(
-			// 	display,
-			// 	metrics,
-			// 	barWidth,
-			// 	barWidthSize,
-			// 	barHeight,
-			// 	barHeightSize,
-			// 	textLength
-			// );
-			loadFont(lastChildId);
+			// console.log(`From Parent : ${lastChildId}`);
 			writeOnCanvas(ctx, userText);
-			// showBars(true);
+			loadFont(lastChildId);
+			let metrics = ctx.measureText(userText);
+			measureBars(
+				display,
+				metrics,
+				barWidth,
+				barWidthSize,
+				barHeight,
+				barHeightSize,
+				textLength
+			);
 		} else {
 			//if it is the child
-			console.log(`From Child: ${target.id}`);
-
-			loadFont(target.id);
+			// console.log(`From Child: ${target.id}`);
 			writeOnCanvas(ctx, userText);
+			loadFont(target.id);
+			let metrics = ctx.measureText(userText);
+			measureBars(
+				display,
+				metrics,
+				barWidth,
+				barWidthSize,
+				barHeight,
+				barHeightSize,
+				textLength
+			);
 		}
-		//recalculate the fonts
-		//-----fill the canvas with the text value
-		measureBars(
-			display,
-			metrics,
-			barWidth,
-			barWidthSize,
-			barHeight,
-			barHeightSize,
-			textLength
-		);
+		let targetBtn = e.target.closest(".ui-input-fontFamily-list");
+		//loop throught all the lists
+		fontBtn.forEach((cls) => {
+			console.log(cls.classList.contains("btn-active"));
+		});
+		//if btnactive match found-remove it
+
+		//add btn-active class to the existing target list
+		targetBtn.classList.add("btn-active");
 		//setthe display for bars
 		showBars(true);
-		console.log(fontClicked);
+
 		return fontClicked;
 	});
 });

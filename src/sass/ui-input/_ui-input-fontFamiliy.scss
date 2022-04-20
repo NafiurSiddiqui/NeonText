@@ -31,3 +31,14 @@ $uiHeadings: #918a8a;
 		height: 22px;
 	}
 }
+
+.btn-active {
+	background-color: $primaryColor;
+	@include flexCentered;
+	& > img.ui-input-fontFamily-list__image {
+		display: none !important;
+	}
+	& > img.ui-input-fontFamily-list__imageWhite {
+		display: flex !important;
+	}
+}

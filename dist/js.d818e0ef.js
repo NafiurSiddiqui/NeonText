@@ -187,6 +187,7 @@ exports.default = setDisplay;
 exports.measureBars = measureBars;
 exports.showBars = showBars;
 exports.writeOnCanvas = writeOnCanvas;
+exports.writeOnCanvasWithFont = writeOnCanvasWithFont;
 
 var _globalVariables = require("./globalVariables");
 
@@ -211,18 +212,25 @@ function writeOnCanvas(ctx, userText) {
   ctx.fillText(userText, 0, 50);
 }
 
+function writeOnCanvasWithFont(ctx, userText, font) {
+  ctx.font = "4rem ".concat(font);
+  ctx.fillStyle = "White";
+  ctx.fillText(userText, 0, 50);
+}
+
 function measureBars(display, metrics, barWidth, barWidthSize, barHeight, barHeightSize, textLength) {
   //width
   var displayWidth = getComputedStyle(display).width;
   var displayString = displayWidth.slice(0, -2);
   var displaySize = Math.ceil(+displayString); //height
 
-  var height = (Math.abs(metrics.actualBoundingBoxAscent) + Math.abs(metrics.actualBoundingBoxDescent)).toFixed(2); //measurement bars
+  var height = Math.floor(metrics.actualBoundingBoxAscent) + Math.floor(metrics.actualBoundingBoxDescent); //measurement bars
 
   barWidth.style.width = "".concat(displaySize, "px");
-  barWidthSize.textContent = "".concat(textLength, " CM");
-  barHeight.style.height = "".concat(height, "px");
-  barHeightSize.textContent = "".concat(Math.round(height), "Cm");
+  barWidthSize.textContent = "".concat(textLength * 2, " CM");
+  barHeight.style.height = "".concat(height, "px"); // console.log(typeof height);
+
+  barHeightSize.textContent = "".concat(Math.floor(height), "Cm");
 }
 
 function showBars(show) {
@@ -438,6 +446,7 @@ function _interopRequireWildcard(obj, nodeInterop) { if (!nodeInterop && obj && 
 //destructured vars
 var fontBtn = _globalVariables.default.fontBtn,
     fontBtnsWhite = _globalVariables.default.fontBtnsWhite;
+console.log(fontBtn);
 var widthContainer = _globalVariables.globalVar.widthContainer,
     barWidth = _globalVariables.globalVar.barWidth,
     barWidthSize = _globalVariables.globalVar.barWidthSize,
@@ -487,12 +496,12 @@ fontBtn.forEach(function (btns) {
 
   btns.addEventListener("click", function (e) {
     exports.fontClicked = fontClicked = true;
-    var target = e.target;
-    console.log(_textInput.userText);
+    var target = e.target; // console.log(userText);
+
     fontUserText = _textInput.userText;
-    fontUserText = "";
-    console.log(fontUserText);
-    console.log("FROM FONT: ".concat(fontUserText));
+    fontUserText = ""; // console.log(fontUserText);
+    // console.log(`FROM FONT: ${fontUserText}`);
+
     var textLength = _textInput.userText.length; //Clear displays
 
     (0, _globalFuntions.default)(widthContainer, false);
@@ -500,32 +509,35 @@ fontBtn.forEach(function (btns) {
     (0, _globalFuntions.clearCanvas)(ctx, canva); //if it is is  the parent
 
     if (target.className === "ui-input-fontFamily-list") {
-      var lastChildId = target.lastElementChild.id;
-      console.log("From Parent : ".concat(lastChildId)); // measureBars(
-      // 	display,
-      // 	metrics,
-      // 	barWidth,
-      // 	barWidthSize,
-      // 	barHeight,
-      // 	barHeightSize,
-      // 	textLength
-      // );
+      var lastChildId = target.lastElementChild.id; // console.log(`From Parent : ${lastChildId}`);
 
+      (0, _globalFuntions.writeOnCanvas)(ctx, _textInput.userText);
       loadFont(lastChildId);
-      (0, _globalFuntions.writeOnCanvas)(ctx, _textInput.userText); // showBars(true);
+
+      var _metrics = ctx.measureText(_textInput.userText);
+
+      (0, _globalFuntions.measureBars)(display, _metrics, barWidth, barWidthSize, barHeight, barHeightSize, textLength);
     } else {
       //if it is the child
-      console.log("From Child: ".concat(target.id));
-      loadFont(target.id);
+      // console.log(`From Child: ${target.id}`);
       (0, _globalFuntions.writeOnCanvas)(ctx, _textInput.userText);
-    } //recalculate the fonts
-    //-----fill the canvas with the text value
+      loadFont(target.id);
 
+      var _metrics2 = ctx.measureText(_textInput.userText);
 
-    (0, _globalFuntions.measureBars)(display, _textInput.metrics, barWidth, barWidthSize, barHeight, barHeightSize, textLength); //setthe display for bars
+      (0, _globalFuntions.measureBars)(display, _metrics2, barWidth, barWidthSize, barHeight, barHeightSize, textLength);
+    }
+
+    var targetBtn = e.target.closest(".ui-input-fontFamily-list"); //loop throught all the lists
+
+    fontBtn.forEach(function (cls) {
+      console.log(cls.classList.contains("btn-active"));
+    }); //if btnactive match found-remove it
+    //add btn-active class to the existing target list
+
+    targetBtn.classList.add("btn-active"); //setthe display for bars
 
     (0, _globalFuntions.showBars)(true);
-    console.log(fontClicked);
     return fontClicked;
   });
 });
@@ -572,10 +584,19 @@ exports.metrics = metrics;
 
 function init() {
   //initial default state
-  exports.userText = userText = "Your Text";
-  display.textContent = userText;
-  (0, _globalFuntions.default)(widthContainer, null);
-  (0, _globalFuntions.default)(heightContainer, null);
+  //check for local storage value exist
+  if (localStorage.length > 0) {
+    exports.userText = userText = localStorage.getItem("userText");
+    display.textContent = userText; // writeOnCanvas(ctx, userText);
+
+    (0, _globalFuntions.writeOnCanvasWithFont)(ctx, userText, "arial");
+  } else {
+    exports.userText = userText = "Your Text";
+    display.textContent = userText;
+    (0, _globalFuntions.default)(widthContainer, null);
+    (0, _globalFuntions.default)(heightContainer, null);
+  }
+
   ctx.font = "4rem arial";
   ctx.fillStyle = "White";
 }
@@ -586,36 +607,36 @@ navText.addEventListener("input", function (e) {
   e.preventDefault(); //get the input value, store it, return it
 
   exports.userText = userText = e.target.value; //persist data in local storage
-  //show each letter upon typing
 
-  display.textContent = userText.trim(); //check if the state is true
+  localStorage.setItem("userText", userText); //show each letter upon typing
 
-  if (userText.length > 0) {
-    textInputState = true;
-  } //any space should be omitted from calculating
+  display.textContent = userText.trim();
+  var textLength = userText.length; //check if the state is true
 
+  textLength > 0 ? textInputState = true : false;
+  textLength >= 30 ? alert("If you need more than 30 characters of text, Please contact us: \uD83D\uDCDE +14-999-876-42") : ""; //any space should be omitted from calculating
 
   if (e.data === " ") {
     return;
   }
 
-  var textLength = userText.length; // ctx.fillText(userText, 0, 50);
+  if (e.inputType === "deleteContentBackward") {
+    //recapture the userText here
+    var newUserText = userText;
+    console.log(newUserText); //rerender the userText
 
-  (0, _globalFuntions.writeOnCanvas)(ctx, userText);
-  exports.metrics = metrics = ctx.measureText(userText); //width
-  // let displayWidth = getComputedStyle(display).width;
-  // let displayString = displayWidth.slice(0, -2);
-  // let displaySize = Math.ceil(+displayString);
-  // //height
-  // let height = (
-  // 	Math.abs(metrics.actualBoundingBoxAscent) +
-  // 	Math.abs(metrics.actualBoundingBoxDescent)
-  // ).toFixed(2);
+    if (newUserText.length !== 0) {
+      (0, _globalFuntions.clearCanvas)(ctx, canva);
+      (0, _globalFuntions.writeOnCanvas)(ctx, newUserText);
+    }
+  } else {
+    (0, _globalFuntions.writeOnCanvas)(ctx, userText);
+    return exports.metrics = metrics = ctx.measureText(userText);
+  }
 
   (0, _globalFuntions.measureBars)(display, metrics, barWidth, barWidthSize, barHeight, barHeightSize, textLength);
 
   if (textLength === 0) {
-    // ctx.clearRect(0, 0, canva.width, canva.height);
     (0, _globalFuntions.clearCanvas)(ctx, canva);
   }
 
@@ -630,17 +651,13 @@ navText.addEventListener("input", function (e) {
 });
 
 function setBarMeasurement() {
-  console.log("💥 time 💥"); // setDisplay(widthContainer, true);
-  // setDisplay(heightContainer, true);
-
+  console.log("💥 time 💥");
   (0, _globalFuntions.showBars)(true);
 }
 
 navText.addEventListener("keyup", function () {
   //wait for 3 seconds and show the measurement
-  clearTimeout(setBarMeasurement); // setDisplay(widthContainer, null);
-  // setDisplay(heightContainer, null);
-
+  clearTimeout(setBarMeasurement);
   (0, _globalFuntions.showBars)(null);
   console.log("CLEARED TIMEOUT");
 });
@@ -792,7 +809,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "50232" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "51061" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

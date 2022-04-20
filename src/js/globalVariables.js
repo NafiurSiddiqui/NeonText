@@ -20,7 +20,6 @@ const barHeight = document.querySelector(".measurementBar-height");
 const barHeightSize = document.querySelector(".measurementBar-height-length");
 
 //font family
-
 let fontBtn = document.querySelectorAll(".ui-input-fontFamily-list");
 let fontBtnsBlack = document.querySelectorAll(
 	".ui-input-fontFamily-list__image"

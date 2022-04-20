@@ -5,6 +5,7 @@ import setDisplay, {
 	clearCanvas,
 	measureBars,
 	showBars,
+	writeOnCanvasWithFont,
 } from "./globalFuntions";
 import { fontClicked } from "./font family/setFonts";
 
@@ -36,11 +37,18 @@ export let metrics = null;
 
 function init() {
 	//initial default state
-	userText = "Your Text";
-	display.textContent = userText;
-	setDisplay(widthContainer, null);
-	setDisplay(heightContainer, null);
-
+	//check for local storage value exist
+	if (localStorage.length > 0) {
+		userText = localStorage.getItem("userText");
+		display.textContent = userText;
+		// writeOnCanvas(ctx, userText);
+		writeOnCanvasWithFont(ctx, userText, "arial");
+	} else {
+		userText = "Your Text";
+		display.textContent = userText;
+		setDisplay(widthContainer, null);
+		setDisplay(heightContainer, null);
+	}
 	ctx.font = "4rem arial";
 	ctx.fillStyle = "White";
 }
@@ -56,35 +64,36 @@ navText.addEventListener("input", (e) => {
 	userText = e.target.value;
 
 	//persist data in local storage
-
+	localStorage.setItem("userText", userText);
 	//show each letter upon typing
 	display.textContent = userText.trim();
+	let textLength = userText.length;
 
 	//check if the state is true
-	if (userText.length > 0) {
-		textInputState = true;
-	}
+	textLength > 0 ? (textInputState = true) : false;
 
+	textLength >= 30
+		? alert(
+				`If you need more than 30 characters of text, Please contact us: 📞 +14-999-876-42`
+		  )
+		: "";
 	//any space should be omitted from calculating
 	if (e.data === " ") {
 		return;
 	}
-
-	let textLength = userText.length;
-
-	// ctx.fillText(userText, 0, 50);
-	writeOnCanvas(ctx, userText);
-	metrics = ctx.measureText(userText);
-
-	//width
-	// let displayWidth = getComputedStyle(display).width;
-	// let displayString = displayWidth.slice(0, -2);
-	// let displaySize = Math.ceil(+displayString);
-	// //height
-	// let height = (
-	// 	Math.abs(metrics.actualBoundingBoxAscent) +
-	// 	Math.abs(metrics.actualBoundingBoxDescent)
-	// ).toFixed(2);
+	if (e.inputType === "deleteContentBackward") {
+		//recapture the userText here
+		let newUserText = userText;
+		console.log(newUserText);
+		//rerender the userText
+		if (newUserText.length !== 0) {
+			clearCanvas(ctx, canva);
+			writeOnCanvas(ctx, newUserText);
+		}
+	} else {
+		writeOnCanvas(ctx, userText);
+		return (metrics = ctx.measureText(userText));
+	}
 
 	measureBars(
 		display,
@@ -97,7 +106,6 @@ navText.addEventListener("input", (e) => {
 	);
 
 	if (textLength === 0) {
-		// ctx.clearRect(0, 0, canva.width, canva.height);
 		clearCanvas(ctx, canva);
 	}
 
@@ -114,17 +122,13 @@ navText.addEventListener("input", (e) => {
 
 function setBarMeasurement() {
 	console.log("💥 time 💥");
-
-	// setDisplay(widthContainer, true);
-	// setDisplay(heightContainer, true);
 	showBars(true);
 }
 
 navText.addEventListener("keyup", () => {
 	//wait for 3 seconds and show the measurement
 	clearTimeout(setBarMeasurement);
-	// setDisplay(widthContainer, null);
-	// setDisplay(heightContainer, null);
+
 	showBars(null);
 	console.log("CLEARED TIMEOUT");
 });

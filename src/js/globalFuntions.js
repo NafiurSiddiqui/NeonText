@@ -18,6 +18,12 @@ export function writeOnCanvas(ctx, userText) {
 	ctx.fillText(userText, 0, 50);
 }
 
+export function writeOnCanvasWithFont(ctx, userText, font) {
+	ctx.font = `4rem ${font}`;
+	ctx.fillStyle = "White";
+	ctx.fillText(userText, 0, 50);
+}
+
 export function measureBars(
 	display,
 	metrics,
@@ -32,17 +38,16 @@ export function measureBars(
 	let displayString = displayWidth.slice(0, -2);
 	let displaySize = Math.ceil(+displayString);
 	//height
-	let height = (
-		Math.abs(metrics.actualBoundingBoxAscent) +
-		Math.abs(metrics.actualBoundingBoxDescent)
-	).toFixed(2);
-
+	let height =
+		Math.floor(metrics.actualBoundingBoxAscent) +
+		Math.floor(metrics.actualBoundingBoxDescent);
 	//measurement bars
 
 	barWidth.style.width = `${displaySize}px`;
-	barWidthSize.textContent = `${textLength} CM`;
+	barWidthSize.textContent = `${textLength * 2} CM`;
 	barHeight.style.height = `${height}px`;
-	barHeightSize.textContent = `${Math.round(height)}Cm`;
+	// console.log(typeof height);
+	barHeightSize.textContent = `${Math.floor(height)}Cm`;
 }
 
 export function showBars(show) {
