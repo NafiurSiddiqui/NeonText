@@ -36,13 +36,23 @@ function checkColor(listColor) {
 	return response.map((code) => code.code);
 }
 
-function setGlowingLight(bulb, targetColor) {
-	bulb.style.textShadow = `0 0 4px white, 0 0 4px ${targetColor}, 0 0 8px ${targetColor},
-		0 0 12px ${targetColor}, 0 0 16px ${targetColor}, 0 0 18px ${targetColor}`;
-	bulb.style.color = "rgb(248, 248, 248)";
+// function setGlowingLight(bulb, targetColor) {
+// 	bulb.style.textShadow = `0 0 4px white, 0 0 4px ${targetColor}, 0 0 8px ${targetColor},
+// 		0 0 12px ${targetColor}, 0 0 16px ${targetColor}, 0 0 18px ${targetColor}`;
+// 	bulb.style.color = "rgb(248, 248, 248)";
+// }
+
+function setGlowingLightTest(bulb, targetColor, targetNode) {
+	if (targetNode.classList.contains("active")) {
+		bulb.style.textShadow = `0 0 4px white, 0 0 4px ${targetColor}, 0 0 8px ${targetColor},
+			0 0 12px ${targetColor}, 0 0 16px ${targetColor}, 0 0 18px ${targetColor}`;
+		bulb.style.color = "rgb(248, 248, 248)";
+	} else {
+		console.log("YIKES!");
+	}
 }
 
-// console.log(display);
+// console.log(colorList);
 
 colorList.forEach((list) => {
 	list.addEventListener("click", (e) => {
@@ -50,7 +60,7 @@ colorList.forEach((list) => {
 		//wherever it is clicked, alwyas make it happen on the parent <li>
 		let listEl = e.target.closest("li");
 		let bulb = listEl.firstElementChild;
-		console.log(bulb);
+		console.log(bulb.dataset.color);
 		//send the color to whoever needs it
 		listColor = listEl.classList[1];
 
@@ -60,16 +70,35 @@ colorList.forEach((list) => {
 			return;
 		}
 		//if the list color is equal to other custom color
-		console.log(listColor);
+		// console.log(colorList);
+
+		console.log(bulb);
 		//activate button
-		// setGlowingLight(bulb, listColor);
+
+		colorList.forEach((li) => {
+			//if btnactive match found-remove it
+			if (li.classList.contains("active")) {
+				li.classList.remove("active");
+			}
+			// li.firstElementChild.style.textShadow = "none";
+		});
+
+		listEl.classList.add("active");
+		setGlowingLightTest(bulb, checkColor(listColor), listEl);
 		//set color
 		setColor(checkColor(listColor));
 	});
 });
 
 /**
- * set active button state
+ * set active button state?
+ * ----- variable?
+ * --------onClick -> true, setGlow
+ * -------- any other btnClick? -> false, setGlow=off
+ * -------class?
+ * ----------onClick -> add btn-active
+ * ----------any other click? run to see who got the btn-active class, remove it
+ * ----------set the glow to the new btn
  * if any button has active button state, remove it
  * set the glow
  */

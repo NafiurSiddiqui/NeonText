@@ -738,12 +738,21 @@ function checkColor(listColor) {
   return response.map(function (code) {
     return code.code;
   });
-}
+} // function setGlowingLight(bulb, targetColor) {
+// 	bulb.style.textShadow = `0 0 4px white, 0 0 4px ${targetColor}, 0 0 8px ${targetColor},
+// 		0 0 12px ${targetColor}, 0 0 16px ${targetColor}, 0 0 18px ${targetColor}`;
+// 	bulb.style.color = "rgb(248, 248, 248)";
+// }
 
-function setGlowingLight(bulb, targetColor) {
-  bulb.style.textShadow = "0 0 4px white, 0 0 4px ".concat(targetColor, ", 0 0 8px ").concat(targetColor, ",\n\t\t0 0 12px ").concat(targetColor, ", 0 0 16px ").concat(targetColor, ", 0 0 18px ").concat(targetColor);
-  bulb.style.color = "rgb(248, 248, 248)";
-} // console.log(display);
+
+function setGlowingLightTest(bulb, targetColor, targetNode) {
+  if (targetNode.classList.contains("active")) {
+    bulb.style.textShadow = "0 0 4px white, 0 0 4px ".concat(targetColor, ", 0 0 8px ").concat(targetColor, ",\n\t\t\t0 0 12px ").concat(targetColor, ", 0 0 16px ").concat(targetColor, ", 0 0 18px ").concat(targetColor);
+    bulb.style.color = "rgb(248, 248, 248)";
+  } else {
+    console.log("YIKES!");
+  }
+} // console.log(colorList);
 
 
 colorList.forEach(function (list) {
@@ -752,7 +761,7 @@ colorList.forEach(function (list) {
 
     var listEl = e.target.closest("li");
     var bulb = listEl.firstElementChild;
-    console.log(bulb); //send the color to whoever needs it
+    console.log(bulb.dataset.color); //send the color to whoever needs it
 
     listColor = listEl.classList[1]; //if the neonSwitch is unchecked, alert to turn the switchOn
 
@@ -760,17 +769,33 @@ colorList.forEach(function (list) {
       alert("Please turn the neon switch on.");
       return;
     } //if the list color is equal to other custom color
+    // console.log(colorList);
 
 
-    console.log(listColor); //activate button
-    // setGlowingLight(bulb, listColor);
-    //set color
+    console.log(bulb); //activate button
+
+    colorList.forEach(function (li) {
+      //if btnactive match found-remove it
+      if (li.classList.contains("active")) {
+        li.classList.remove("active");
+      } // li.firstElementChild.style.textShadow = "none";
+
+    });
+    listEl.classList.add("active");
+    setGlowingLightTest(bulb, checkColor(listColor), listEl); //set color
 
     setColor(checkColor(listColor));
   });
 });
 /**
- * set active button state
+ * set active button state?
+ * ----- variable?
+ * --------onClick -> true, setGlow
+ * -------- any other btnClick? -> false, setGlow=off
+ * -------class?
+ * ----------onClick -> add btn-active
+ * ----------any other click? run to see who got the btn-active class, remove it
+ * ----------set the glow to the new btn
  * if any button has active button state, remove it
  * set the glow
  */
