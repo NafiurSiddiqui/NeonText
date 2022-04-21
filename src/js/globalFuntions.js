@@ -59,3 +59,7 @@ export function showBars(show) {
 		setDisplay(widthContainer, null);
 	}
 }
+
+// export function checkBtnActive(){
+
+// }

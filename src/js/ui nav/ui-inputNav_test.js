@@ -2,6 +2,10 @@
 import { globalVar } from "../globalVariables";
 ("./globalVariables");
 
+//global Var destructured
+let { uiNav, uiInputText, uiInputFont, uiInputColor, uiForm, display } =
+	globalVar;
+
 function checkClass(single = false, el, child, className) {
 	if (single === true) {
 		return el.classList.contains(className);
@@ -28,34 +32,31 @@ function removeClass(single = false, el, child, className) {
 	}
 }
 
-function conditionalSet(targetText, val, ...args) {
-	//refer to the individual function arguments in case of confusion
+// function conditionalSet(targetText, val, ...args) {
+// 	//refer to the individual function arguments in case of confusion
 
-	if (targetText === val) {
-		if (checkClass(args[0], args[1], args[2])) {
-			removeClass(args[0], args[1], args[2]);
-		}
-		if (checkClass(args[3], args[4], args[5])) {
-			removeClass(args[3], args[4], args[5]);
-		}
-		toggleDisplay(args[6]);
-		toggleDisplay(args[7]);
-		setClass(args[8], args[9], args[10], args[11]);
-		setClass(args[12], args[13], args[14], args[15]);
-	}
-}
+// 	if (targetText === val) {
+// 		if (checkClass(args[0], args[1], args[2])) {
+// 			removeClass(args[0], args[1], args[2]);
+// 		}
+// 		if (checkClass(args[3], args[4], args[5])) {
+// 			removeClass(args[3], args[4], args[5]);
+// 		}
+// 		toggleDisplay(args[6]);
+// 		toggleDisplay(args[7]);
+// 		setClass(args[8], args[9], args[10], args[11]);
+// 		setClass(args[12], args[13], args[14], args[15]);
+// 	}
+// }
 
 //for quick referencing
+
 const navActive = "nav-active";
 const uiActive = "ui-active";
 //state checking
 let textState = false;
 let fontState = false;
 let colorState = false;
-
-//global Var destructured
-let { uiNav, uiInputText, uiInputFont, uiInputColor, uiForm, display } =
-	globalVar;
 
 // console.log(uiNav[0]);
 

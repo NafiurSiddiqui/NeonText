@@ -36,13 +36,21 @@ function checkColor(listColor) {
 	return response.map((code) => code.code);
 }
 
-console.log(display);
+function setGlowingLight(bulb, targetColor) {
+	bulb.style.textShadow = `0 0 4px white, 0 0 4px ${targetColor}, 0 0 8px ${targetColor},
+		0 0 12px ${targetColor}, 0 0 16px ${targetColor}, 0 0 18px ${targetColor}`;
+	bulb.style.color = "rgb(248, 248, 248)";
+}
+
+// console.log(display);
 
 colorList.forEach((list) => {
 	list.addEventListener("click", (e) => {
 		console.log(e.target);
 		//wherever it is clicked, alwyas make it happen on the parent <li>
 		let listEl = e.target.closest("li");
+		let bulb = listEl.firstElementChild;
+		console.log(bulb);
 		//send the color to whoever needs it
 		listColor = listEl.classList[1];
 
@@ -53,11 +61,15 @@ colorList.forEach((list) => {
 		}
 		//if the list color is equal to other custom color
 		console.log(listColor);
+		//activate button
+		// setGlowingLight(bulb, listColor);
 		//set color
 		setColor(checkColor(listColor));
 	});
 });
 
-// console.log(listColor);
-
-// setColor(listColor);
+/**
+ * set active button state
+ * if any button has active button state, remove it
+ * set the glow
+ */

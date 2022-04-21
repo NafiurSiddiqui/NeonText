@@ -10,7 +10,7 @@ import { userText, metrics } from "../textInput";
 //destructured vars
 let { fontBtn, fontBtnsWhite } = globalFonts;
 
-console.log(fontBtn);
+// console.log(fontBtn);
 let {
 	widthContainer,
 	barWidth,
@@ -82,7 +82,6 @@ fontBtn.forEach((btns) => {
 		//if it is is  the parent
 		if (target.className === "ui-input-fontFamily-list") {
 			let lastChildId = target.lastElementChild.id;
-			// console.log(`From Parent : ${lastChildId}`);
 			writeOnCanvas(ctx, userText);
 			loadFont(lastChildId);
 			let metrics = ctx.measureText(userText);
@@ -97,7 +96,6 @@ fontBtn.forEach((btns) => {
 			);
 		} else {
 			//if it is the child
-			// console.log(`From Child: ${target.id}`);
 			writeOnCanvas(ctx, userText);
 			loadFont(target.id);
 			let metrics = ctx.measureText(userText);
@@ -111,12 +109,13 @@ fontBtn.forEach((btns) => {
 				textLength
 			);
 		}
+
 		let targetBtn = e.target.closest(".ui-input-fontFamily-list");
 		//loop throught all the lists
 		fontBtn.forEach((cls) => {
-			console.log(cls.classList.contains("btn-active"));
+			//if btnactive match found-remove it
+			cls.classList.remove("btn-active");
 		});
-		//if btnactive match found-remove it
 
 		//add btn-active class to the existing target list
 		targetBtn.classList.add("btn-active");

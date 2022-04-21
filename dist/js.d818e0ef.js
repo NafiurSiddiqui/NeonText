@@ -241,14 +241,22 @@ function showBars(show) {
     setDisplay(heightContainer, null);
     setDisplay(widthContainer, null);
   }
-}
+} // export function checkBtnActive(){
+// }
 },{"./globalVariables":"src/js/globalVariables.js"}],"src/js/ui nav/ui-inputNav_test.js":[function(require,module,exports) {
 "use strict";
 
 var _globalVariables = require("../globalVariables");
 
 // import "./globalVariables";
-"./globalVariables";
+"./globalVariables"; //global Var destructured
+
+var uiNav = _globalVariables.globalVar.uiNav,
+    uiInputText = _globalVariables.globalVar.uiInputText,
+    uiInputFont = _globalVariables.globalVar.uiInputFont,
+    uiInputColor = _globalVariables.globalVar.uiInputColor,
+    uiForm = _globalVariables.globalVar.uiForm,
+    display = _globalVariables.globalVar.display;
 
 function checkClass() {
   var single = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : false;
@@ -289,25 +297,22 @@ function removeClass() {
   } else {
     el[child].classList.remove(className);
   }
-}
-
-function conditionalSet(targetText, val) {
-  //refer to the individual function arguments in case of confusion
-  if (targetText === val) {
-    if (checkClass(arguments.length <= 2 ? undefined : arguments[2], arguments.length <= 3 ? undefined : arguments[3], arguments.length <= 4 ? undefined : arguments[4])) {
-      removeClass(arguments.length <= 2 ? undefined : arguments[2], arguments.length <= 3 ? undefined : arguments[3], arguments.length <= 4 ? undefined : arguments[4]);
-    }
-
-    if (checkClass(arguments.length <= 5 ? undefined : arguments[5], arguments.length <= 6 ? undefined : arguments[6], arguments.length <= 7 ? undefined : arguments[7])) {
-      removeClass(arguments.length <= 5 ? undefined : arguments[5], arguments.length <= 6 ? undefined : arguments[6], arguments.length <= 7 ? undefined : arguments[7]);
-    }
-
-    toggleDisplay(arguments.length <= 8 ? undefined : arguments[8]);
-    toggleDisplay(arguments.length <= 9 ? undefined : arguments[9]);
-    setClass(arguments.length <= 10 ? undefined : arguments[10], arguments.length <= 11 ? undefined : arguments[11], arguments.length <= 12 ? undefined : arguments[12], arguments.length <= 13 ? undefined : arguments[13]);
-    setClass(arguments.length <= 14 ? undefined : arguments[14], arguments.length <= 15 ? undefined : arguments[15], arguments.length <= 16 ? undefined : arguments[16], arguments.length <= 17 ? undefined : arguments[17]);
-  }
-} //for quick referencing
+} // function conditionalSet(targetText, val, ...args) {
+// 	//refer to the individual function arguments in case of confusion
+// 	if (targetText === val) {
+// 		if (checkClass(args[0], args[1], args[2])) {
+// 			removeClass(args[0], args[1], args[2]);
+// 		}
+// 		if (checkClass(args[3], args[4], args[5])) {
+// 			removeClass(args[3], args[4], args[5]);
+// 		}
+// 		toggleDisplay(args[6]);
+// 		toggleDisplay(args[7]);
+// 		setClass(args[8], args[9], args[10], args[11]);
+// 		setClass(args[12], args[13], args[14], args[15]);
+// 	}
+// }
+//for quick referencing
 
 
 var navActive = "nav-active";
@@ -315,14 +320,7 @@ var uiActive = "ui-active"; //state checking
 
 var textState = false;
 var fontState = false;
-var colorState = false; //global Var destructured
-
-var uiNav = _globalVariables.globalVar.uiNav,
-    uiInputText = _globalVariables.globalVar.uiInputText,
-    uiInputFont = _globalVariables.globalVar.uiInputFont,
-    uiInputColor = _globalVariables.globalVar.uiInputColor,
-    uiForm = _globalVariables.globalVar.uiForm,
-    display = _globalVariables.globalVar.display; // console.log(uiNav[0]);
+var colorState = false; // console.log(uiNav[0]);
 // checkClass(false, uiNav, 0, navActive);
 
 checkClass(true, uiInputText, null, uiActive);
@@ -445,8 +443,8 @@ function _interopRequireWildcard(obj, nodeInterop) { if (!nodeInterop && obj && 
 
 //destructured vars
 var fontBtn = _globalVariables.default.fontBtn,
-    fontBtnsWhite = _globalVariables.default.fontBtnsWhite;
-console.log(fontBtn);
+    fontBtnsWhite = _globalVariables.default.fontBtnsWhite; // console.log(fontBtn);
+
 var widthContainer = _globalVariables.globalVar.widthContainer,
     barWidth = _globalVariables.globalVar.barWidth,
     barWidthSize = _globalVariables.globalVar.barWidthSize,
@@ -509,8 +507,7 @@ fontBtn.forEach(function (btns) {
     (0, _globalFuntions.clearCanvas)(ctx, canva); //if it is is  the parent
 
     if (target.className === "ui-input-fontFamily-list") {
-      var lastChildId = target.lastElementChild.id; // console.log(`From Parent : ${lastChildId}`);
-
+      var lastChildId = target.lastElementChild.id;
       (0, _globalFuntions.writeOnCanvas)(ctx, _textInput.userText);
       loadFont(lastChildId);
 
@@ -519,7 +516,6 @@ fontBtn.forEach(function (btns) {
       (0, _globalFuntions.measureBars)(display, _metrics, barWidth, barWidthSize, barHeight, barHeightSize, textLength);
     } else {
       //if it is the child
-      // console.log(`From Child: ${target.id}`);
       (0, _globalFuntions.writeOnCanvas)(ctx, _textInput.userText);
       loadFont(target.id);
 
@@ -531,9 +527,9 @@ fontBtn.forEach(function (btns) {
     var targetBtn = e.target.closest(".ui-input-fontFamily-list"); //loop throught all the lists
 
     fontBtn.forEach(function (cls) {
-      console.log(cls.classList.contains("btn-active"));
-    }); //if btnactive match found-remove it
-    //add btn-active class to the existing target list
+      //if btnactive match found-remove it
+      cls.classList.remove("btn-active");
+    }); //add btn-active class to the existing target list
 
     targetBtn.classList.add("btn-active"); //setthe display for bars
 
@@ -744,12 +740,19 @@ function checkColor(listColor) {
   });
 }
 
-console.log(display);
+function setGlowingLight(bulb, targetColor) {
+  bulb.style.textShadow = "0 0 4px white, 0 0 4px ".concat(targetColor, ", 0 0 8px ").concat(targetColor, ",\n\t\t0 0 12px ").concat(targetColor, ", 0 0 16px ").concat(targetColor, ", 0 0 18px ").concat(targetColor);
+  bulb.style.color = "rgb(248, 248, 248)";
+} // console.log(display);
+
+
 colorList.forEach(function (list) {
   list.addEventListener("click", function (e) {
     console.log(e.target); //wherever it is clicked, alwyas make it happen on the parent <li>
 
-    var listEl = e.target.closest("li"); //send the color to whoever needs it
+    var listEl = e.target.closest("li");
+    var bulb = listEl.firstElementChild;
+    console.log(bulb); //send the color to whoever needs it
 
     listColor = listEl.classList[1]; //if the neonSwitch is unchecked, alert to turn the switchOn
 
@@ -759,12 +762,18 @@ colorList.forEach(function (list) {
     } //if the list color is equal to other custom color
 
 
-    console.log(listColor); //set color
+    console.log(listColor); //activate button
+    // setGlowingLight(bulb, listColor);
+    //set color
 
     setColor(checkColor(listColor));
   });
-}); // console.log(listColor);
-// setColor(listColor);
+});
+/**
+ * set active button state
+ * if any button has active button state, remove it
+ * set the glow
+ */
 },{"../globalVariables":"src/js/globalVariables.js"}],"src/js/index.js":[function(require,module,exports) {
 "use strict";
 
@@ -809,7 +818,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "51061" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "50961" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
