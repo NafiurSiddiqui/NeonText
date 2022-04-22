@@ -1,5 +1,5 @@
 import { globalVar } from "./globalVariables";
-import { globalFont } from "./font family/setFonts";
+// import { globalFont } from "./font family/setFonts";
 import setDisplay, {
 	writeOnCanvas,
 	clearCanvas,
@@ -7,7 +7,7 @@ import setDisplay, {
 	showBars,
 	writeOnCanvasWithFont,
 } from "./globalFuntions";
-import { fontClicked } from "./font family/setFonts";
+// import { fontClicked } from "./font family/setFonts";
 
 let {
 	widthContainer,

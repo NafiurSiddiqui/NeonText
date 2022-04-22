@@ -222,11 +222,15 @@ function measureBars(display, metrics, barWidth, barWidthSize, barHeight, barHei
   //width
   var displayWidth = getComputedStyle(display).width;
   var displayString = displayWidth.slice(0, -2);
-  var displaySize = Math.ceil(+displayString); //height
+  var displaySize = Math.ceil(+displayString); // if (metrics === null) {
+  // 	return;
+  // }
+  //height
 
   var height = Math.floor(metrics.actualBoundingBoxAscent) + Math.floor(metrics.actualBoundingBoxDescent); //measurement bars
 
   barWidth.style.width = "".concat(displaySize, "px");
+  console.log(displaySize);
   barWidthSize.textContent = "".concat(textLength * 2, " CM");
   barHeight.style.height = "".concat(height, "px"); // console.log(typeof height);
 
@@ -423,7 +427,130 @@ _globalVariables.globalVar.uiNav.forEach(function (list) {
  * @ERRORs -
  * In case of any TypeError:el.classlist is undefined, try turning the booleans true or false. Understanding these helper function beforehand will save your time!
  */
-},{"../globalVariables":"src/js/globalVariables.js"}],"src/js/font family/setFonts.js":[function(require,module,exports) {
+},{"../globalVariables":"src/js/globalVariables.js"}],"src/js/textInput.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.userText = exports.textLength = exports.metrics = void 0;
+
+var _globalVariables = require("./globalVariables");
+
+var _globalFuntions = _interopRequireWildcard(require("./globalFuntions"));
+
+function _getRequireWildcardCache(nodeInterop) { if (typeof WeakMap !== "function") return null; var cacheBabelInterop = new WeakMap(); var cacheNodeInterop = new WeakMap(); return (_getRequireWildcardCache = function (nodeInterop) { return nodeInterop ? cacheNodeInterop : cacheBabelInterop; })(nodeInterop); }
+
+function _interopRequireWildcard(obj, nodeInterop) { if (!nodeInterop && obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(nodeInterop); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (key !== "default" && Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
+
+// import { globalFont } from "./font family/setFonts";
+// import { fontClicked } from "./font family/setFonts";
+var widthContainer = _globalVariables.globalVar.widthContainer,
+    barWidth = _globalVariables.globalVar.barWidth,
+    barWidthSize = _globalVariables.globalVar.barWidthSize,
+    heightContainer = _globalVariables.globalVar.heightContainer,
+    barHeight = _globalVariables.globalVar.barHeight,
+    barHeightSize = _globalVariables.globalVar.barHeightSize,
+    uiInputText = _globalVariables.globalVar.uiInputText,
+    display = _globalVariables.globalVar.display,
+    canva = _globalVariables.globalVar.canva,
+    ctx = _globalVariables.globalVar.ctx;
+var navText = uiInputText.firstElementChild; //state variables
+
+var textInputState = false; //set the default states
+
+var userText = "";
+exports.userText = userText;
+var textLength = null;
+exports.textLength = textLength;
+var metrics = null; //---fontFamily = selected from the list of fontFamily
+//---color = selected from the list of color
+
+exports.metrics = metrics;
+
+function init() {
+  //initial default state
+  //check for local storage value exist
+  if (localStorage.length > 0) {
+    exports.userText = userText = localStorage.getItem("userText");
+    display.textContent = userText; // writeOnCanvas(ctx, userText);
+
+    (0, _globalFuntions.writeOnCanvasWithFont)(ctx, userText, "arial");
+  } else {
+    exports.userText = userText = "Your Text";
+    display.textContent = userText;
+    (0, _globalFuntions.default)(widthContainer, null);
+    (0, _globalFuntions.default)(heightContainer, null);
+  }
+
+  ctx.font = "4rem arial";
+  ctx.fillStyle = "White";
+}
+
+init(); // let textWrapper = document.querySelector(".ui-display-userText-wrapper");
+
+navText.addEventListener("input", function (e) {
+  e.preventDefault(); //get the input value, store it, return it
+
+  exports.userText = userText = e.target.value; //persist data in local storage
+
+  localStorage.setItem("userText", userText); //show each letter upon typing
+
+  display.textContent = userText.trim();
+  var textLength = userText.length; //check if the state is true
+
+  textLength > 0 ? textInputState = true : false;
+  textLength >= 30 ? alert("If you need more than 30 characters of text, Please contact us: \uD83D\uDCDE +14-999-876-42") : ""; //any space should be omitted from calculating
+
+  if (e.data === " ") {
+    return;
+  }
+
+  if (e.inputType === "deleteContentBackward") {
+    //recapture the userText here
+    var newUserText = userText;
+    console.log(newUserText); //rerender the userText
+
+    if (newUserText.length !== 0) {
+      (0, _globalFuntions.clearCanvas)(ctx, canva);
+      (0, _globalFuntions.writeOnCanvas)(ctx, newUserText);
+    }
+  } else {
+    (0, _globalFuntions.writeOnCanvas)(ctx, userText);
+    return exports.metrics = metrics = ctx.measureText(userText);
+  }
+
+  (0, _globalFuntions.measureBars)(display, metrics, barWidth, barWidthSize, barHeight, barHeightSize, textLength);
+
+  if (textLength === 0) {
+    (0, _globalFuntions.clearCanvas)(ctx, canva);
+  }
+
+  if (userText.length > 0) {
+    (0, _globalFuntions.default)(widthContainer, true);
+  } else {
+    (0, _globalFuntions.default)(widthContainer, null);
+  } //setTimout for session storage and remove items from local storage, if there is data
+
+
+  return [userText, metrics];
+});
+
+function setBarMeasurement() {
+  console.log("💥 time 💥");
+  (0, _globalFuntions.showBars)(true);
+}
+
+navText.addEventListener("keyup", function () {
+  //wait for 3 seconds and show the measurement
+  clearTimeout(setBarMeasurement);
+  (0, _globalFuntions.showBars)(null);
+  console.log("CLEARED TIMEOUT");
+});
+navText.addEventListener("keydown", function () {
+  setTimeout(setBarMeasurement, 3000);
+});
+},{"./globalVariables":"src/js/globalVariables.js","./globalFuntions":"src/js/globalFuntions.js"}],"src/js/font family/setFonts.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -537,130 +664,7 @@ fontBtn.forEach(function (btns) {
     return fontClicked;
   });
 });
-},{"../globalVariables":"src/js/globalVariables.js","../globalFuntions":"src/js/globalFuntions.js","../textInput":"src/js/textInput.js"}],"src/js/textInput.js":[function(require,module,exports) {
-"use strict";
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.userText = exports.textLength = exports.metrics = void 0;
-
-var _globalVariables = require("./globalVariables");
-
-var _setFonts = require("./font family/setFonts");
-
-var _globalFuntions = _interopRequireWildcard(require("./globalFuntions"));
-
-function _getRequireWildcardCache(nodeInterop) { if (typeof WeakMap !== "function") return null; var cacheBabelInterop = new WeakMap(); var cacheNodeInterop = new WeakMap(); return (_getRequireWildcardCache = function (nodeInterop) { return nodeInterop ? cacheNodeInterop : cacheBabelInterop; })(nodeInterop); }
-
-function _interopRequireWildcard(obj, nodeInterop) { if (!nodeInterop && obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(nodeInterop); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (key !== "default" && Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
-
-var widthContainer = _globalVariables.globalVar.widthContainer,
-    barWidth = _globalVariables.globalVar.barWidth,
-    barWidthSize = _globalVariables.globalVar.barWidthSize,
-    heightContainer = _globalVariables.globalVar.heightContainer,
-    barHeight = _globalVariables.globalVar.barHeight,
-    barHeightSize = _globalVariables.globalVar.barHeightSize,
-    uiInputText = _globalVariables.globalVar.uiInputText,
-    display = _globalVariables.globalVar.display,
-    canva = _globalVariables.globalVar.canva,
-    ctx = _globalVariables.globalVar.ctx;
-var navText = uiInputText.firstElementChild; //state variables
-
-var textInputState = false; //set the default states
-
-var userText = "";
-exports.userText = userText;
-var textLength = null;
-exports.textLength = textLength;
-var metrics = null; //---fontFamily = selected from the list of fontFamily
-//---color = selected from the list of color
-
-exports.metrics = metrics;
-
-function init() {
-  //initial default state
-  //check for local storage value exist
-  if (localStorage.length > 0) {
-    exports.userText = userText = localStorage.getItem("userText");
-    display.textContent = userText; // writeOnCanvas(ctx, userText);
-
-    (0, _globalFuntions.writeOnCanvasWithFont)(ctx, userText, "arial");
-  } else {
-    exports.userText = userText = "Your Text";
-    display.textContent = userText;
-    (0, _globalFuntions.default)(widthContainer, null);
-    (0, _globalFuntions.default)(heightContainer, null);
-  }
-
-  ctx.font = "4rem arial";
-  ctx.fillStyle = "White";
-}
-
-init(); // let textWrapper = document.querySelector(".ui-display-userText-wrapper");
-
-navText.addEventListener("input", function (e) {
-  e.preventDefault(); //get the input value, store it, return it
-
-  exports.userText = userText = e.target.value; //persist data in local storage
-
-  localStorage.setItem("userText", userText); //show each letter upon typing
-
-  display.textContent = userText.trim();
-  var textLength = userText.length; //check if the state is true
-
-  textLength > 0 ? textInputState = true : false;
-  textLength >= 30 ? alert("If you need more than 30 characters of text, Please contact us: \uD83D\uDCDE +14-999-876-42") : ""; //any space should be omitted from calculating
-
-  if (e.data === " ") {
-    return;
-  }
-
-  if (e.inputType === "deleteContentBackward") {
-    //recapture the userText here
-    var newUserText = userText;
-    console.log(newUserText); //rerender the userText
-
-    if (newUserText.length !== 0) {
-      (0, _globalFuntions.clearCanvas)(ctx, canva);
-      (0, _globalFuntions.writeOnCanvas)(ctx, newUserText);
-    }
-  } else {
-    (0, _globalFuntions.writeOnCanvas)(ctx, userText);
-    return exports.metrics = metrics = ctx.measureText(userText);
-  }
-
-  (0, _globalFuntions.measureBars)(display, metrics, barWidth, barWidthSize, barHeight, barHeightSize, textLength);
-
-  if (textLength === 0) {
-    (0, _globalFuntions.clearCanvas)(ctx, canva);
-  }
-
-  if (userText.length > 0) {
-    (0, _globalFuntions.default)(widthContainer, true);
-  } else {
-    (0, _globalFuntions.default)(widthContainer, null);
-  } //setTimout for session storage and remove items from local storage, if there is data
-
-
-  return [userText, metrics];
-});
-
-function setBarMeasurement() {
-  console.log("💥 time 💥");
-  (0, _globalFuntions.showBars)(true);
-}
-
-navText.addEventListener("keyup", function () {
-  //wait for 3 seconds and show the measurement
-  clearTimeout(setBarMeasurement);
-  (0, _globalFuntions.showBars)(null);
-  console.log("CLEARED TIMEOUT");
-});
-navText.addEventListener("keydown", function () {
-  setTimeout(setBarMeasurement, 3000);
-});
-},{"./globalVariables":"src/js/globalVariables.js","./font family/setFonts":"src/js/font family/setFonts.js","./globalFuntions":"src/js/globalFuntions.js"}],"src/js/neonSwitch.js":[function(require,module,exports) {
+},{"../globalVariables":"src/js/globalVariables.js","../globalFuntions":"src/js/globalFuntions.js","../textInput":"src/js/textInput.js"}],"src/js/neonSwitch.js":[function(require,module,exports) {
 "use strict";
 
 var _globalVariables = require("./globalVariables");
@@ -731,8 +735,7 @@ function checkColor(listColor) {
   var response = colorPalette.filter(function (color) {
     //get the matched colorId
     return listColor.includes(color.id);
-  }); // console.log(response.map((code) => code.code));
-
+  });
   return response.map(function (code) {
     return code.code;
   });
@@ -749,25 +752,7 @@ function setGlowingLight(bulb, targetColor) {
     bulb.style.textShadow = "none";
     bulb.style.color = "".concat(checkColor(listColor));
   }
-} // function setGlowingLightTest(bulb, targetColor, targetNode) {
-// 	//default style on each
-// 	colorList.forEach((list) => {
-// 		list.classList.remove("active");
-// 		// let bulbs = list.firstElementChild;
-// 		// // bulbs.style.textShadow = `0px 0px 0px orange`;
-// 		// bulbs.style.color = `${setColor(listColor)}`;
-// 	});
-// 	console.log(targetNode);
-// 	targetNode.classList.add("active");
-// 	if (targetNode.classList.contains("active")) {
-// 		bulb.style.textShadow = `0 0 4px white, 0 0 4px ${targetColor}, 0 0 8px ${targetColor},
-// 			0 0 12px ${targetColor}, 0 0 16px ${targetColor}, 0 0 18px ${targetColor}`;
-// 		bulb.style.color = "rgb(248, 248, 248)";
-// 		console.log(bulb);
-// 	}
-// }
-// console.log(colorList);
-
+}
 
 var btnActivate;
 colorList.forEach(function (list) {
@@ -780,7 +765,6 @@ colorList.forEach(function (list) {
     // let targetColor = e.target.classList[1];
     listColor = e.target.classList[1];
     var bulb = e.target.firstElementChild;
-    console.log(listColor);
 
     if (bulb.dataset.active === "true") {
       setGlowingLight(bulb, checkColor(listColor), 1, listColor);
@@ -791,8 +775,7 @@ colorList.forEach(function (list) {
   list.addEventListener("click", function (e) {
     //wherever it is clicked, alwyas make it happen on the parent <li>
     var listEl = e.target.closest("li");
-    var bulb = listEl.firstElementChild; // console.log(bulb.dataset.color);
-    //send the color to whoever needs it
+    var bulb = listEl.firstElementChild; //send the color to whoever needs it
 
     listColor = listEl.classList[1]; //if the neonSwitch is unchecked, alert to turn the switchOn
 
@@ -800,17 +783,13 @@ colorList.forEach(function (list) {
       alert("Please turn the neon switch on.");
       return;
     } //if the list color is equal to other custom color
-    // console.log(colorList);
 
 
     bulbDom.forEach(function (li) {
       li.dataset.active = false;
     }); //activate button
-    // listEl.classList.add("active");
 
-    bulb.dataset.active = true;
-    console.log(bulb);
-    console.log(listEl); //check if any other bulbData is true or empty
+    bulb.dataset.active = true; //check if any other bulbData is true or empty
     //set btn glow
 
     if (bulb.dataset.active === "true") {
@@ -820,7 +799,6 @@ colorList.forEach(function (list) {
         setGlowingLight(bulb, checkColor(bulb.dataset.color), 0, bulb.dataset.color);
       });
       setGlowingLight(bulb, checkColor(listColor), 1, listColor);
-      console.log(bulb.dataset.active);
     } else {
       btnActivate = false;
     } //set color
@@ -829,31 +807,6 @@ colorList.forEach(function (list) {
     setColor(checkColor(listColor));
   });
 });
-/**
- * set active button state?
- * ----- variable?
- * --------onClick -> true, setGlow
- * -------- any other btnClick? -> false, setGlow=off
- * -------class?
- * ----------onClick -> add btn-active
- * ----------any other click? run to see who got the btn-active class, remove it
- * ----------set the glow to the new btn
- * if any button has active button state, remove it
- * set the glow
- */
-
-/**
- * set a data-active on each btn
- * with each click, run a loop and make all data-active to false
- * set data-active to true to the recent target
- * setGlowing ligt
- */
-
-/**
- *@setGlow - if dataActive is true - setThe glow
-			- else - set the default style
- */
-//-------------- Hover
 },{"../globalVariables":"src/js/globalVariables.js"}],"src/js/index.js":[function(require,module,exports) {
 "use strict";
 

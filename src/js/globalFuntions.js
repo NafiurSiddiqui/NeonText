@@ -37,6 +37,10 @@ export function measureBars(
 	let displayWidth = getComputedStyle(display).width;
 	let displayString = displayWidth.slice(0, -2);
 	let displaySize = Math.ceil(+displayString);
+
+	// if (metrics === null) {
+	// 	return;
+	// }
 	//height
 	let height =
 		Math.floor(metrics.actualBoundingBoxAscent) +
@@ -44,6 +48,7 @@ export function measureBars(
 	//measurement bars
 
 	barWidth.style.width = `${displaySize}px`;
+	console.log(displaySize);
 	barWidthSize.textContent = `${textLength * 2} CM`;
 	barHeight.style.height = `${height}px`;
 	// console.log(typeof height);

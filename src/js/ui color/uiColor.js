@@ -33,7 +33,6 @@ function checkColor(listColor) {
 		return listColor.includes(color.id);
 	});
 
-	// console.log(response.map((code) => code.code));
 	return response.map((code) => code.code);
 }
 
@@ -48,27 +47,6 @@ function setGlowingLight(bulb, targetColor, glowLight = 0, listColor) {
 	}
 }
 
-// function setGlowingLightTest(bulb, targetColor, targetNode) {
-// 	//default style on each
-// 	colorList.forEach((list) => {
-// 		list.classList.remove("active");
-// 		// let bulbs = list.firstElementChild;
-// 		// // bulbs.style.textShadow = `0px 0px 0px orange`;
-// 		// bulbs.style.color = `${setColor(listColor)}`;
-// 	});
-
-// 	console.log(targetNode);
-// 	targetNode.classList.add("active");
-// 	if (targetNode.classList.contains("active")) {
-// 		bulb.style.textShadow = `0 0 4px white, 0 0 4px ${targetColor}, 0 0 8px ${targetColor},
-// 			0 0 12px ${targetColor}, 0 0 16px ${targetColor}, 0 0 18px ${targetColor}`;
-// 		bulb.style.color = "rgb(248, 248, 248)";
-// 		console.log(bulb);
-// 	}
-// }
-
-// console.log(colorList);
-
 let btnActivate;
 
 colorList.forEach((list) => {
@@ -81,7 +59,7 @@ colorList.forEach((list) => {
 		// let targetColor = e.target.classList[1];
 		listColor = e.target.classList[1];
 		let bulb = e.target.firstElementChild;
-		console.log(listColor);
+
 		if (bulb.dataset.active === "true") {
 			setGlowingLight(bulb, checkColor(listColor), 1, listColor);
 		} else {
@@ -92,7 +70,7 @@ colorList.forEach((list) => {
 		//wherever it is clicked, alwyas make it happen on the parent <li>
 		let listEl = e.target.closest("li");
 		let bulb = listEl.firstElementChild;
-		// console.log(bulb.dataset.color);
+
 		//send the color to whoever needs it
 		listColor = listEl.classList[1];
 		//if the neonSwitch is unchecked, alert to turn the switchOn
@@ -101,7 +79,6 @@ colorList.forEach((list) => {
 			return;
 		}
 		//if the list color is equal to other custom color
-		// console.log(colorList);
 
 		bulbDom.forEach((li) => {
 			li.dataset.active = false;
@@ -109,10 +86,8 @@ colorList.forEach((list) => {
 
 		//activate button
 
-		// listEl.classList.add("active");
 		bulb.dataset.active = true;
-		console.log(bulb);
-		console.log(listEl);
+
 		//check if any other bulbData is true or empty
 
 		//set btn glow
@@ -128,7 +103,6 @@ colorList.forEach((list) => {
 				);
 			});
 			setGlowingLight(bulb, checkColor(listColor), 1, listColor);
-			console.log(bulb.dataset.active);
 		} else {
 			btnActivate = false;
 		}
@@ -137,30 +111,3 @@ colorList.forEach((list) => {
 		setColor(checkColor(listColor));
 	});
 });
-
-/**
- * set active button state?
- * ----- variable?
- * --------onClick -> true, setGlow
- * -------- any other btnClick? -> false, setGlow=off
- * -------class?
- * ----------onClick -> add btn-active
- * ----------any other click? run to see who got the btn-active class, remove it
- * ----------set the glow to the new btn
- * if any button has active button state, remove it
- * set the glow
- */
-
-/**
- * set a data-active on each btn
- * with each click, run a loop and make all data-active to false
- * set data-active to true to the recent target
- * setGlowing ligt
- */
-
-/**
- *@setGlow - if dataActive is true - setThe glow
-			- else - set the default style
- */
-
-//-------------- Hover
