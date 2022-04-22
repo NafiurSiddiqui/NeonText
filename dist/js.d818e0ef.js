@@ -771,11 +771,23 @@ function setGlowingLight(bulb, targetColor) {
 
 var btnActivate;
 colorList.forEach(function (list) {
-  // list.addEventListener("mouseenter", (e) => {
-  // 	let targetColor = e.target.classList[1];
-  // 	let bulb = e.target.firstElementChild;
-  // 	setGlowingLight(bulb, checkColor(targetColor), 1);
-  // });
+  list.addEventListener("mouseenter", function (e) {
+    var targetColor = e.target.classList[1];
+    var bulb = e.target.firstElementChild;
+    setGlowingLight(bulb, checkColor(targetColor), 1);
+  });
+  list.addEventListener("mouseleave", function (e) {
+    // let targetColor = e.target.classList[1];
+    listColor = e.target.classList[1];
+    var bulb = e.target.firstElementChild;
+    console.log(listColor);
+
+    if (bulb.dataset.active === "true") {
+      setGlowingLight(bulb, checkColor(listColor), 1, listColor);
+    } else {
+      setGlowingLight(bulb, checkColor(listColor), 0, listColor);
+    }
+  });
   list.addEventListener("click", function (e) {
     //wherever it is clicked, alwyas make it happen on the parent <li>
     var listEl = e.target.closest("li");
@@ -794,18 +806,11 @@ colorList.forEach(function (list) {
     bulbDom.forEach(function (li) {
       li.dataset.active = false;
     }); //activate button
+    // listEl.classList.add("active");
 
-    listEl.classList.add("active");
     bulb.dataset.active = true;
     console.log(bulb);
     console.log(listEl); //check if any other bulbData is true or empty
-    // if (listEl.classList.contains("active")) {
-    // 	btnActivate = true;
-    // 	setGlowingLight(bulb, checkColor(listColor), 1);
-    // } else {
-    // 	btnActivate = false;
-    // 	setGlowingLight(bulb, checkColor(listColor), 0);
-    // }
     //set btn glow
 
     if (bulb.dataset.active === "true") {
@@ -822,14 +827,6 @@ colorList.forEach(function (list) {
 
 
     setColor(checkColor(listColor));
-  });
-  list.addEventListener("mouseleave", function (e) {
-    var targetColor = e.target.classList[1];
-    var bulb = e.target.firstElementChild; // if (btnActivate === true) {
-    // 	setGlowingLight(bulb, checkColor(targetColor), 1);
-    // } else {
-    // 	setGlowingLight(bulb, checkColor(targetColor), 0);
-    // }
   });
 });
 /**
@@ -901,7 +898,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "62361" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "61959" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

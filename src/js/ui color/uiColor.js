@@ -29,6 +29,7 @@ function setColor(color) {
 function checkColor(listColor) {
 	let response = colorPalette.filter((color) => {
 		//get the matched colorId
+
 		return listColor.includes(color.id);
 	});
 
@@ -71,12 +72,22 @@ function setGlowingLight(bulb, targetColor, glowLight = 0, listColor) {
 let btnActivate;
 
 colorList.forEach((list) => {
-	// list.addEventListener("mouseenter", (e) => {
-	// 	let targetColor = e.target.classList[1];
-	// 	let bulb = e.target.firstElementChild;
-	// 	setGlowingLight(bulb, checkColor(targetColor), 1);
-	// });
-
+	list.addEventListener("mouseenter", (e) => {
+		let targetColor = e.target.classList[1];
+		let bulb = e.target.firstElementChild;
+		setGlowingLight(bulb, checkColor(targetColor), 1);
+	});
+	list.addEventListener("mouseleave", (e) => {
+		// let targetColor = e.target.classList[1];
+		listColor = e.target.classList[1];
+		let bulb = e.target.firstElementChild;
+		console.log(listColor);
+		if (bulb.dataset.active === "true") {
+			setGlowingLight(bulb, checkColor(listColor), 1, listColor);
+		} else {
+			setGlowingLight(bulb, checkColor(listColor), 0, listColor);
+		}
+	});
 	list.addEventListener("click", (e) => {
 		//wherever it is clicked, alwyas make it happen on the parent <li>
 		let listEl = e.target.closest("li");
@@ -98,19 +109,12 @@ colorList.forEach((list) => {
 
 		//activate button
 
-		listEl.classList.add("active");
+		// listEl.classList.add("active");
 		bulb.dataset.active = true;
 		console.log(bulb);
 		console.log(listEl);
 		//check if any other bulbData is true or empty
 
-		// if (listEl.classList.contains("active")) {
-		// 	btnActivate = true;
-		// 	setGlowingLight(bulb, checkColor(listColor), 1);
-		// } else {
-		// 	btnActivate = false;
-		// 	setGlowingLight(bulb, checkColor(listColor), 0);
-		// }
 		//set btn glow
 		if (bulb.dataset.active === "true") {
 			btnActivate = true;
@@ -131,16 +135,6 @@ colorList.forEach((list) => {
 
 		//set color
 		setColor(checkColor(listColor));
-	});
-
-	list.addEventListener("mouseleave", (e) => {
-		let targetColor = e.target.classList[1];
-		let bulb = e.target.firstElementChild;
-		// if (btnActivate === true) {
-		// 	setGlowingLight(bulb, checkColor(targetColor), 1);
-		// } else {
-		// 	setGlowingLight(bulb, checkColor(targetColor), 0);
-		// }
 	});
 });
 
