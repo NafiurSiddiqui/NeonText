@@ -683,6 +683,7 @@ var _globalVariables = require("../globalVariables");
 var display = _globalVariables.globalVar.display,
     colorList = _globalVariables.globalVar.colorList,
     neonSwitch = _globalVariables.globalVar.neonSwitch;
+var bulbDom = document.querySelectorAll(".fa.fa-lightbulb-o");
 var colorPalette = [{
   id: "orange",
   code: "orange"
@@ -730,38 +731,56 @@ function checkColor(listColor) {
   var response = colorPalette.filter(function (color) {
     //get the matched colorId
     return listColor.includes(color.id);
-  }); // console.log(Object.assign({}, response));
+  }); // console.log(response.map((code) => code.code));
 
-  console.log(response.map(function (code) {
-    return code.code;
-  }));
   return response.map(function (code) {
     return code.code;
   });
-} // function setGlowingLight(bulb, targetColor) {
-// 	bulb.style.textShadow = `0 0 4px white, 0 0 4px ${targetColor}, 0 0 8px ${targetColor},
-// 		0 0 12px ${targetColor}, 0 0 16px ${targetColor}, 0 0 18px ${targetColor}`;
-// 	bulb.style.color = "rgb(248, 248, 248)";
-// }
+}
 
+function setGlowingLight(bulb, targetColor) {
+  var glowLight = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 0;
+  var listColor = arguments.length > 3 ? arguments[3] : undefined;
 
-function setGlowingLightTest(bulb, targetColor, targetNode) {
-  if (targetNode.classList.contains("active")) {
-    bulb.style.textShadow = "0 0 4px white, 0 0 4px ".concat(targetColor, ", 0 0 8px ").concat(targetColor, ",\n\t\t\t0 0 12px ").concat(targetColor, ", 0 0 16px ").concat(targetColor, ", 0 0 18px ").concat(targetColor);
+  if (glowLight === 1) {
+    bulb.style.textShadow = "0 0 4px white, 0 0 4px ".concat(targetColor, ", 0 0 8px ").concat(targetColor, ",\n\t\t0 0 12px ").concat(targetColor, ", 0 0 16px ").concat(targetColor, ", 0 0 18px ").concat(targetColor);
     bulb.style.color = "rgb(248, 248, 248)";
   } else {
-    console.log("YIKES!");
+    bulb.style.textShadow = "none";
+    bulb.style.color = "".concat(checkColor(listColor));
   }
-} // console.log(colorList);
+} // function setGlowingLightTest(bulb, targetColor, targetNode) {
+// 	//default style on each
+// 	colorList.forEach((list) => {
+// 		list.classList.remove("active");
+// 		// let bulbs = list.firstElementChild;
+// 		// // bulbs.style.textShadow = `0px 0px 0px orange`;
+// 		// bulbs.style.color = `${setColor(listColor)}`;
+// 	});
+// 	console.log(targetNode);
+// 	targetNode.classList.add("active");
+// 	if (targetNode.classList.contains("active")) {
+// 		bulb.style.textShadow = `0 0 4px white, 0 0 4px ${targetColor}, 0 0 8px ${targetColor},
+// 			0 0 12px ${targetColor}, 0 0 16px ${targetColor}, 0 0 18px ${targetColor}`;
+// 		bulb.style.color = "rgb(248, 248, 248)";
+// 		console.log(bulb);
+// 	}
+// }
+// console.log(colorList);
 
 
+var btnActivate;
 colorList.forEach(function (list) {
+  // list.addEventListener("mouseenter", (e) => {
+  // 	let targetColor = e.target.classList[1];
+  // 	let bulb = e.target.firstElementChild;
+  // 	setGlowingLight(bulb, checkColor(targetColor), 1);
+  // });
   list.addEventListener("click", function (e) {
-    console.log(e.target); //wherever it is clicked, alwyas make it happen on the parent <li>
-
+    //wherever it is clicked, alwyas make it happen on the parent <li>
     var listEl = e.target.closest("li");
-    var bulb = listEl.firstElementChild;
-    console.log(bulb.dataset.color); //send the color to whoever needs it
+    var bulb = listEl.firstElementChild; // console.log(bulb.dataset.color);
+    //send the color to whoever needs it
 
     listColor = listEl.classList[1]; //if the neonSwitch is unchecked, alert to turn the switchOn
 
@@ -772,19 +791,45 @@ colorList.forEach(function (list) {
     // console.log(colorList);
 
 
-    console.log(bulb); //activate button
+    bulbDom.forEach(function (li) {
+      li.dataset.active = false;
+    }); //activate button
 
-    colorList.forEach(function (li) {
-      //if btnactive match found-remove it
-      if (li.classList.contains("active")) {
-        li.classList.remove("active");
-      } // li.firstElementChild.style.textShadow = "none";
-
-    });
     listEl.classList.add("active");
-    setGlowingLightTest(bulb, checkColor(listColor), listEl); //set color
+    bulb.dataset.active = true;
+    console.log(bulb);
+    console.log(listEl); //check if any other bulbData is true or empty
+    // if (listEl.classList.contains("active")) {
+    // 	btnActivate = true;
+    // 	setGlowingLight(bulb, checkColor(listColor), 1);
+    // } else {
+    // 	btnActivate = false;
+    // 	setGlowingLight(bulb, checkColor(listColor), 0);
+    // }
+    //set btn glow
+
+    if (bulb.dataset.active === "true") {
+      btnActivate = true;
+      bulbDom.forEach(function (bulb) {
+        //get each bulbs color
+        setGlowingLight(bulb, checkColor(bulb.dataset.color), 0, bulb.dataset.color);
+      });
+      setGlowingLight(bulb, checkColor(listColor), 1, listColor);
+      console.log(bulb.dataset.active);
+    } else {
+      btnActivate = false;
+    } //set color
+
 
     setColor(checkColor(listColor));
+  });
+  list.addEventListener("mouseleave", function (e) {
+    var targetColor = e.target.classList[1];
+    var bulb = e.target.firstElementChild; // if (btnActivate === true) {
+    // 	setGlowingLight(bulb, checkColor(targetColor), 1);
+    // } else {
+    // 	setGlowingLight(bulb, checkColor(targetColor), 0);
+    // }
   });
 });
 /**
@@ -799,6 +844,19 @@ colorList.forEach(function (list) {
  * if any button has active button state, remove it
  * set the glow
  */
+
+/**
+ * set a data-active on each btn
+ * with each click, run a loop and make all data-active to false
+ * set data-active to true to the recent target
+ * setGlowing ligt
+ */
+
+/**
+ *@setGlow - if dataActive is true - setThe glow
+			- else - set the default style
+ */
+//-------------- Hover
 },{"../globalVariables":"src/js/globalVariables.js"}],"src/js/index.js":[function(require,module,exports) {
 "use strict";
 
@@ -843,7 +901,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "50961" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "62361" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

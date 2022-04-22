@@ -23,110 +23,110 @@ $white: rgb(225, 227, 230);
 	}
 
 	//hover effect per bulb
-	&.orange {
-		&:hover {
-			i[data-color="orange"] {
-				@include glowingLight(orange);
-			}
-		}
-	}
+	// &.orange {
+	// 	&:hover {
+	// 		i[data-color="orange"] {
+	// 			@include glowingLight(orange);
+	// 		}
+	// 	}
+	// }
 
-	//red
-	&.lightRed {
-		&:hover {
-			i[data-color="light red"] {
-				@include glowingLight($lightRed);
-			}
-		}
-	}
-	//red
-	&.red {
-		&:hover {
-			i[data-color="red"] {
-				@include glowingLight(red);
-			}
-		}
-	}
-	//deepBlue
-	&.deepBlue {
-		&:hover {
-			i[data-color="deep blue"] {
-				@include glowingLight($deepBlue);
-			}
-		}
-	}
-	//electric blue
-	&.electricBlue {
-		&:hover {
-			i[data-color="electric blue"] {
-				@include glowingLight($electricBlue);
-			}
-		}
-	}
-	//tropical blue
-	&.tropicalBlue {
-		&:hover {
-			i[data-color="tropical blue"] {
-				@include glowingLight($tropicalBlue);
-			}
-		}
-	}
-	//ice blue
-	&.iceBlue {
-		&:hover {
-			i[data-color="ice blue"] {
-				@include glowingLight($iceBlue);
-			}
-		}
-	}
-	//green
-	&.green {
-		&:hover {
-			i[data-color="green"] {
-				@include glowingLight($green);
-			}
-		}
-	}
+	// //red
+	// &.lightRed {
+	// 	&:hover {
+	// 		i[data-color="light red"] {
+	// 			@include glowingLight($lightRed);
+	// 		}
+	// 	}
+	// }
+	// //red
+	// &.red {
+	// 	&:hover {
+	// 		i[data-color="red"] {
+	// 			@include glowingLight(red);
+	// 		}
+	// 	}
+	// }
+	// //deepBlue
+	// &.deepBlue {
+	// 	&:hover {
+	// 		i[data-color="deep blue"] {
+	// 			@include glowingLight($deepBlue);
+	// 		}
+	// 	}
+	// }
+	// //electric blue
+	// &.electricBlue {
+	// 	&:hover {
+	// 		i[data-color="electric blue"] {
+	// 			@include glowingLight($electricBlue);
+	// 		}
+	// 	}
+	// }
+	// //tropical blue
+	// &.tropicalBlue {
+	// 	&:hover {
+	// 		i[data-color="tropical blue"] {
+	// 			@include glowingLight($tropicalBlue);
+	// 		}
+	// 	}
+	// }
+	// //ice blue
+	// &.iceBlue {
+	// 	&:hover {
+	// 		i[data-color="ice blue"] {
+	// 			@include glowingLight($iceBlue);
+	// 		}
+	// 	}
+	// }
+	// //green
+	// &.green {
+	// 	&:hover {
+	// 		i[data-color="green"] {
+	// 			@include glowingLight($green);
+	// 		}
+	// 	}
+	// }
 
-	//mint green
-	&.mintGreen {
-		&:hover {
-			i[data-color="mint green"] {
-				@include glowingLight($mintGreen);
-			}
-		}
-	}
+	// //mint green
+	// &.mintGreen {
+	// 	&:hover {
+	// 		i[data-color="mint green"] {
+	// 			@include glowingLight($mintGreen);
+	// 		}
+	// 	}
+	// }
 
-	//deep green
-	&.deepGreen {
-		&:hover {
-			i[data-color="deep green"] {
-				@include glowingLight($deepGreen);
-			}
-		}
-	}
-	//warm white
-	&.warmWhite {
-		transition: background-color 0.3s ease-in-out;
-		&:hover {
-			i[data-color="warm white"] {
-				@include glowingLight($warmWhite);
-			}
-			background-color: rgba(97, 97, 97, 0.582);
-			color: white;
-		}
-	}
-	//white
-	&.white {
-		transition: background-color 0.3s ease-in-out;
-		&:hover {
-			i[data-color="white"] {
-				@include glowingLight($white);
-			}
-			background-color: rgba(97, 97, 97, 0.582);
-			color: white;
-		}
-	}
+	// //deep green
+	// &.deepGreen {
+	// 	&:hover {
+	// 		i[data-color="deep green"] {
+	// 			@include glowingLight($deepGreen);
+	// 		}
+	// 	}
+	// }
+	// //warm white
+	// &.warmWhite {
+	// 	transition: background-color 0.3s ease-in-out;
+	// 	&:hover {
+	// 		i[data-color="warm white"] {
+	// 			@include glowingLight($warmWhite);
+	// 		}
+	// 		background-color: rgba(97, 97, 97, 0.582);
+	// 		color: white;
+	// 	}
+	// }
+	// //white
+	// &.white {
+	// 	transition: background-color 0.3s ease-in-out;
+	// 	&:hover {
+	// 		i[data-color="white"] {
+	// 			@include glowingLight($white);
+	// 		}
+	// 		background-color: rgba(97, 97, 97, 0.582);
+	// 		color: white;
+	// 	}
+	// }
 }
 
 .fa.fa-lightbulb-o {
@@ -138,7 +138,7 @@ i[data-color="orange"] {
 	color: orange;
 }
 
-i[data-color="light red"] {
+i[data-color="lightRed"] {
 	color: $lightRed;
 }
 
@@ -146,19 +146,19 @@ i[data-color="red"] {
 	color: red;
 }
 
-i[data-color="deep blue"] {
+i[data-color="deepBlue"] {
 	color: $deepBlue;
 }
 
-i[data-color="electric blue"] {
+i[data-color="electricBlue"] {
 	color: $electricBlue;
 }
 
-i[data-color="tropical blue"] {
+i[data-color="tropicalBlue"] {
 	color: $tropicalBlue;
 }
 
-i[data-color="ice blue"] {
+i[data-color="iceBlue"] {
 	color: $iceBlue;
 }
 
@@ -166,15 +166,15 @@ i[data-color="green"] {
 	color: $green;
 }
 
-i[data-color="mint green"] {
+i[data-color="mintGreen"] {
 	color: $mintGreen;
 }
 
-i[data-color="deep green"] {
+i[data-color="deepGreen"] {
 	color: $deepGreen;
 }
 
-i[data-color="warm white"] {
+i[data-color="warmWhite"] {
 	color: $warmWhite;
 }
 

@@ -239,68 +239,6 @@ ul.ui-input-nav-lists > li {
   font-size: 0.8rem;
   margin-top: 0.4em;
 }
-.input-color-list.orange:hover i[data-color=orange] {
-  text-shadow: 0 0 4px white, 0 0 4px orange, 0 0 8px orange, 0 0 12px orange, 0 0 16px orange, 0 0 18px orange;
-  color: #f8f8f8;
-}
-.input-color-list.lightRed:hover i[data-color="light red"] {
-  text-shadow: 0 0 4px white, 0 0 4px #ff7575, 0 0 8px #ff7575, 0 0 12px #ff7575, 0 0 16px #ff7575, 0 0 18px #ff7575;
-  color: #f8f8f8;
-}
-.input-color-list.red:hover i[data-color=red] {
-  text-shadow: 0 0 4px white, 0 0 4px red, 0 0 8px red, 0 0 12px red, 0 0 16px red, 0 0 18px red;
-  color: #f8f8f8;
-}
-.input-color-list.deepBlue:hover i[data-color="deep blue"] {
-  text-shadow: 0 0 4px white, 0 0 4px #0274fc, 0 0 8px #0274fc, 0 0 12px #0274fc, 0 0 16px #0274fc, 0 0 18px #0274fc;
-  color: #f8f8f8;
-}
-.input-color-list.electricBlue:hover i[data-color="electric blue"] {
-  text-shadow: 0 0 4px white, 0 0 4px #63aaff, 0 0 8px #63aaff, 0 0 12px #63aaff, 0 0 16px #63aaff, 0 0 18px #63aaff;
-  color: #f8f8f8;
-}
-.input-color-list.tropicalBlue:hover i[data-color="tropical blue"] {
-  text-shadow: 0 0 4px white, 0 0 4px #24b7de, 0 0 8px #24b7de, 0 0 12px #24b7de, 0 0 16px #24b7de, 0 0 18px #24b7de;
-  color: #f8f8f8;
-}
-.input-color-list.iceBlue:hover i[data-color="ice blue"] {
-  text-shadow: 0 0 4px white, 0 0 4px #90dcff, 0 0 8px #90dcff, 0 0 12px #90dcff, 0 0 16px #90dcff, 0 0 18px #90dcff;
-  color: #f8f8f8;
-}
-.input-color-list.green:hover i[data-color=green] {
-  text-shadow: 0 0 4px white, 0 0 4px #20f020, 0 0 8px #20f020, 0 0 12px #20f020, 0 0 16px #20f020, 0 0 18px #20f020;
-  color: #f8f8f8;
-}
-.input-color-list.mintGreen:hover i[data-color="mint green"] {
-  text-shadow: 0 0 4px white, 0 0 4px #80ffd9, 0 0 8px #80ffd9, 0 0 12px #80ffd9, 0 0 16px #80ffd9, 0 0 18px #80ffd9;
-  color: #f8f8f8;
-}
-.input-color-list.deepGreen:hover i[data-color="deep green"] {
-  text-shadow: 0 0 4px white, 0 0 4px rgba(14, 185, 14, 0.884), 0 0 8px rgba(14, 185, 14, 0.884), 0 0 12px rgba(14, 185, 14, 0.884), 0 0 16px rgba(14, 185, 14, 0.884), 0 0 18px rgba(14, 185, 14, 0.884);
-  color: #f8f8f8;
-}
-.input-color-list.warmWhite {
-  transition: background-color 0.3s ease-in-out;
-}
-.input-color-list.warmWhite:hover {
-  background-color: rgba(97, 97, 97, 0.582);
-  color: white;
-}
-.input-color-list.warmWhite:hover i[data-color="warm white"] {
-  text-shadow: 0 0 4px white, 0 0 4px #f0eec7, 0 0 8px #f0eec7, 0 0 12px #f0eec7, 0 0 16px #f0eec7, 0 0 18px #f0eec7;
-  color: #f8f8f8;
-}
-.input-color-list.white {
-  transition: background-color 0.3s ease-in-out;
-}
-.input-color-list.white:hover {
-  background-color: rgba(97, 97, 97, 0.582);
-  color: white;
-}
-.input-color-list.white:hover i[data-color=white] {
-  text-shadow: 0 0 4px white, 0 0 4px #e1e3e6, 0 0 8px #e1e3e6, 0 0 12px #e1e3e6, 0 0 16px #e1e3e6, 0 0 18px #e1e3e6;
-  color: #f8f8f8;
-}
 
 .fa.fa-lightbulb-o {
   font-size: 1.8rem;
@@ -311,7 +249,7 @@ i[data-color=orange] {
   color: orange;
 }
 
-i[data-color="light red"] {
+i[data-color=lightRed] {
   color: #ff7575;
 }
 
@@ -319,19 +257,19 @@ i[data-color=red] {
   color: red;
 }
 
-i[data-color="deep blue"] {
+i[data-color=deepBlue] {
   color: #0274fc;
 }
 
-i[data-color="electric blue"] {
+i[data-color=electricBlue] {
   color: #63aaff;
 }
 
-i[data-color="tropical blue"] {
+i[data-color=tropicalBlue] {
   color: #24b7de;
 }
 
-i[data-color="ice blue"] {
+i[data-color=iceBlue] {
   color: #90dcff;
 }
 
@@ -339,15 +277,15 @@ i[data-color=green] {
   color: #20f020;
 }
 
-i[data-color="mint green"] {
+i[data-color=mintGreen] {
   color: #80ffd9;
 }
 
-i[data-color="deep green"] {
+i[data-color=deepGreen] {
   color: rgba(14, 185, 14, 0.884);
 }
 
-i[data-color="warm white"] {
+i[data-color=warmWhite] {
   color: #f0eec7;
 }
 
