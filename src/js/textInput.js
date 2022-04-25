@@ -23,17 +23,12 @@ let {
 } = globalVar;
 
 let navText = uiInputText.firstElementChild;
-
 //state variables
 let textInputState = false;
-
 //set the default states
-
 export let userText = "";
 export let textLength = null;
 export let metrics = null;
-//---fontFamily = selected from the list of fontFamily
-//---color = selected from the list of color
 
 function init() {
 	//initial default state
@@ -41,33 +36,45 @@ function init() {
 	if (localStorage.length > 0) {
 		userText = localStorage.getItem("userText");
 		display.textContent = userText;
-		// writeOnCanvas(ctx, userText);
-		writeOnCanvasWithFont(ctx, userText, "arial");
+		let textLength = userText.length;
+		writeOnCanvasWithFont(ctx, userText, "Tangerine");
+		metrics = ctx.measureText(userText);
+		measureBars(
+			display,
+			metrics,
+			barWidth,
+			barWidthSize,
+			barHeight,
+			barHeightSize,
+			textLength
+		);
 	} else {
+		localStorage.clear();
 		userText = "Your Text";
 		display.textContent = userText;
 		setDisplay(widthContainer, null);
 		setDisplay(heightContainer, null);
 	}
-	ctx.font = "4rem arial";
+	ctx.font = "4rem Tangerine";
 	ctx.fillStyle = "White";
 }
 
 init();
 
-// let textWrapper = document.querySelector(".ui-display-userText-wrapper");
-
 navText.addEventListener("input", (e) => {
-	e.preventDefault();
-
 	//get the input value, store it, return it
 	userText = e.target.value;
 
 	//persist data in local storage
 	localStorage.setItem("userText", userText);
+	//get the item from storage
+
+	let localUserText = localStorage.getItem("userText");
+	let timeout;
+	textLength = localUserText.length;
+
 	//show each letter upon typing
-	display.textContent = userText.trim();
-	let textLength = userText.length;
+	display.textContent = localUserText.trim();
 
 	//check if the state is true
 	textLength > 0 ? (textInputState = true) : false;
@@ -77,62 +84,63 @@ navText.addEventListener("input", (e) => {
 				`If you need more than 30 characters of text, Please contact us: 📞 +14-999-876-42`
 		  )
 		: "";
+
 	//any space should be omitted from calculating
 	if (e.data === " ") {
 		return;
 	}
 	if (e.inputType === "deleteContentBackward") {
 		//recapture the userText here
-		let newUserText = userText;
-		console.log(newUserText);
+		// let newUserText = userText;
+		let newUserText = localUserText;
+
 		//rerender the userText
 		if (newUserText.length !== 0) {
 			clearCanvas(ctx, canva);
 			writeOnCanvas(ctx, newUserText);
+			metrics = ctx.measureText(userText);
+
+			debounceMeasurement();
 		}
 	} else {
 		writeOnCanvas(ctx, userText);
-		return (metrics = ctx.measureText(userText));
+		metrics = ctx.measureText(userText);
+		debounceMeasurement();
 	}
-
-	measureBars(
-		display,
-		metrics,
-		barWidth,
-		barWidthSize,
-		barHeight,
-		barHeightSize,
-		textLength
-	);
 
 	if (textLength === 0) {
 		clearCanvas(ctx, canva);
 	}
 
-	if (userText.length > 0) {
-		setDisplay(widthContainer, true);
-	} else {
-		setDisplay(widthContainer, null);
-	}
-
-	//setTimout for session storage and remove items from local storage, if there is data
-
-	return [userText, metrics];
+	return userText, metrics, textLength;
 });
 
 function setBarMeasurement() {
 	console.log("💥 time 💥");
-	showBars(true);
+	if (textLength !== 0) {
+		showBars(true);
+	} else {
+		showBars(null);
+	}
 }
 
-navText.addEventListener("keyup", () => {
-	//wait for 3 seconds and show the measurement
-	clearTimeout(setBarMeasurement);
-
-	showBars(null);
-	console.log("CLEARED TIMEOUT");
-});
-
-navText.addEventListener("keydown", () => {
-	setTimeout(setBarMeasurement, 3000);
-});
+function debounceMeasurement() {
+	let timeout;
+	showBars(false);
+	//cleartimeout
+	clearTimeout(timeout);
+	//measure bar
+	timeout = setTimeout(() => {
+		measureBars(
+			display,
+			metrics,
+			barWidth,
+			barWidthSize,
+			barHeight,
+			barHeightSize,
+			textLength
+		);
+		showBars(true);
+		console.log(userText);
+	}, 3000);
+}

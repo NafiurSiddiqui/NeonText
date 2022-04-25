@@ -6,7 +6,7 @@ import setDisplay, {
 	showBars,
 } from "../globalFuntions";
 import { clearCanvas } from "../globalFuntions";
-import { userText, metrics } from "../textInput";
+import { userText } from "../textInput";
 //destructured vars
 let { fontBtn, fontBtnsWhite } = globalFonts;
 
