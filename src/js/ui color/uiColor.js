@@ -1,4 +1,5 @@
 import { globalVar } from "../globalVariables";
+import { lastColorState, lastState, neonOn, neonState } from "../neonSwitch";
 let { display, colorList, neonSwitch } = globalVar;
 let bulbDom = document.querySelectorAll(".fa.fa-lightbulb-o");
 
@@ -16,20 +17,22 @@ const colorPalette = [
 	{ id: "warmWhite", code: "rgb(240, 238, 199)" },
 	{ id: "white", code: "rgb(225, 227, 230)" },
 ];
+export let listColor = "";
 
-let listColor = "";
-
-function setColor(color) {
-	display.style.textShadow = `rgb(255, 255, 255) 0px 0px 5px, rgb(255, 255, 255) 0px 0px 10px,
+export function setColor(color) {
+	if (neonState !== false) {
+		display.style.textShadow = `rgb(255, 255, 255) 0px 0px 5px, rgb(255, 255, 255) 0px 0px 10px,
 		${color} 0px 0px 20px, ${color} 0px 0px 30px,
 		${color} 0px 0px 40px, ${color} 0px 0px 55px,
 		${color} 0px 0px 75px`;
+	} else {
+		display.style.textShadow = "none";
+	}
 }
 
-function checkColor(listColor) {
+export function checkColor(listColor) {
 	let response = colorPalette.filter((color) => {
 		//get the matched colorId
-
 		return listColor.includes(color.id);
 	});
 
@@ -50,6 +53,7 @@ function setGlowingLight(bulb, targetColor, glowLight = 0, listColor) {
 let btnActivate;
 
 colorList.forEach((list) => {
+	//HOVER STATE
 	list.addEventListener("mouseenter", (e) => {
 		let targetColor = e.target.classList[1];
 		let bulb = e.target.firstElementChild;
@@ -66,11 +70,11 @@ colorList.forEach((list) => {
 			setGlowingLight(bulb, checkColor(listColor), 0, listColor);
 		}
 	});
+	// ACTIONS
 	list.addEventListener("click", (e) => {
-		//wherever it is clicked, alwyas make it happen on the parent <li>
+		//wherever color is clicked, alwyas make it happen on the parent -> <li>
 		let listEl = e.target.closest("li");
 		let bulb = listEl.firstElementChild;
-
 		//send the color to whoever needs it
 		listColor = listEl.classList[1];
 		//if the neonSwitch is unchecked, alert to turn the switchOn
@@ -85,7 +89,6 @@ colorList.forEach((list) => {
 		});
 
 		//activate button
-
 		bulb.dataset.active = true;
 
 		//check if any other bulbData is true or empty
@@ -102,12 +105,14 @@ colorList.forEach((list) => {
 					bulb.dataset.color
 				);
 			});
+
 			setGlowingLight(bulb, checkColor(listColor), 1, listColor);
 		} else {
 			btnActivate = false;
 		}
-
 		//set color
 		setColor(checkColor(listColor));
+		lastColorState.color = listColor;
+		return listColor;
 	});
 });

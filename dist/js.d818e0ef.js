@@ -242,7 +242,7 @@ function showBars(show) {
   }
 } // export function checkBtnActive(){
 // }
-},{"./globalVariables":"src/js/globalVariables.js"}],"src/js/ui nav/ui-inputNav_test.js":[function(require,module,exports) {
+},{"./globalVariables":"src/js/globalVariables.js"}],"src/js/ui nav/ui-inputNav.js":[function(require,module,exports) {
 "use strict";
 
 var _globalVariables = require("../globalVariables");
@@ -354,11 +354,7 @@ function setValue(e) {
 
   if (targetText === "Font Family") {
     //check and remove any nav Activation
-    if ( // globalVar.uiNav[0].classList.contains(navActive) ||
-    // globalVar.uiNav[2].classList.contains(navActive)
-    checkClass(false, uiNav, 0, navActive) || checkClass(false, uiNav, 2, navActive)) {
-      // globalVar.uiNav[0].classList.remove(navActive);
-      // globalVar.uiNav[2].classList.remove(navActive);
+    if (checkClass(false, uiNav, 0, navActive) || checkClass(false, uiNav, 2, navActive)) {
       removeClass(false, uiNav, 0, navActive);
       removeClass(false, uiNav, 2, navActive);
       textState = false;
@@ -366,19 +362,13 @@ function setValue(e) {
     } //check and remove any uiActivation
 
 
-    if ( // globalVar.uiInputText.classList.contains(uiActive) ||
-    // globalVar.uiInputColor.classList.contains(uiActive)
-    checkClass(true, uiInputText, null, uiActive) || checkClass(true, uiInputColor, null, uiActive)) {
-      // globalVar.uiInputText.classList.remove(uiActive);
-      // globalVar.uiInputColor.classList.remove(uiActive);
+    if (checkClass(true, uiInputText, null, uiActive) || checkClass(true, uiInputColor, null, uiActive)) {
       removeClass(true, uiInputText, null, uiActive);
       removeClass(true, uiInputColor, null, uiActive);
     } //activate font Nav
-    // globalVar.uiNav[1].classList.add(navActive);
 
 
     setClass(false, uiNav, 1, navActive); //activate font btn area
-    // globalVar.uiInputFont.classList.add(uiActive);
 
     setClass(true, uiInputFont, null, uiActive); //set the state to true
 
@@ -396,11 +386,7 @@ function setValue(e) {
     } //check and remove any uiActivation
 
 
-    if ( // globalVar.uiInputText.classList.contains(uiActive) ||
-    // globalVar.uiInputFont.classList.contains(uiActive)
-    checkClass(true, uiInputText, null, uiActive) || checkClass(true, uiInputFont, null, uiActive)) {
-      // globalVar.uiInputText.classList.remove(uiActive);
-      // globalVar.uiInputFont.classList.remove(uiActive);
+    if (checkClass(true, uiInputText, null, uiActive) || checkClass(true, uiInputFont, null, uiActive)) {
       removeClass(true, uiInputText, null, uiActive);
       removeClass(true, uiInputFont, null, uiActive);
     } //activate color Nav
@@ -620,12 +606,9 @@ fontBtn.forEach(function (btns) {
 
   btns.addEventListener("click", function (e) {
     exports.fontClicked = fontClicked = true;
-    var target = e.target; // console.log(userText);
-
+    var target = e.target;
     fontUserText = _textInput.userText;
-    fontUserText = ""; // console.log(fontUserText);
-    // console.log(`FROM FONT: ${fontUserText}`);
-
+    fontUserText = "";
     var textLength = _textInput.userText.length; //Clear displays
 
     (0, _globalFuntions.default)(widthContainer, false);
@@ -661,25 +644,19 @@ fontBtn.forEach(function (btns) {
     return fontClicked;
   });
 });
-},{"../globalVariables":"src/js/globalVariables.js","../globalFuntions":"src/js/globalFuntions.js","../textInput":"src/js/textInput.js"}],"src/js/neonSwitch.js":[function(require,module,exports) {
+},{"../globalVariables":"src/js/globalVariables.js","../globalFuntions":"src/js/globalFuntions.js","../textInput":"src/js/textInput.js"}],"src/js/ui color/uiColor.js":[function(require,module,exports) {
 "use strict";
 
-var _globalVariables = require("./globalVariables");
-
-var neonSwitch = _globalVariables.globalVar.neonSwitch,
-    display = _globalVariables.globalVar.display;
-neonSwitch.checked = true;
-neonSwitch.addEventListener("click", function () {
-  if (neonSwitch.checked === true) {
-    display.classList.add("neonOn");
-  } else {
-    display.classList.remove("neonOn");
-  }
+Object.defineProperty(exports, "__esModule", {
+  value: true
 });
-},{"./globalVariables":"src/js/globalVariables.js"}],"src/js/ui color/uiColor.js":[function(require,module,exports) {
-"use strict";
+exports.checkColor = checkColor;
+exports.listColor = void 0;
+exports.setColor = setColor;
 
 var _globalVariables = require("../globalVariables");
+
+var _neonSwitch = require("../neonSwitch");
 
 var display = _globalVariables.globalVar.display,
     colorList = _globalVariables.globalVar.colorList,
@@ -723,9 +700,14 @@ var colorPalette = [{
   code: "rgb(225, 227, 230)"
 }];
 var listColor = "";
+exports.listColor = listColor;
 
 function setColor(color) {
-  display.style.textShadow = "rgb(255, 255, 255) 0px 0px 5px, rgb(255, 255, 255) 0px 0px 10px,\n\t\t".concat(color, " 0px 0px 20px, ").concat(color, " 0px 0px 30px,\n\t\t").concat(color, " 0px 0px 40px, ").concat(color, " 0px 0px 55px,\n\t\t").concat(color, " 0px 0px 75px");
+  if (_neonSwitch.neonState !== false) {
+    display.style.textShadow = "rgb(255, 255, 255) 0px 0px 5px, rgb(255, 255, 255) 0px 0px 10px,\n\t\t".concat(color, " 0px 0px 20px, ").concat(color, " 0px 0px 30px,\n\t\t").concat(color, " 0px 0px 40px, ").concat(color, " 0px 0px 55px,\n\t\t").concat(color, " 0px 0px 75px");
+  } else {
+    display.style.textShadow = "none";
+  }
 }
 
 function checkColor(listColor) {
@@ -753,6 +735,7 @@ function setGlowingLight(bulb, targetColor) {
 
 var btnActivate;
 colorList.forEach(function (list) {
+  //HOVER STATE
   list.addEventListener("mouseenter", function (e) {
     var targetColor = e.target.classList[1];
     var bulb = e.target.firstElementChild;
@@ -760,7 +743,7 @@ colorList.forEach(function (list) {
   });
   list.addEventListener("mouseleave", function (e) {
     // let targetColor = e.target.classList[1];
-    listColor = e.target.classList[1];
+    exports.listColor = listColor = e.target.classList[1];
     var bulb = e.target.firstElementChild;
 
     if (bulb.dataset.active === "true") {
@@ -768,13 +751,14 @@ colorList.forEach(function (list) {
     } else {
       setGlowingLight(bulb, checkColor(listColor), 0, listColor);
     }
-  });
+  }); // ACTIONS
+
   list.addEventListener("click", function (e) {
-    //wherever it is clicked, alwyas make it happen on the parent <li>
+    //wherever color is clicked, alwyas make it happen on the parent -> <li>
     var listEl = e.target.closest("li");
     var bulb = listEl.firstElementChild; //send the color to whoever needs it
 
-    listColor = listEl.classList[1]; //if the neonSwitch is unchecked, alert to turn the switchOn
+    exports.listColor = listColor = listEl.classList[1]; //if the neonSwitch is unchecked, alert to turn the switchOn
 
     if (neonSwitch.checked !== true) {
       alert("Please turn the neon switch on.");
@@ -802,16 +786,70 @@ colorList.forEach(function (list) {
 
 
     setColor(checkColor(listColor));
+    _neonSwitch.lastColorState.color = listColor;
+    return listColor;
   });
 });
-},{"../globalVariables":"src/js/globalVariables.js"}],"src/js/index.js":[function(require,module,exports) {
+},{"../globalVariables":"src/js/globalVariables.js","../neonSwitch":"src/js/neonSwitch.js"}],"src/js/neonSwitch.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.lastColorState = void 0;
+exports.neonOn = neonOn;
+exports.neonState = void 0;
+
+var _globalVariables = require("./globalVariables");
+
+var _uiColor = require("./ui color/uiColor");
+
+var neonSwitch = _globalVariables.globalVar.neonSwitch,
+    display = _globalVariables.globalVar.display;
+neonSwitch.checked = true;
+var neonState;
+exports.neonState = neonState;
+var lastColorState = {
+  color: ""
+};
+exports.lastColorState = lastColorState;
+
+function neonOn() {
+  if (neonSwitch.checked === true) {
+    display.classList.add("neonOn");
+    exports.neonState = neonState = true;
+
+    if (lastColorState.color !== "") {
+      (0, _uiColor.setColor)((0, _uiColor.checkColor)(lastColorState.color));
+    } else {
+      (0, _uiColor.setColor)("rgb(255, 144, 255)");
+    }
+  } else {
+    display.classList.remove("neonOn");
+    exports.neonState = neonState = false;
+    (0, _uiColor.setColor)((0, _uiColor.checkColor)(lastColorState.color));
+  }
+}
+
+neonSwitch.addEventListener("click", neonOn);
+/**
+ * @lastColorState - to get the last navColor clicked, to update the color here as well
+ * had to export it as object, otherwise this is only 'Read-only'
+ */
+},{"./globalVariables":"src/js/globalVariables.js","./ui color/uiColor":"src/js/ui color/uiColor.js"}],"src/js/misc.js":[function(require,module,exports) {
+//see if user is about to close the tab
+//then show message
+// ------ Do you want to clear data and close the browser?
+//yes, clear cookies
+//no, close the browser
+},{}],"src/js/index.js":[function(require,module,exports) {
 "use strict";
 
 require("./globalVariables");
 
 require("./globalFuntions");
 
-require("./ui nav/ui-inputNav_test");
+require("./ui nav/ui-inputNav");
 
 require("./textInput");
 
@@ -820,7 +858,9 @@ require("./font family/setFonts");
 require("./neonSwitch");
 
 require("./ui color/uiColor");
-},{"./globalVariables":"src/js/globalVariables.js","./globalFuntions":"src/js/globalFuntions.js","./ui nav/ui-inputNav_test":"src/js/ui nav/ui-inputNav_test.js","./textInput":"src/js/textInput.js","./font family/setFonts":"src/js/font family/setFonts.js","./neonSwitch":"src/js/neonSwitch.js","./ui color/uiColor":"src/js/ui color/uiColor.js"}],"node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
+
+require("./misc");
+},{"./globalVariables":"src/js/globalVariables.js","./globalFuntions":"src/js/globalFuntions.js","./ui nav/ui-inputNav":"src/js/ui nav/ui-inputNav.js","./textInput":"src/js/textInput.js","./font family/setFonts":"src/js/font family/setFonts.js","./neonSwitch":"src/js/neonSwitch.js","./ui color/uiColor":"src/js/ui color/uiColor.js","./misc":"src/js/misc.js"}],"node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
 var OVERLAY_ID = '__parcel__error__overlay__';
 var OldModule = module.bundle.Module;
@@ -848,7 +888,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "49303" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "53945" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

@@ -68,11 +68,8 @@ fontBtn.forEach((btns) => {
 	btns.addEventListener("click", (e) => {
 		fontClicked = true;
 		let target = e.target;
-		// console.log(userText);
 		fontUserText = userText;
 		fontUserText = "";
-		// console.log(fontUserText);
-		// console.log(`FROM FONT: ${fontUserText}`);
 		let textLength = userText.length;
 
 		//Clear displays

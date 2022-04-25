@@ -1,139 +1,172 @@
-const uiNav = document.querySelectorAll(".ui-input-nav-list");
-const uiInputText = document.querySelector(".ui-input-form.text");
-const uiInputFont = document.querySelector(".ui-input-form.fontFamily");
-const uiInputColor = document.querySelector(".ui-input-form.color");
-const uiForm = document.querySelectorAll(".ui-input-form");
+// import "./globalVariables";
+import { globalVar } from "../globalVariables";
+("./globalVariables");
 
-console.log(uiNav, uiInputText, uiInputFont, uiInputColor);
+//global Var destructured
+let { uiNav, uiInputText, uiInputFont, uiInputColor, uiForm, display } =
+	globalVar;
 
-function checkClass(el, child, className) {
-	// return uiNav[child].classList.contains("nav-active");
-	return (el[child] || el).classList.contains(className);
+function checkClass(single = false, el, child, className) {
+	if (single === true) {
+		return el.classList.contains(className);
+	} else {
+		return el[child].classList.contains(className);
+	}
 }
 
-function setClass(el, child, className, single = false) {
-	// uiNav[child].classList.add("nav-active");
+function setClass(single = false, el, child, className) {
 	if (single === true) {
 		//returns element only
 		return el.classList.add(className);
 	} else {
-		//returns element from an array like uiNav
+		//returns element from an array like globalVar.uiNav
 		return el[child].classList.add(className);
 	}
 }
 
-function removeClass(el, child, className) {
-	// uiNav[child].classList.remove("nav-active");
-	(el[child] || el).classList.remove(className);
-}
-
-function toggleDisplay(el, on) {
-	if (on) {
-		el.style.display = "flex";
+function removeClass(single = false, el, child, className) {
+	if (single === true) {
+		el.classList.remove(className);
 	} else {
-		el.style.display = "none";
+		el[child].classList.remove(className);
 	}
 }
 
-function conditionalSet(targetText, val, ...args) {
-	//refer to the individual function arguments in case of confusion
+// function conditionalSet(targetText, val, ...args) {
+// 	//refer to the individual function arguments in case of confusion
 
-	if (targetText === val) {
-		if (checkClass(args[0], args[1], args[2])) {
-			removeClass(args[0], args[1], args[2]);
-		}
-		if (checkClass(args[3], args[4], args[5])) {
-			removeClass(args[3], args[4], args[5]);
-		}
-		toggleDisplay(args[6]);
-		toggleDisplay(args[7]);
-		setClass(args[8], args[9], args[10], args[11]);
-		setClass(args[12], args[13], args[14], args[15]);
-	}
-}
+// 	if (targetText === val) {
+// 		if (checkClass(args[0], args[1], args[2])) {
+// 			removeClass(args[0], args[1], args[2]);
+// 		}
+// 		if (checkClass(args[3], args[4], args[5])) {
+// 			removeClass(args[3], args[4], args[5]);
+// 		}
+// 		toggleDisplay(args[6]);
+// 		toggleDisplay(args[7]);
+// 		setClass(args[8], args[9], args[10], args[11]);
+// 		setClass(args[12], args[13], args[14], args[15]);
+// 	}
+// }
 
 //for quick referencing
+
 const navActive = "nav-active";
 const uiActive = "ui-active";
+//state checking
+let textState = false;
+let fontState = false;
+let colorState = false;
+
+// console.log(uiNav[0]);
+
+// checkClass(false, uiNav, 0, navActive);
+
+checkClass(true, uiInputText, null, uiActive);
 
 function setValue(e) {
-	console.log(e.target.innerText);
+	// console.log(e.target.innerText);
 
 	let targetText = e.target.innerText;
 
 	//TEXT NAV
-	conditionalSet(
-		targetText,
-		"Text",
-		uiNav,
-		1,
-		navActive,
-		uiNav,
-		2,
-		navActive,
-		uiInputFont,
-		uiInputColor,
-		uiNav,
-		0,
-		navActive,
-		false,
-		uiInputText,
-		null,
-		uiActive,
-		true
-	);
-	// if (
-	// 	uiInputFont.classList.contains("ui-active") ||
-	// 	uiInputColor.classList.contains("ui-active")
-	// ) {
-	// 	uiInputFont.classList.remove("ui-active");
-	// 	uiInputColor.classList.remove("ui-active");
-	// }
+	if (targetText === "Text") {
+		//check and remove any nav Activation
+		if (
+			checkClass(false, uiNav, 1, navActive) ||
+			checkClass(false, uiNav, 2, navActive)
+		) {
+			removeClass(false, uiNav, 1, navActive);
+			removeClass(false, uiNav, 2, navActive);
+			fontState = false;
+			colorState = false;
+		}
+		//check and remove any uiActivation
+		if (
+			checkClass(true, uiInputFont, null, uiActive) ||
+			checkClass(true, uiInputColor, null, uiActive)
+		) {
+			removeClass(true, uiInputFont, null, uiActive);
+			removeClass(true, uiInputColor, null, uiActive);
+		}
 
-	// if (checkClass(uiInputFont, uiActive) || checkClass(uiInputColor, uiActive)) {
-	// 	removeClass(uiInputFont, uiActive);
-	// 	removeClass(uiInputColor, uiActive);
-	// }
+		//activate text Nav
+		setClass(false, uiNav, 0, navActive);
+		//activate text input area
+		setClass(true, uiInputText, null, uiActive);
+		//set the state to true
+		return (textState = true);
+	}
 
-	// toggleDisplay(uiInputFont);
-	// toggleDisplay(uiInputColor);
-	// setClass(uiInputText, null, uiActive, true);
+	//font famly
 
-	// uiInputFont.style.display = "none";
-	// uiInputColor.style.display = "none";
-	// uiInputText.classList.add("ui-active");
+	if (targetText === "Font Family") {
+		//check and remove any nav Activation
+		if (
+			checkClass(false, uiNav, 0, navActive) ||
+			checkClass(false, uiNav, 2, navActive)
+		) {
+			removeClass(false, uiNav, 0, navActive);
+			removeClass(false, uiNav, 2, navActive);
+			textState = false;
+			colorState = false;
+		}
+		//check and remove any uiActivation
+		if (
+			checkClass(true, uiInputText, null, uiActive) ||
+			checkClass(true, uiInputColor, null, uiActive)
+		) {
+			removeClass(true, uiInputText, null, uiActive);
+			removeClass(true, uiInputColor, null, uiActive);
+		}
 
-	//fONT FAMILY
-	conditionalSet(
-		targetText,
-		"font Family",
-		uiNav,
-		0,
-		navActive,
-		uiNav,
-		2,
-		navActive,
-		uiInputText,
-		uiInputColor,
-		uiNav,
-		1,
-		navActive,
-		false,
-		uiInputFont,
-		null,
-		uiActive,
-		true
-	);
+		//activate font Nav
 
-	// toggleDisplay(uiInputText);
-	// toggleDisplay(uiInputColor);
-	// setClass(uiInputFont, null, uiActive, true);
+		setClass(false, uiNav, 1, navActive);
+
+		//activate font btn area
+		setClass(true, uiInputFont, null, uiActive);
+		//set the state to true
+		fontState = true;
+	}
+
 	//color
-	// conditionalSet(targetText, "Color", 0, 1, 2);
+	if (targetText === "Color") {
+		//check and remove any nav Activation
+		if (
+			checkClass(false, uiNav, 0, navActive) ||
+			checkClass(false, uiNav, 1, navActive)
+		) {
+			removeClass(false, uiNav, 0, navActive);
+			removeClass(false, uiNav, 1, navActive);
+			textState = false;
+			fontState = false;
+		}
+		//check and remove any uiActivation
+		if (
+			checkClass(true, uiInputText, null, uiActive) ||
+			checkClass(true, uiInputFont, null, uiActive)
+		) {
+			removeClass(true, uiInputText, null, uiActive);
+			removeClass(true, uiInputFont, null, uiActive);
+		}
+
+		//activate color Nav
+		setClass(false, uiNav, 2, navActive);
+		//activate color bulb area
+		setClass(true, uiInputColor, null, uiActive);
+		//set the state to true
+		return (colorState = true);
+	}
 }
 
-// console.log(checkClass(1));
+// console.log(textState);
 
-uiNav.forEach((list) => {
+globalVar.uiNav.forEach((list) => {
 	list.addEventListener("click", setValue);
 });
+
+/**
+ * @ERRORs -
+ * In case of any TypeError:el.classlist is undefined, try turning the booleans true or false. Understanding these helper function beforehand will save your time!
+ */
