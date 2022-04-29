@@ -586,11 +586,90 @@ input:checked ~ span span:first-of-type {
   src: url(https://fonts.gstatic.com/s/herrvonmuellerhoff/v13/WBL6rFjRZkREW8WqmCWYLgCkQKXb4CAft0c99KM.woff2) format("woff2");
   unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
 }
+/* cyrillic-ext */
+@font-face {
+  font-family: "Caveat";
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url(https://fonts.gstatic.com/s/caveat/v15/WnznHAc5bAfYB2QRah7pcpNvOx-pjfJ9eIipYSxP.woff2) format("woff2");
+  unicode-range: U+0460-052F, U+1C80-1C88, U+20B4, U+2DE0-2DFF, U+A640-A69F, U+FE2E-FE2F;
+}
+/* cyrillic */
+@font-face {
+  font-family: "Caveat";
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url(https://fonts.gstatic.com/s/caveat/v15/WnznHAc5bAfYB2QRah7pcpNvOx-pjfJ9eIGpYSxP.woff2) format("woff2");
+  unicode-range: U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116;
+}
+/* latin-ext */
+@font-face {
+  font-family: "Caveat";
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url(https://fonts.gstatic.com/s/caveat/v15/WnznHAc5bAfYB2QRah7pcpNvOx-pjfJ9eIupYSxP.woff2) format("woff2");
+  unicode-range: U+0100-024F, U+0259, U+1E00-1EFF, U+2020, U+20A0-20AB, U+20AD-20CF, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+/* latin */
+@font-face {
+  font-family: "Caveat";
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url(https://fonts.gstatic.com/s/caveat/v15/WnznHAc5bAfYB2QRah7pcpNvOx-pjfJ9eIWpYQ.woff2) format("woff2");
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+/* thai */
+@font-face {
+  font-family: "Kodchasan";
+  font-style: normal;
+  font-weight: 200;
+  font-display: swap;
+  src: url(https://fonts.gstatic.com/s/kodchasan/v16/1cX0aUPOAJv9sG4I-DJeR1CQkuCp7eM.woff2) format("woff2");
+  unicode-range: U+0E01-0E5B, U+200C-200D, U+25CC;
+}
+/* vietnamese */
+@font-face {
+  font-family: "Kodchasan";
+  font-style: normal;
+  font-weight: 200;
+  font-display: swap;
+  src: url(https://fonts.gstatic.com/s/kodchasan/v16/1cX0aUPOAJv9sG4I-DJeR1CQieCp7eM.woff2) format("woff2");
+  unicode-range: U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0, U+1EA0-1EF9, U+20AB;
+}
+/* latin-ext */
+@font-face {
+  font-family: "Kodchasan";
+  font-style: normal;
+  font-weight: 200;
+  font-display: swap;
+  src: url(https://fonts.gstatic.com/s/kodchasan/v16/1cX0aUPOAJv9sG4I-DJeR1CQiOCp7eM.woff2) format("woff2");
+  unicode-range: U+0100-024F, U+0259, U+1E00-1EFF, U+2020, U+20A0-20AB, U+20AD-20CF, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+/* latin */
+@font-face {
+  font-family: "Kodchasan";
+  font-style: normal;
+  font-weight: 200;
+  font-display: swap;
+  src: url(https://fonts.gstatic.com/s/kodchasan/v16/1cX0aUPOAJv9sG4I-DJeR1CQhuCp.woff2) format("woff2");
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
 body.background {
   height: 100vh;
   background: linear-gradient(180deg, #01101f 0%, #1b1b1b 68.37%, #a97171 100%);
   background-color: #2b1322;
   overflow: hidden;
+}
+
+.home-logo > img {
+  position: relative;
+  top: 2em;
+  left: 2em;
+  height: 3em;
 }
 
 .home-content__container {
@@ -603,40 +682,56 @@ body.background {
 }
 
 .home-content {
-  height: 40vh;
   width: 80%;
   text-align: right;
-  line-height: 7em;
   display: flex;
-  flex-direction: column;
+  -webkit-box-flex: flex;
   justify-content: center;
+  align-items: center;
+  flex-direction: column;
   align-items: end;
+  position: relative;
+  bottom: -8em;
+  line-height: 5em;
 }
 .home-content-heading {
-  font-size: 5rem;
+  font-size: 3rem;
+  font-family: "Kodchasan", sans-serif;
+  font-style: italic;
+  color: #edbacf;
 }
 .home-content-subheading {
-  font-size: 3.5rem;
+  font-size: 2rem;
+  font-family: "Kodchasan", sans-serif;
 }
-.home-content-btn {
-  padding: 1em 1.4em;
-  font-size: 1.7rem;
+.home-content__btn {
+  border: none;
+  background: none;
+  margin-top: 3em;
 }
-.home-content-btn > a {
+.home-content__btn > a {
+  font-family: "Caveat", cursive;
+  font-size: 2rem;
+  color: #dfdfdf;
   text-decoration: none;
+  background: linear-gradient(180deg, #3e021f 0%, rgba(255, 25, 141, 0.73) 100%);
+  padding: 0.5em 1.5em;
+  border-radius: 0.2em;
+}
+.home-content__btn > a:hover {
+  background: linear-gradient(180deg, #e10871 0%, rgba(225, 9, 118, 0.73) 100%);
 }
 
 .home-content__shapes {
   width: 100%;
-  height: 40vh;
   display: flex;
   -webkit-box-flex: flex;
   justify-content: space-between;
   align-items: center;
 }
 .home-content__shapes-displayTab {
-  width: 34em;
-  height: 46em;
+  width: 26em;
+  height: 30em;
   border: 19px solid #3e3e3e;
   border-radius: 0.5em;
   background: linear-gradient(290.35deg, rgba(36, 20, 44, 0.45) 7.51%, rgba(8, 50, 88, 0.45) 89.23%);
@@ -647,9 +742,8 @@ body.background {
   left: -90px;
 }
 .home-content__shapes-ball {
-  border: 1px solid white;
-  width: 37em;
-  height: 28em;
+  width: 22em;
+  height: 18em;
   display: flex;
   -webkit-box-flex: flex;
   justify-content: center;
@@ -657,8 +751,8 @@ body.background {
   align-items: end;
 }
 .home-content__shapes-ball-object {
-  width: 300px;
-  height: 300px;
+  width: 330px;
+  height: 186px;
   background: linear-gradient(180deg, rgba(3, 7, 39, 0.3) 22.92%, rgba(49, 25, 25, 0.039) 100%);
   background-color: rgba(3, 7, 34, 0.144);
   border-radius: 50%;
@@ -669,7 +763,7 @@ body.background {
   background: linear-gradient(180deg, rgba(3, 7, 39, 0.3) 22.92%, rgba(49, 25, 25, 0.039) 100%);
   border-radius: 25em;
   position: relative;
-  left: 73px;
+  left: 181px;
   transform: skewX(-75deg);
   top: -5px;
 }
