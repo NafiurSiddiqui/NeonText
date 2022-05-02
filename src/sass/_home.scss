@@ -5,12 +5,16 @@ body.background {
 	overflow: hidden;
 }
 
+html {
+	font-size: 20px;
+}
+
 .home-logo {
 	& > img {
 		position: relative;
 		top: 2em;
-		left: 2em;
-		height: 3em;
+		left: calc(1vw + 1rem);
+		height: calc(1.6rem + 1vw);
 	}
 }
 
@@ -23,24 +27,25 @@ body.background {
 
 .home-content {
 	// @include borderTest(pink);
-	width: 80%;
+	// width: 80%;
 	text-align: right;
 	@include flexCentered;
 	flex-direction: column;
 	align-items: end;
 	position: relative;
-	bottom: -8em;
-	line-height: 5em;
-
+	bottom: -7em;
+	// line-height: 4em;
+	// line-height: 3.8em;
+	line-height: 4.8vw;
 	&-heading {
-		font-size: 3rem;
+		font-size: max(3.5vw, 1.6rem);
 		font-family: "Kodchasan", sans-serif;
 		font-style: italic;
 		color: #edbacf;
 	}
 
 	&-subheading {
-		font-size: 2rem;
+		font-size: max(2.5vw, 1.2rem);
 		font-family: "Kodchasan", sans-serif;
 	}
 
@@ -49,8 +54,12 @@ body.background {
 		background: none;
 		margin-top: 3em;
 		> a {
+			text-align: center;
+			display: inline-block;
+			width: 8em;
+			height: 2.4em;
 			font-family: "Caveat", cursive;
-			font-size: 2rem;
+			font-size: 1.4rem;
 			color: rgb(223, 223, 223);
 			text-decoration: none;
 			background: linear-gradient(
@@ -60,6 +69,20 @@ body.background {
 			);
 			padding: 0.5em 1.5em;
 			border-radius: 0.2em;
+			overflow: hidden;
+
+			&:after {
+				display: inline-block;
+				width: 7em;
+				height: 2em;
+				content: "";
+				background: white;
+				border: 1px solid white;
+				position: relative;
+				right: 1em;
+				transform: rotate(100deg);
+				opacity: 0.2;
+			}
 			&:hover {
 				background: linear-gradient(
 					180deg,
@@ -76,9 +99,10 @@ body.background {
 	@include flexSpaceBetween;
 	// @include borderTest(white);
 	&-displayTab {
-		width: 26em;
+		width: 20em;
+		min-width: 10em;
 		height: 30em;
-		border: 19px solid #3e3e3e;
+		border: 19px solid #363636;
 		border-radius: 0.5em;
 		background: linear-gradient(
 			290.35deg,
@@ -90,13 +114,14 @@ body.background {
 		transform: rotate(30deg);
 		position: relative;
 		left: -90px;
+		bottom: -10em;
 	}
 
 	&-ball {
-		width: 22em;
+		width: 18em;
 		height: 18em;
 		@include flexCentered;
-		align-items: end;
+		// align-items: end;
 		&-object {
 			width: 330px;
 			height: 186px;
@@ -122,6 +147,46 @@ body.background {
 			left: 181px;
 			transform: skewX(-75deg);
 			top: -5px;
+		}
+	}
+}
+
+@media screen and (max-width: 640px) {
+	.home-content {
+		margin: 0 1em;
+	}
+}
+
+@media screen and (max-width: 800px) {
+	.home-content {
+		line-height: 2.5rem;
+		text-align: left;
+
+		&__btn {
+			margin-top: 1em;
+		}
+	}
+
+	.home-content__shapes {
+		&-displayTab {
+			border-width: 0.6em;
+		}
+		&-ball {
+			position: relative;
+			right: -25%;
+			width: 14em;
+			height: 14em;
+
+			&-object {
+				width: 250px;
+				height: 120px;
+				position: relative;
+				bottom: -2em;
+			}
+
+			&-shadow {
+				visibility: hidden;
+			}
 		}
 	}
 }
