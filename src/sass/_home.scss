@@ -47,9 +47,10 @@ html {
 	&-subheading {
 		font-size: max(2.5vw, 1.2rem);
 		font-family: "Kodchasan", sans-serif;
+		width: 100%;
 	}
 
-	&__btn {
+	&-btn {
 		border: none;
 		background: none;
 		margin-top: 3em;
@@ -57,7 +58,7 @@ html {
 			text-align: center;
 			display: inline-block;
 			width: 8em;
-			height: 2.4em;
+			height: 2.3em;
 			font-family: "Caveat", cursive;
 			font-size: 1.4rem;
 			color: rgb(223, 223, 223);
@@ -76,12 +77,12 @@ html {
 				width: 7em;
 				height: 2em;
 				content: "";
-				background: white;
-				border: 1px solid white;
+				background: #ff93c7cf;
 				position: relative;
-				right: 1em;
+				right: -3.5em;
 				transform: rotate(100deg);
 				opacity: 0.2;
+				animation: reflect 4s linear 6s infinite forwards;
 			}
 			&:hover {
 				background: linear-gradient(
@@ -121,7 +122,6 @@ html {
 		width: 18em;
 		height: 18em;
 		@include flexCentered;
-		// align-items: end;
 		&-object {
 			width: 330px;
 			height: 186px;
@@ -151,16 +151,67 @@ html {
 	}
 }
 
-@media screen and (max-width: 640px) {
-	.home-content {
-		margin: 0 1em;
+// animation
+@keyframes reflect {
+	0% {
+		right: -3.5em;
+	}
+	20% {
+		right: 7em;
+	}
+	30% {
+		right: 7em;
+	}
+	40% {
+		right: 7em;
+	}
+	50% {
+		right: 7em;
+	}
+	60% {
+		right: 7em;
+	}
+	90% {
+		right: 7em;
+	}
+	100% {
+		right: 7em;
 	}
 }
+
+@keyframes reflectionForSmallDevice {
+	0% {
+		right: -90%;
+	}
+	20% {
+		right: 100%;
+	}
+	30% {
+		right: 100%;
+	}
+	40% {
+		right: 100%;
+	}
+	50% {
+		right: 100%;
+	}
+	60% {
+		right: 100%;
+	}
+	90% {
+		right: 100%;
+	}
+	100% {
+		right: 100%;
+	}
+}
+
+//Media break points
 
 @media screen and (max-width: 800px) {
 	.home-content {
 		line-height: 2.5rem;
-		text-align: left;
+		// text-align: left;
 
 		&__btn {
 			margin-top: 1em;
@@ -187,6 +238,51 @@ html {
 			&-shadow {
 				visibility: hidden;
 			}
+		}
+	}
+}
+
+@media screen and (max-width: 670px) {
+	.home-content {
+		margin: 0 2em;
+		text-align: left;
+	}
+}
+
+@media screen and (max-width: 500px) {
+	img.home-logo__logo {
+		height: 7vw;
+		top: 4vh;
+		left: 3%;
+	}
+
+	.home-content {
+		bottom: -6em;
+
+		&-btn {
+			width: 100%;
+		}
+
+		&-heading {
+			font-size: 1.4rem;
+		}
+
+		&-subheading {
+			font-size: 1.1rem;
+		}
+	}
+
+	a.home-content-btn__link-ui {
+		width: 96vw;
+		height: 1em;
+		height: 2em;
+		font-size: 1.2rem;
+		padding: 0.4em 1.5em;
+
+		&:after {
+			display: flex;
+			right: -100%;
+			animation: reflectionForSmallDevice 4s linear 8s infinite forwards !important;
 		}
 	}
 }

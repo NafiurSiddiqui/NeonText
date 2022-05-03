@@ -706,17 +706,18 @@ html {
 .home-content-subheading {
   font-size: max(2.5vw, 1.2rem);
   font-family: "Kodchasan", sans-serif;
+  width: 100%;
 }
-.home-content__btn {
+.home-content-btn {
   border: none;
   background: none;
   margin-top: 3em;
 }
-.home-content__btn > a {
+.home-content-btn > a {
   text-align: center;
   display: inline-block;
   width: 8em;
-  height: 2.4em;
+  height: 2.3em;
   font-family: "Caveat", cursive;
   font-size: 1.4rem;
   color: #dfdfdf;
@@ -726,19 +727,19 @@ html {
   border-radius: 0.2em;
   overflow: hidden;
 }
-.home-content__btn > a:after {
+.home-content-btn > a:after {
   display: inline-block;
   width: 7em;
   height: 2em;
   content: "";
-  background: white;
-  border: 1px solid white;
+  background: #ff93c7cf;
   position: relative;
-  right: 1em;
+  right: -3.5em;
   transform: rotate(100deg);
   opacity: 0.2;
+  animation: reflect 4s linear 6s infinite forwards;
 }
-.home-content__btn > a:hover {
+.home-content-btn > a:hover {
   background: linear-gradient(180deg, #e10871 0%, rgba(225, 9, 118, 0.73) 100%);
 }
 
@@ -789,15 +790,61 @@ html {
   top: -5px;
 }
 
-@media screen and (max-width: 640px) {
-  .home-content {
-    margin: 0 1em;
+@keyframes reflect {
+  0% {
+    right: -3.5em;
+  }
+  20% {
+    right: 7em;
+  }
+  30% {
+    right: 7em;
+  }
+  40% {
+    right: 7em;
+  }
+  50% {
+    right: 7em;
+  }
+  60% {
+    right: 7em;
+  }
+  90% {
+    right: 7em;
+  }
+  100% {
+    right: 7em;
+  }
+}
+@keyframes reflectionForSmallDevice {
+  0% {
+    right: -90%;
+  }
+  20% {
+    right: 100%;
+  }
+  30% {
+    right: 100%;
+  }
+  40% {
+    right: 100%;
+  }
+  50% {
+    right: 100%;
+  }
+  60% {
+    right: 100%;
+  }
+  90% {
+    right: 100%;
+  }
+  100% {
+    right: 100%;
   }
 }
 @media screen and (max-width: 800px) {
   .home-content {
     line-height: 2.5rem;
-    text-align: left;
   }
   .home-content__btn {
     margin-top: 1em;
@@ -820,6 +867,45 @@ html {
   }
   .home-content__shapes-ball-shadow {
     visibility: hidden;
+  }
+}
+@media screen and (max-width: 670px) {
+  .home-content {
+    margin: 0 2em;
+    text-align: left;
+  }
+}
+@media screen and (max-width: 500px) {
+  img.home-logo__logo {
+    height: 7vw;
+    top: 4vh;
+    left: 3%;
+  }
+
+  .home-content {
+    bottom: -6em;
+  }
+  .home-content-btn {
+    width: 100%;
+  }
+  .home-content-heading {
+    font-size: 1.4rem;
+  }
+  .home-content-subheading {
+    font-size: 1.1rem;
+  }
+
+  a.home-content-btn__link-ui {
+    width: 96vw;
+    height: 1em;
+    height: 2em;
+    font-size: 1.2rem;
+    padding: 0.4em 1.5em;
+  }
+  a.home-content-btn__link-ui:after {
+    display: flex;
+    right: -100%;
+    animation: reflectionForSmallDevice 4s linear 8s infinite forwards !important;
   }
 }
 
