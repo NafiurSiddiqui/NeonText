@@ -1,12 +1,13 @@
+html {
+	font-size: 20px;
+	overflow: hidden;
+}
+
 body.background {
 	height: 100vh;
 	background: linear-gradient(180deg, #01101f 0%, #1b1b1b 68.37%, #a97171 100%);
 	background-color: #2b1322;
 	overflow: hidden;
-}
-
-html {
-	font-size: 20px;
 }
 
 .home-logo {
