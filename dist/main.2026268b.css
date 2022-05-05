@@ -44,29 +44,51 @@ section.ui-container {
   }
 }
 
-section.primary-heading {
+.ui-price-card {
+  border: 1px solid black;
+  border-radius: 0.4em;
+  padding: 0.4em;
   display: flex;
   -webkit-box-flex: flex;
-  justify-content: center;
+  justify-content: space-between;
   align-items: center;
-  flex-direction: column;
-  margin-bottom: 1em;
+  background-color: #0b0b0b;
+  line-height: 2em;
+  font-family: "Kumbh Sans", sans-serif;
+  margin: 0.6em 0.1em;
 }
-section.primary-heading > h1 {
-  color: #3c7a89;
-  font-size: 2.2rem;
+.ui-price-card:last-child {
+  margin-bottom: 3em;
+}
+.ui-price-card__price-box {
+  display: flex;
+  flex-direction: column;
+  background-color: #222222;
+  color: whitesmoke;
+  width: 25%;
+  border-radius: 0.4em;
+  padding: 0 0.2em;
+}
+.ui-price-card__price-box > span {
+  width: 100%;
+}
+.ui-price-card__price-box > span:nth-child(1) {
+  font-style: italic;
+  font-size: 0.9em;
+}
+.ui-price-card__price-box > span:nth-child(2) {
+  text-align: right;
+  font-size: 1.5rem;
+  font-weight: 600;
+}
+.ui-price-card__length-box {
+  color: lightgray;
   font-style: italic;
 }
-section.primary-heading > h2 {
-  color: #f16bbc;
-}
-@media screen and (max-width: 500px) {
-  section.primary-heading > h1 {
-    font-size: calc(2rem - 2px);
-  }
-  section.primary-heading > h2 {
-    font-size: calc(1.5rem - 2px);
-  }
+.ui-price-card__length-box > div > span {
+  font-weight: bold;
+  font-style: normal;
+  color: whitesmoke;
 }
 
 ul.ui-input-nav-lists {
@@ -80,16 +102,17 @@ ul.ui-input-nav-lists > li {
 }
 
 .ui-input {
-  border: 1px solid silver;
   border-radius: 1.2em;
-  padding: 0.2em;
   transition: all 3ms linear;
   box-shadow: 0px 6px 20px -2px rgba(0, 0, 0, 0.27);
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.45) 0%, rgba(255, 255, 255, 0.3735) 100%);
 }
 .ui-input-container {
   background-color: #0b0b0b;
   height: 50%;
-  padding: 0 0.4em;
+  padding: 0.4em 0.3em;
+  border-top-left-radius: 0.8em;
+  border-top-right-radius: 0.8em;
 }
 .ui-input-nav {
   line-height: 2.6em;
@@ -103,17 +126,17 @@ ul.ui-input-nav-lists > li {
   background-color: #f7f7f7;
 }
 .ui-input-nav-list:nth-child(1) {
-  border-top-left-radius: 0.8em;
+  border-top-left-radius: 0.4em;
 }
 .ui-input-nav-list:nth-child(3) {
-  border-top-right-radius: 0.8em;
+  border-top-right-radius: 0.4em;
 }
 .ui-input-form-container {
   padding: 1em 0;
   text-align: center;
   background-color: #222222;
-  border-bottom-left-radius: 1.2em;
-  border-bottom-right-radius: 1.2em;
+  border-bottom-left-radius: 0.8em;
+  border-bottom-right-radius: 0.8em;
 }
 .ui-input-form-heading {
   margin-bottom: 1em;
@@ -624,6 +647,24 @@ input:checked ~ span span:first-of-type {
   font-weight: 200;
   font-display: swap;
   src: url(https://fonts.gstatic.com/s/kodchasan/v16/1cX0aUPOAJv9sG4I-DJeR1CQhuCp.woff2) format("woff2");
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+/* latin-ext */
+@font-face {
+  font-family: "Kumbh Sans";
+  font-style: normal;
+  font-weight: 200;
+  font-display: swap;
+  src: url(https://fonts.gstatic.com/s/kumbhsans/v11/c4mw1n92AsfhuCq6tVsaoIx1CHIi4kToNopqShNBVo0iPw.woff2) format("woff2");
+  unicode-range: U+0100-024F, U+0259, U+1E00-1EFF, U+2020, U+20A0-20AB, U+20AD-20CF, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+/* latin */
+@font-face {
+  font-family: "Kumbh Sans";
+  font-style: normal;
+  font-weight: 200;
+  font-display: swap;
+  src: url(https://fonts.gstatic.com/s/kumbhsans/v11/c4mw1n92AsfhuCq6tVsaoIx1CHIi4kToNopqShNPVo0.woff2) format("woff2");
   unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
 }
 .home-html {

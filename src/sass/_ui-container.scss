@@ -14,27 +14,50 @@ section.ui-container {
 	}
 }
 
-section.primary-heading {
-	@include flexCentered;
-	flex-direction: column;
-	margin-bottom: 1em;
-	& > h1 {
-		color: $primaryColor;
-		font-size: 2.2rem;
-		font-style: italic;
+.ui-price-card {
+	border: 1px solid black;
+	border-radius: 0.4em;
+	padding: 0.4em;
+	@include flexSpaceBetween;
+	background-color: $uiPrimary;
+	line-height: 2em;
+	font-family: "Kumbh Sans", sans-serif;
+	margin: 0.6em 0.1em;
+	&:last-child {
+		margin-bottom: 3em;
 	}
+	&__price-box {
+		display: flex;
+		flex-direction: column;
+		background-color: $uiSecondary;
+		color: whitesmoke;
+		width: 25%;
+		border-radius: 0.4em;
+		padding: 0 0.2em;
+		& > span {
+			// @include borderTest(white);
+			width: 100%;
 
-	& > h2 {
-		color: $secondaryColor;
-	}
+			&:nth-child(1) {
+				font-style: italic;
+				font-size: 0.9em;
+			}
 
-	@media screen and (max-width: 500px) {
-		& > h1 {
-			font-size: calc(2rem - 2px);
+			&:nth-child(2) {
+				text-align: right;
+				font-size: 1.5rem;
+				font-weight: 600;
+			}
 		}
+	}
 
-		& > h2 {
-			font-size: calc(1.5rem - 2px);
+	&__length-box {
+		color: rgb(211, 211, 211);
+		font-style: italic;
+		& > div > span {
+			font-weight: bold;
+			font-style: normal;
+			color: whitesmoke;
 		}
 	}
 }

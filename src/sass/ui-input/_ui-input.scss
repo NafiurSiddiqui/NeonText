@@ -9,34 +9,39 @@ ul.ui-input-nav-lists {
 }
 
 .ui-input {
-	border: 1px solid silver;
+	// border: 1px solid silver;
 	border-radius: 1.2em;
-	padding: 0.2em;
 	transition: all 3ms linear;
 	box-shadow: 0px 6px 20px -2px rgba(0, 0, 0, 0.27);
+	background: linear-gradient(
+		180deg,
+		rgba(255, 255, 255, 0.45) 0%,
+		rgba(255, 255, 255, 0.3735) 100%
+	);
 
 	&-container {
 		background-color: $uiPrimary;
 		height: 50%;
-		padding: 0 0.4em;
+		padding: 0.4em 0.3em;
+		border-top-left-radius: 0.8em;
+		border-top-right-radius: 0.8em;
 	}
 	&-nav {
 		line-height: 2.6em;
 		&-list {
-			// @include borderTest($uiPrimary);
 			border-right: 1px solid $uiPrimary;
 			width: 100%;
 			text-align: center;
 			cursor: pointer;
 			color: #3a474b;
-			// background-color: rgb(247, 247, 247);
+
 			background-color: rgb(247, 247, 247);
 
 			&:nth-child(1) {
-				border-top-left-radius: 0.8em;
+				border-top-left-radius: 0.4em;
 			}
 			&:nth-child(3) {
-				border-top-right-radius: 0.8em;
+				border-top-right-radius: 0.4em;
 			}
 		}
 	}
@@ -46,8 +51,8 @@ ul.ui-input-nav-lists {
 			padding: 1em 0;
 			text-align: center;
 			background-color: $uiSecondary;
-			border-bottom-left-radius: 1.2em;
-			border-bottom-right-radius: 1.2em;
+			border-bottom-left-radius: 0.8em;
+			border-bottom-right-radius: 0.8em;
 		}
 
 		&-heading {
