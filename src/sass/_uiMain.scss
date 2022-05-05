@@ -1,0 +1,28 @@
+.ui-html {
+	overflow-x: hidden;
+}
+
+.ui-body {
+	min-height: 110vh;
+	background: linear-gradient(180deg, #01101f 0%, #1b1b1b 68.37%, #a97171 100%);
+	background-color: #2b1322;
+	overflow-x: hidden;
+}
+
+.ui-logo {
+	width: 100%;
+	height: 15%;
+	margin-left: 1em;
+	margin-top: 1em;
+	margin-bottom: 2em;
+	&__logo {
+		height: 2rem;
+	}
+}
+
+main.container {
+	@include borderTest(white);
+	width: 100%;
+	@include flexCentered;
+	flex-direction: column;
+}

@@ -1,4 +1,4 @@
-html {
+.home-html {
 	font-size: 20px;
 	overflow: hidden;
 }
@@ -20,23 +20,18 @@ body.background {
 }
 
 .home-content__container {
-	// @include borderTest(white);
 	color: white;
 	@include flexCentered;
 	flex-direction: column;
 }
 
 .home-content {
-	// @include borderTest(pink);
-	// width: 80%;
 	text-align: right;
 	@include flexCentered;
 	flex-direction: column;
 	align-items: end;
 	position: relative;
 	bottom: -7em;
-	// line-height: 4em;
-	// line-height: 3.8em;
 	line-height: 4.8vw;
 	&-heading {
 		font-size: max(3.5vw, 1.6rem);
@@ -99,7 +94,6 @@ body.background {
 .home-content__shapes {
 	width: 100%;
 	@include flexSpaceBetween;
-	// @include borderTest(white);
 	&-displayTab {
 		width: 20em;
 		min-width: 10em;
@@ -212,7 +206,6 @@ body.background {
 @media screen and (max-width: 800px) {
 	.home-content {
 		line-height: 2.5rem;
-		// text-align: left;
 
 		&__btn {
 			margin-top: 1em;

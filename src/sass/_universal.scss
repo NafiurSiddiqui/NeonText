@@ -15,12 +15,6 @@ body {
 	background-color: rgb(252, 252, 252);
 }
 
-main.container {
-	width: 100%;
-	@include flexCentered;
-	flex-direction: column;
-}
-
 ul > li {
 	list-style-type: none;
 }
