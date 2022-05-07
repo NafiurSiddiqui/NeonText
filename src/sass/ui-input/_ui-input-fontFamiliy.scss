@@ -10,7 +10,7 @@ $uiHeadings: #918a8a;
 }
 
 .ui-input-fontFamily-list {
-	@include borderTest(silver);
+	@include borderTest(rgb(56, 56, 56));
 	width: 10em;
 	padding: 0.4em;
 	border-radius: 0.2em;
@@ -22,9 +22,6 @@ $uiHeadings: #918a8a;
 		& > image.ui-input-fontFamily-list__imageWhite {
 			display: flex !important;
 		}
-	}
-	&__image {
-		height: 22px;
 	}
 
 	&__imageWhite {

@@ -21,7 +21,7 @@
 }
 
 main.container {
-	@include borderTest(white);
+	// @include borderTest(white);
 	width: 100%;
 	@include flexCentered;
 	flex-direction: column;

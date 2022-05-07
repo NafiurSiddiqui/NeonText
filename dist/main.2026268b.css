@@ -98,7 +98,7 @@ ul.ui-input-nav-lists {
   align-items: center;
 }
 ul.ui-input-nav-lists > li {
-  font-size: 1.4rem;
+  font-size: 1.2rem;
 }
 
 .ui-input {
@@ -109,7 +109,6 @@ ul.ui-input-nav-lists > li {
 }
 .ui-input-container {
   background-color: #0b0b0b;
-  height: 50%;
   padding: 0.4em 0.3em;
   border-top-left-radius: 0.8em;
   border-top-right-radius: 0.8em;
@@ -118,18 +117,19 @@ ul.ui-input-nav-lists > li {
   line-height: 2.6em;
 }
 .ui-input-nav-list {
-  border-right: 1px solid #0b0b0b;
+  border-right: 1px solid #464444;
   width: 100%;
   text-align: center;
   cursor: pointer;
-  color: #3a474b;
-  background-color: #f7f7f7;
+  color: #6a7072;
+  background-color: #0b0b0b;
 }
 .ui-input-nav-list:nth-child(1) {
   border-top-left-radius: 0.4em;
 }
 .ui-input-nav-list:nth-child(3) {
   border-top-right-radius: 0.4em;
+  border-right-color: #1f1e1e;
 }
 .ui-input-form-container {
   padding: 1em 0;
@@ -140,7 +140,10 @@ ul.ui-input-nav-lists > li {
 }
 .ui-input-form-heading {
   margin-bottom: 1em;
-  color: #444;
+  color: #797676;
+  font-style: italic;
+  font-size: 1rem;
+  letter-spacing: 1px;
 }
 .ui-input-form.text {
   text-align: center;
@@ -154,19 +157,21 @@ ul.ui-input-nav-lists > li {
   border-right-style: hidden;
   border-left-style: hidden;
   border-bottom-style: hidden;
-  box-shadow: inset 0 0 0 2px #d6d6d6;
+  box-shadow: inset 0 0 0 2px #524f4f;
   outline: none;
   padding: 2em;
-  background-color: #eeeeee;
+  background-color: #312f2f;
   font-size: 1.5rem;
-  color: #444;
+  color: #aca8a8;
   font-weight: 500;
   text-align: center;
 }
 .ui-input-form.text > input:focus {
-  -webkit-box-shadow: 0px 2px 6px 3px #d7caccbe;
-  box-shadow: 0px 2px 6px 3px #d7caccbe;
+  -webkit-box-shadow: inset 0px 2px 6px 3px #d7caccbe;
+  box-shadow: inset 0px 2px 6px 3px #d7caccbe;
+  background-color: #535353;
   border: 1px solid rgba(128, 128, 128, 0.575);
+  color: #f1f1f1;
 }
 .ui-input-form.color, .ui-input-form.fontFamily {
   display: flex;
@@ -211,7 +216,7 @@ ul.ui-input-nav-lists > li {
 }
 
 .ui-input-fontFamily-list {
-  border: 1px solid silver;
+  border: 1px solid #383838;
   width: 10em;
   padding: 0.4em;
   border-radius: 0.2em;
@@ -223,9 +228,6 @@ ul.ui-input-nav-lists > li {
 }
 .ui-input-fontFamily-list:hover > image.ui-input-fontFamily-list__imageWhite {
   display: flex !important;
-}
-.ui-input-fontFamily-list__image {
-  height: 22px;
 }
 .ui-input-fontFamily-list__imageWhite {
   height: 22px;
@@ -250,7 +252,7 @@ ul.ui-input-nav-lists > li {
   width: 5em;
   padding: 1em;
   text-align: center;
-  color: #3f3e3e;
+  color: #949393;
   cursor: pointer;
 }
 .input-color-list-heading {
@@ -316,14 +318,16 @@ article.ui-display {
   background: linear-gradient(180deg, #0a0a0e 18%, rgba(0, 0, 0, 0.8183474073) 100%);
   padding: 1em;
   border-radius: 1.2em;
+  border: 10px solid #6b6b6b;
+  display: flex;
+  -webkit-box-flex: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .ui-display-userText-container {
-  border: 1px solid white;
   width: 100%;
   height: 20em;
-  background-color: #302f2f;
-  margin-top: 5em;
   display: flex;
   -webkit-box-flex: flex;
   justify-content: center;
@@ -410,6 +414,7 @@ canvas#displayText {
   display: inline-block;
   width: 65px;
   height: 30px;
+  align-self: baseline;
 }
 
 /* Hide default HTML checkbox */
@@ -427,7 +432,7 @@ canvas#displayText {
   left: 0;
   right: 0;
   bottom: 0;
-  background-color: #ccc;
+  background-color: #3d3c3c;
   -webkit-transition: 0.4s;
   transition: 0.4s;
   display: flex;
@@ -443,11 +448,11 @@ canvas#displayText {
 .slider:before {
   position: absolute;
   content: "";
-  height: 23px;
-  width: 23px;
-  left: 4px;
-  bottom: 4px;
-  background-color: white;
+  height: 28px;
+  width: 28px;
+  left: 1px;
+  bottom: 1px;
+  background-color: #979797;
   -webkit-transition: 0.4s;
   transition: 0.4s;
 }
@@ -457,17 +462,13 @@ input ~ span span:first-of-type {
 }
 
 input:checked + .slider {
-  background-color: #4397db;
-}
-
-input:focus + .slider {
-  box-shadow: 0 0 1px #2196f3;
+  background-color: #034174;
 }
 
 input:checked + .slider:before {
-  -webkit-transform: translateX(31px);
-  -ms-transform: translateX(31px);
-  transform: translateX(31px);
+  -webkit-transform: translateX(35px);
+  -ms-transform: translateX(35px);
+  transform: translateX(35px);
 }
 
 input:checked ~ span span:last-of-type {
@@ -941,7 +942,6 @@ body.background {
 }
 
 main.container {
-  border: 1px solid white;
   width: 100%;
   display: flex;
   -webkit-box-flex: flex;
