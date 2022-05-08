@@ -14,11 +14,9 @@ article.ui-display {
 
 .ui-display-userText {
 	&-container {
-		// @include borderTest(white);
 		width: 100%;
 		height: 20em;
-		// background-color: rgb(48, 47, 47);
-		// margin-top: 5em;
+
 		@include flexCentered;
 		flex-direction: column;
 		@media screen and (max-width: 1200px) {
@@ -31,7 +29,6 @@ article.ui-display {
 	}
 
 	&-text {
-		// @include borderTest(white);
 		width: auto;
 		height: auto;
 		color: rgb(244, 244, 244);
@@ -162,10 +159,6 @@ input ~ span span:first-of-type {
 
 input:checked + .slider {
 	background-color: #034174;
-}
-
-input:focus + .slider {
-	// box-shadow: 0 0 1px #2196f3;
 }
 
 input:checked + .slider:before {

@@ -7,11 +7,6 @@ section.ui-container {
 	height: 80vh;
 	min-height: 38rem;
 	justify-content: center;
-
-	@media screen and (max-width: 1200px) {
-		grid-template-columns: 100%;
-		width: 100%;
-	}
 }
 
 .ui-price-card {

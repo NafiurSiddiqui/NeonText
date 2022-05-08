@@ -1,0 +1,42 @@
+@media screen and (max-width: 1200px) {
+	body.ui-body {
+		min-height: 125vh;
+	}
+	section.ui-container {
+		grid-template-columns: 40% 60%;
+		width: 100%;
+	}
+
+	div.ui-price-card__price-box {
+		width: 30%;
+	}
+}
+
+@media screen and (max-width: 980px) {
+	li.ui-input-fontFamily-list {
+		width: 8rem;
+	}
+}
+
+@media screen and (max-width: 860px) {
+	body.ui-body {
+		min-height: 150vh;
+	}
+	section.ui-container {
+		grid-template-columns: 100%;
+		width: 80%;
+	}
+
+	input:checked + .slider:before {
+		-webkit-transform: translateX(30px);
+		-ms-transform: translateX(30px);
+		transform: translateX(30px);
+	}
+}
+
+@media screen and (max-width: 580px) {
+	section.ui-container {
+		grid-template-columns: 100%;
+		width: 100%;
+	}
+}
