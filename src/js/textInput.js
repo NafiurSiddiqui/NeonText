@@ -115,15 +115,6 @@ navText.addEventListener("input", (e) => {
 	return userText, metrics, textLength;
 });
 
-function setBarMeasurement() {
-	console.log("💥 time 💥");
-	if (textLength !== 0) {
-		showBars(true);
-	} else {
-		showBars(null);
-	}
-}
-
 function debounceMeasurement() {
 	let timeout;
 	showBars(false);

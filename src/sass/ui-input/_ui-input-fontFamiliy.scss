@@ -16,26 +16,14 @@ $uiHeadings: #918a8a;
 	border-radius: 0.2em;
 	cursor: pointer;
 	transition: background-color 0.3s ease-in-out;
+	transition: border 0.3s ease-in-out;
+
 	&:hover {
-		background-color: $primaryColor;
-
-		& > image.ui-input-fontFamily-list__imageWhite {
-			display: flex !important;
-		}
-	}
-
-	&__imageWhite {
-		height: 22px;
+		background-color: #0f0f0f;
 	}
 }
 
 .btn-active {
-	background-color: $primaryColor;
-	@include flexCentered;
-	& > img.ui-input-fontFamily-list__image {
-		display: none !important;
-	}
-	& > img.ui-input-fontFamily-list__imageWhite {
-		display: flex !important;
-	}
+	background-color: #0f0f0f;
+	border: 2px solid rgb(141, 141, 141);
 }

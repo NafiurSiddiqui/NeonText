@@ -123,7 +123,7 @@ parcelRequire = (function (modules, cache, entry, globalName) {
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.globalVar = exports.default = void 0;
+exports.globarPrice = exports.globalVar = exports.default = void 0;
 var uiNav = document.querySelectorAll(".ui-input-nav-list");
 var uiInputText = document.querySelector(".ui-input-form.text");
 var uiInputFont = document.querySelector(".ui-input-form.fontFamily");
@@ -132,7 +132,7 @@ var uiForm = document.querySelectorAll(".ui-input-form");
 var display = document.querySelector(".ui-display-userText-text");
 var displayWrapper = document.querySelector(".ui-display-userText-wrapper");
 var canva = document.getElementById("displayText");
-var ctx = canva.getContext("2d"); //measurement bars
+var ctx = canva.getContext("2d"); //-----------measurement bars
 
 var widthContainer = document.querySelector(".measurementBar-container-bottom");
 var barWidth = document.querySelector(".measurementBar-width");
@@ -174,8 +174,30 @@ var globalFonts = {
   fontBtnsWhite: fontBtnsWhite,
   fontBtnsBlack: fontBtnsBlack
 };
-var _default = globalFonts;
+var _default = globalFonts; //--------------Pricing cards
+
 exports.default = _default;
+var priceSmall = document.querySelector(".ui-price-card__small-price");
+var priceSmallLength = document.querySelector(".ui-price-card__small-length");
+var priceSmallHeight = document.querySelector(".ui-price-card__small-height");
+var priceMedium = document.querySelector(".ui-price-card__medium-price");
+var priceMediumLength = document.querySelector(".ui-price-card__medium-length");
+var priceMediumHeight = document.querySelector(".ui-price-card__medium-height");
+var priceLarge = document.querySelector(".ui-price-card__large-price");
+var priceLargeLength = document.querySelector(".ui-price-card__large-length");
+var priceLargeHeight = document.querySelector(".ui-price-card__large-height");
+var globarPrice = {
+  priceSmall: priceSmall,
+  priceSmallLength: priceSmallLength,
+  priceSmallHeight: priceSmallHeight,
+  priceMedium: priceMedium,
+  priceMediumLength: priceMediumLength,
+  priceMediumHeight: priceMediumHeight,
+  priceLarge: priceLarge,
+  priceLargeHeight: priceLargeHeight,
+  priceLargeLength: priceLargeLength
+};
+exports.globarPrice = globarPrice;
 },{}],"src/js/globalFuntions.js":[function(require,module,exports) {
 "use strict";
 
@@ -296,22 +318,7 @@ function removeClass() {
   } else {
     el[child].classList.remove(className);
   }
-} // function conditionalSet(targetText, val, ...args) {
-// 	//refer to the individual function arguments in case of confusion
-// 	if (targetText === val) {
-// 		if (checkClass(args[0], args[1], args[2])) {
-// 			removeClass(args[0], args[1], args[2]);
-// 		}
-// 		if (checkClass(args[3], args[4], args[5])) {
-// 			removeClass(args[3], args[4], args[5]);
-// 		}
-// 		toggleDisplay(args[6]);
-// 		toggleDisplay(args[7]);
-// 		setClass(args[8], args[9], args[10], args[11]);
-// 		setClass(args[12], args[13], args[14], args[15]);
-// 	}
-// }
-//for quick referencing
+} //for quick referencing
 
 
 var navActive = "nav-active";
@@ -319,13 +326,10 @@ var uiActive = "ui-active"; //state checking
 
 var textState = false;
 var fontState = false;
-var colorState = false; // console.log(uiNav[0]);
-// checkClass(false, uiNav, 0, navActive);
-
+var colorState = false;
 checkClass(true, uiInputText, null, uiActive);
 
 function setValue(e) {
-  // console.log(e.target.innerText);
   var targetText = e.target.innerText; //TEXT NAV
 
   if (targetText === "Text") {
@@ -513,16 +517,6 @@ navText.addEventListener("input", function (e) {
   return userText, metrics, textLength;
 });
 
-function setBarMeasurement() {
-  console.log("💥 time 💥");
-
-  if (textLength !== 0) {
-    (0, _globalFuntions.showBars)(true);
-  } else {
-    (0, _globalFuntions.showBars)(null);
-  }
-}
-
 function debounceMeasurement() {
   var timeout;
   (0, _globalFuntions.showBars)(false); //cleartimeout
@@ -555,8 +549,16 @@ function _interopRequireWildcard(obj, nodeInterop) { if (!nodeInterop && obj && 
 
 //destructured vars
 var fontBtn = _globalVariables.default.fontBtn,
-    fontBtnsWhite = _globalVariables.default.fontBtnsWhite; // console.log(fontBtn);
-
+    fontBtnsWhite = _globalVariables.default.fontBtnsWhite;
+var priceSmall = _globalVariables.globarPrice.priceSmall,
+    priceSmallLength = _globalVariables.globarPrice.priceSmallLength,
+    priceSmallHeight = _globalVariables.globarPrice.priceSmallHeight,
+    priceMedium = _globalVariables.globarPrice.priceMedium,
+    priceMediumLength = _globalVariables.globarPrice.priceMediumLength,
+    priceMediumHeight = _globalVariables.globarPrice.priceMediumHeight,
+    priceLarge = _globalVariables.globarPrice.priceLarge,
+    priceLargeHeight = _globalVariables.globarPrice.priceLargeHeight,
+    priceLargeLength = _globalVariables.globarPrice.priceLargeLength;
 var widthContainer = _globalVariables.globalVar.widthContainer,
     barWidth = _globalVariables.globalVar.barWidth,
     barWidthSize = _globalVariables.globalVar.barWidthSize,
@@ -569,66 +571,54 @@ var widthContainer = _globalVariables.globalVar.widthContainer,
 
 fontBtnsWhite.forEach(function (btn) {
   btn.classList.add("hide");
-});
-
-var mouseIn = function mouseIn(event) {
-  var firstChild = event.target.firstElementChild.classList;
-  var lastChild = event.target.lastElementChild.classList;
-  firstChild.add("hide");
-  lastChild.remove("hide"); // console.log("works");
-};
-
-var mouseOut = function mouseOut(event) {
-  var firstChild = event.target.firstElementChild.classList;
-  var lastChild = event.target.lastElementChild.classList;
-  firstChild.remove("hide");
-  lastChild.add("hide");
-}; //write the loadFont function
-
+}); //write the loadFont function
 
 function loadFont(targetFont) {
   //---one for the display
   display.style.fontFamily = targetFont; //---one for the canvas
 
-  ctx.font = "4rem ".concat(targetFont, " ");
+  ctx.font = "4rem ".concat(targetFont);
   ctx.fillStyle = "White";
 }
 
 var fontClicked = false;
 exports.fontClicked = fontClicked;
-var fontUserText = ""; //font hover and action
+var fontUserText = ""; //font  action
 
 fontBtn.forEach(function (btns) {
-  //mouseIN
-  btns.addEventListener("mouseenter", mouseIn); //mouseOUt
-
-  btns.addEventListener("mouseleave", mouseOut); //select font
-
+  //select font
   btns.addEventListener("click", function (e) {
     exports.fontClicked = fontClicked = true;
     var target = e.target;
     fontUserText = _textInput.userText;
     fontUserText = "";
-    var textLength = _textInput.userText.length; //Clear displays
+    var textLength = _textInput.userText.length;
+    console.log(target); //Clear displays
 
     (0, _globalFuntions.default)(widthContainer, false);
     (0, _globalFuntions.default)(heightContainer, false);
     (0, _globalFuntions.clearCanvas)(ctx, canva); //if it is is  the parent
 
     if (target.className === "ui-input-fontFamily-list") {
-      var lastChildId = target.lastElementChild.id;
-      (0, _globalFuntions.writeOnCanvas)(ctx, _textInput.userText);
-      loadFont(lastChildId);
+      var childId = target.firstElementChild.id;
+      (0, _globalFuntions.clearCanvas)(ctx, canva);
+      loadFont(childId);
+      (0, _globalFuntions.writeOnCanvasWithFont)(ctx, _textInput.userText, childId);
       var metrics = ctx.measureText(_textInput.userText);
       (0, _globalFuntions.measureBars)(display, metrics, barWidth, barWidthSize, barHeight, barHeightSize, textLength);
     } else {
       //if it is the child
-      (0, _globalFuntions.writeOnCanvas)(ctx, _textInput.userText);
       loadFont(target.id);
+      console.log(target.id);
+      (0, _globalFuntions.writeOnCanvasWithFont)(ctx, _textInput.userText, target.id);
 
       var _metrics = ctx.measureText(_textInput.userText);
 
-      (0, _globalFuntions.measureBars)(display, _metrics, barWidth, barWidthSize, barHeight, barHeightSize, textLength);
+      (0, _globalFuntions.measureBars)(display, _metrics, barWidth, barWidthSize, barHeight, barHeightSize, textLength); //set pricing cards
+
+      priceSmall.textContent = "$".concat(textLength * 2 + 120);
+      priceMedium.textContent = "$".concat(textLength * 3 + 120);
+      priceLarge.textContent = "$".concat(textLength * 4 + 120); // priceSmallLength.textContent = `${barWidthSize}`;
     }
 
     var targetBtn = e.target.closest(".ui-input-fontFamily-list"); //loop throught all the lists
@@ -842,7 +832,21 @@ neonSwitch.addEventListener("click", neonOn);
 // ------ Do you want to clear data and close the browser?
 //yes, clear cookies
 //no, close the browser
-},{}],"src/js/index.js":[function(require,module,exports) {
+},{}],"src/js/pricing.js":[function(require,module,exports) {
+"use strict";
+
+var _globalVariables = require("./globalVariables");
+
+var price = _globalVariables.globarPrice.price,
+    priceLength = _globalVariables.globarPrice.priceLength,
+    priceHeight = _globalVariables.globarPrice.priceHeight;
+var barWidth = _globalVariables.globalVar.barWidth,
+    barHeight = _globalVariables.globalVar.barHeight; //bring in the infos i need ------
+//--------- need barWidth
+//----------need barHeight
+//update the height and width
+//update the price
+},{"./globalVariables":"src/js/globalVariables.js"}],"src/js/index.js":[function(require,module,exports) {
 "use strict";
 
 require("./globalVariables");
@@ -860,7 +864,9 @@ require("./neonSwitch");
 require("./ui color/uiColor");
 
 require("./misc");
-},{"./globalVariables":"src/js/globalVariables.js","./globalFuntions":"src/js/globalFuntions.js","./ui nav/ui-inputNav":"src/js/ui nav/ui-inputNav.js","./textInput":"src/js/textInput.js","./font family/setFonts":"src/js/font family/setFonts.js","./neonSwitch":"src/js/neonSwitch.js","./ui color/uiColor":"src/js/ui color/uiColor.js","./misc":"src/js/misc.js"}],"node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
+
+require("./pricing");
+},{"./globalVariables":"src/js/globalVariables.js","./globalFuntions":"src/js/globalFuntions.js","./ui nav/ui-inputNav":"src/js/ui nav/ui-inputNav.js","./textInput":"src/js/textInput.js","./font family/setFonts":"src/js/font family/setFonts.js","./neonSwitch":"src/js/neonSwitch.js","./ui color/uiColor":"src/js/ui color/uiColor.js","./misc":"src/js/misc.js","./pricing":"src/js/pricing.js"}],"node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
 var OVERLAY_ID = '__parcel__error__overlay__';
 var OldModule = module.bundle.Module;
@@ -888,7 +894,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "62151" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "65302" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

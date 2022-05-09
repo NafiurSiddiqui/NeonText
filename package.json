@@ -3,7 +3,7 @@
 	"version": "1.0.0",
 	"description": "",
 	"scripts": {
-		"start": "parcel --open firefox index.html",
+		"start": "parcel --open firefox ui.html",
 		"build": "parcel build index.html --out-dir ./dist"
 	},
 	"keywords": [],

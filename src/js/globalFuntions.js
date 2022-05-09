@@ -44,6 +44,7 @@ export function measureBars(
 	//measurement bars
 
 	barWidth.style.width = `${displaySize}px`;
+
 	barWidthSize.textContent = `${textLength * 2} CM`;
 	barHeight.style.height = `${height}px`;
 	barHeightSize.textContent = `${Math.floor(height)}Cm`;

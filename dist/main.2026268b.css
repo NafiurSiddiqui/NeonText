@@ -216,29 +216,15 @@ ul.ui-input-nav-lists > li {
   border-radius: 0.2em;
   cursor: pointer;
   transition: background-color 0.3s ease-in-out;
+  transition: border 0.3s ease-in-out;
 }
 .ui-input-fontFamily-list:hover {
-  background-color: #3c7a89;
-}
-.ui-input-fontFamily-list:hover > image.ui-input-fontFamily-list__imageWhite {
-  display: flex !important;
-}
-.ui-input-fontFamily-list__imageWhite {
-  height: 22px;
+  background-color: #0f0f0f;
 }
 
 .btn-active {
-  background-color: #3c7a89;
-  display: flex;
-  -webkit-box-flex: flex;
-  justify-content: center;
-  align-items: center;
-}
-.btn-active > img.ui-input-fontFamily-list__image {
-  display: none !important;
-}
-.btn-active > img.ui-input-fontFamily-list__imageWhite {
-  display: flex !important;
+  background-color: #0f0f0f;
+  border: 2px solid #8d8d8d;
 }
 
 .input-color-list {
@@ -399,7 +385,6 @@ article.ui-display {
 
 canvas#displayText {
   border: 1px solid orange;
-  display: none;
 }
 
 /* The switch - the box around the slider */

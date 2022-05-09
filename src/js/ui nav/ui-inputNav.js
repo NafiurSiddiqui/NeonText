@@ -32,23 +32,6 @@ function removeClass(single = false, el, child, className) {
 	}
 }
 
-// function conditionalSet(targetText, val, ...args) {
-// 	//refer to the individual function arguments in case of confusion
-
-// 	if (targetText === val) {
-// 		if (checkClass(args[0], args[1], args[2])) {
-// 			removeClass(args[0], args[1], args[2]);
-// 		}
-// 		if (checkClass(args[3], args[4], args[5])) {
-// 			removeClass(args[3], args[4], args[5]);
-// 		}
-// 		toggleDisplay(args[6]);
-// 		toggleDisplay(args[7]);
-// 		setClass(args[8], args[9], args[10], args[11]);
-// 		setClass(args[12], args[13], args[14], args[15]);
-// 	}
-// }
-
 //for quick referencing
 
 const navActive = "nav-active";
@@ -58,15 +41,9 @@ let textState = false;
 let fontState = false;
 let colorState = false;
 
-// console.log(uiNav[0]);
-
-// checkClass(false, uiNav, 0, navActive);
-
 checkClass(true, uiInputText, null, uiActive);
 
 function setValue(e) {
-	// console.log(e.target.innerText);
-
 	let targetText = e.target.innerText;
 
 	//TEXT NAV
@@ -121,7 +98,6 @@ function setValue(e) {
 		}
 
 		//activate font Nav
-
 		setClass(false, uiNav, 1, navActive);
 
 		//activate font btn area

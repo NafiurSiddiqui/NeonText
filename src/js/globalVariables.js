@@ -7,7 +7,7 @@ const display = document.querySelector(".ui-display-userText-text");
 const displayWrapper = document.querySelector(".ui-display-userText-wrapper");
 const canva = document.getElementById("displayText");
 const ctx = canva.getContext("2d");
-//measurement bars
+//-----------measurement bars
 const widthContainer = document.querySelector(
 	".measurementBar-container-bottom"
 );
@@ -30,7 +30,6 @@ let fontBtnsWhite = document.querySelectorAll(
 //neonSwitch
 const neonSwitch = document.getElementById("neonSwitch");
 //colorList
-
 const colorList = document.querySelectorAll(".input-color-list");
 
 //exporting these as globalVariable
@@ -61,3 +60,29 @@ let globalFonts = {
 };
 
 export default globalFonts;
+
+//--------------Pricing cards
+
+let priceSmall = document.querySelector(".ui-price-card__small-price");
+let priceSmallLength = document.querySelector(".ui-price-card__small-length");
+let priceSmallHeight = document.querySelector(".ui-price-card__small-height");
+
+let priceMedium = document.querySelector(".ui-price-card__medium-price");
+let priceMediumLength = document.querySelector(".ui-price-card__medium-length");
+let priceMediumHeight = document.querySelector(".ui-price-card__medium-height");
+
+let priceLarge = document.querySelector(".ui-price-card__large-price");
+let priceLargeLength = document.querySelector(".ui-price-card__large-length");
+let priceLargeHeight = document.querySelector(".ui-price-card__large-height");
+
+export let globarPrice = {
+	priceSmall,
+	priceSmallLength,
+	priceSmallHeight,
+	priceMedium,
+	priceMediumLength,
+	priceMediumHeight,
+	priceLarge,
+	priceLargeHeight,
+	priceLargeLength,
+};
