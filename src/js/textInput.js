@@ -1,5 +1,5 @@
 import { globalVar } from "./globalVariables";
-// import { globalFont } from "./font family/setFonts";
+import { globarPrice } from "./globalVariables";
 import setDisplay, {
 	writeOnCanvas,
 	clearCanvas,
@@ -7,8 +7,7 @@ import setDisplay, {
 	showBars,
 	writeOnCanvasWithFont,
 } from "./globalFuntions";
-// import { fontClicked } from "./font family/setFonts";
-
+//globa var destructured
 let {
 	widthContainer,
 	barWidth,
@@ -21,6 +20,17 @@ let {
 	canva,
 	ctx,
 } = globalVar;
+let {
+	priceSmall,
+	priceSmallLength,
+	priceSmallHeight,
+	priceMedium,
+	priceMediumLength,
+	priceMediumHeight,
+	priceLarge,
+	priceLargeHeight,
+	priceLargeLength,
+} = globarPrice;
 
 let navText = uiInputText.firstElementChild;
 //state variables
@@ -64,7 +74,7 @@ init();
 navText.addEventListener("input", (e) => {
 	//get the input value, store it, return it
 	userText = e.target.value;
-
+	console.log(priceSmall);
 	//persist data in local storage
 	localStorage.setItem("userText", userText);
 	//get the item from storage
@@ -91,7 +101,7 @@ navText.addEventListener("input", (e) => {
 	}
 	if (e.inputType === "deleteContentBackward") {
 		//recapture the userText here
-		// let newUserText = userText;
+
 		let newUserText = localUserText;
 
 		//rerender the userText
@@ -99,13 +109,18 @@ navText.addEventListener("input", (e) => {
 			clearCanvas(ctx, canva);
 			writeOnCanvas(ctx, newUserText);
 			metrics = ctx.measureText(userText);
-
 			debounceMeasurement();
+
+			//render the pricings
+
+			priceSmall.textContent = `$${newUserText.length * 80}`;
 		}
 	} else {
 		writeOnCanvas(ctx, userText);
 		metrics = ctx.measureText(userText);
 		debounceMeasurement();
+		//PRICINGS
+		priceSmall.textContent = `$${userText.length * 80}`;
 	}
 
 	if (textLength === 0) {
@@ -122,7 +137,7 @@ function debounceMeasurement() {
 	clearTimeout(timeout);
 	//measure bar
 	timeout = setTimeout(() => {
-		measureBars(
+		let cardMeasures = measureBars(
 			display,
 			metrics,
 			barWidth,
@@ -132,6 +147,15 @@ function debounceMeasurement() {
 			textLength
 		);
 		showBars(true);
+		let width = parseInt(cardMeasures[0]);
+		let height = parseInt(cardMeasures[1]);
+		console.log(width, height);
 		console.log(userText);
+		priceSmallLength.textContent = `${width} Cm`;
+		priceSmallHeight.textContent = `${height} Cm`;
+		priceMediumLength.textContent = `${width * 2} Cm`;
+		priceMediumHeight.textContent = `${height * 1.1} Cm`;
+		priceLargeLength.textContent = `${width * 3} Cm`;
+		priceLargeHeight.textContent = `${height * 1.3} Cm`;
 	}, 3000);
 }

@@ -249,9 +249,10 @@ function measureBars(display, metrics, barWidth, barWidthSize, barHeight, barHei
   var height = Math.floor(metrics.actualBoundingBoxAscent) + Math.floor(metrics.actualBoundingBoxDescent); //measurement bars
 
   barWidth.style.width = "".concat(displaySize, "px");
-  barWidthSize.textContent = "".concat(textLength * 2, " CM");
+  var widthSize = barWidthSize.textContent = "".concat(textLength * 2, " CM");
   barHeight.style.height = "".concat(height, "px");
-  barHeightSize.textContent = "".concat(Math.floor(height), "Cm");
+  var heightSize = barHeightSize.textContent = "".concat(Math.floor(height), "Cm");
+  return [widthSize, heightSize];
 }
 
 function showBars(show) {
@@ -428,8 +429,7 @@ function _getRequireWildcardCache(nodeInterop) { if (typeof WeakMap !== "functio
 
 function _interopRequireWildcard(obj, nodeInterop) { if (!nodeInterop && obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(nodeInterop); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (key !== "default" && Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
 
-// import { globalFont } from "./font family/setFonts";
-// import { fontClicked } from "./font family/setFonts";
+//globa var destructured
 var widthContainer = _globalVariables.globalVar.widthContainer,
     barWidth = _globalVariables.globalVar.barWidth,
     barWidthSize = _globalVariables.globalVar.barWidthSize,
@@ -440,6 +440,15 @@ var widthContainer = _globalVariables.globalVar.widthContainer,
     display = _globalVariables.globalVar.display,
     canva = _globalVariables.globalVar.canva,
     ctx = _globalVariables.globalVar.ctx;
+var priceSmall = _globalVariables.globarPrice.priceSmall,
+    priceSmallLength = _globalVariables.globarPrice.priceSmallLength,
+    priceSmallHeight = _globalVariables.globarPrice.priceSmallHeight,
+    priceMedium = _globalVariables.globarPrice.priceMedium,
+    priceMediumLength = _globalVariables.globarPrice.priceMediumLength,
+    priceMediumHeight = _globalVariables.globarPrice.priceMediumHeight,
+    priceLarge = _globalVariables.globarPrice.priceLarge,
+    priceLargeHeight = _globalVariables.globarPrice.priceLargeHeight,
+    priceLargeLength = _globalVariables.globarPrice.priceLargeLength;
 var navText = uiInputText.firstElementChild; //state variables
 
 var textInputState = false; //set the default states
@@ -476,7 +485,8 @@ function init() {
 init();
 navText.addEventListener("input", function (e) {
   //get the input value, store it, return it
-  exports.userText = userText = e.target.value; //persist data in local storage
+  exports.userText = userText = e.target.value;
+  console.log(priceSmall); //persist data in local storage
 
   localStorage.setItem("userText", userText); //get the item from storage
 
@@ -495,19 +505,22 @@ navText.addEventListener("input", function (e) {
 
   if (e.inputType === "deleteContentBackward") {
     //recapture the userText here
-    // let newUserText = userText;
     var newUserText = localUserText; //rerender the userText
 
     if (newUserText.length !== 0) {
       (0, _globalFuntions.clearCanvas)(ctx, canva);
       (0, _globalFuntions.writeOnCanvas)(ctx, newUserText);
       exports.metrics = metrics = ctx.measureText(userText);
-      debounceMeasurement();
+      debounceMeasurement(); //render the pricings
+
+      priceSmall.textContent = "$".concat(newUserText.length * 80);
     }
   } else {
     (0, _globalFuntions.writeOnCanvas)(ctx, userText);
     exports.metrics = metrics = ctx.measureText(userText);
-    debounceMeasurement();
+    debounceMeasurement(); //PRICINGS
+
+    priceSmall.textContent = "$".concat(userText.length * 80);
   }
 
   if (textLength === 0) {
@@ -524,9 +537,18 @@ function debounceMeasurement() {
   clearTimeout(timeout); //measure bar
 
   timeout = setTimeout(function () {
-    (0, _globalFuntions.measureBars)(display, metrics, barWidth, barWidthSize, barHeight, barHeightSize, textLength);
+    var cardMeasures = (0, _globalFuntions.measureBars)(display, metrics, barWidth, barWidthSize, barHeight, barHeightSize, textLength);
     (0, _globalFuntions.showBars)(true);
+    var width = parseInt(cardMeasures[0]);
+    var height = parseInt(cardMeasures[1]);
+    console.log(width, height);
     console.log(userText);
+    priceSmallLength.textContent = "".concat(width, " Cm");
+    priceSmallHeight.textContent = "".concat(height, " Cm");
+    priceMediumLength.textContent = "".concat(width * 2, " Cm");
+    priceMediumHeight.textContent = "".concat(height * 1.1, " Cm");
+    priceLargeLength.textContent = "".concat(width * 3, " Cm");
+    priceLargeHeight.textContent = "".concat(height * 1.3, " Cm");
   }, 3000);
 }
 },{"./globalVariables":"src/js/globalVariables.js","./globalFuntions":"src/js/globalFuntions.js"}],"src/js/font family/setFonts.js":[function(require,module,exports) {
@@ -894,7 +916,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "65302" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "60257" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

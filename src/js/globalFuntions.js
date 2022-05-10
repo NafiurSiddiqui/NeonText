@@ -45,9 +45,11 @@ export function measureBars(
 
 	barWidth.style.width = `${displaySize}px`;
 
-	barWidthSize.textContent = `${textLength * 2} CM`;
+	let widthSize = (barWidthSize.textContent = `${textLength * 2} CM`);
 	barHeight.style.height = `${height}px`;
-	barHeightSize.textContent = `${Math.floor(height)}Cm`;
+	let heightSize = (barHeightSize.textContent = `${Math.floor(height)}Cm`);
+
+	return [widthSize, heightSize];
 }
 
 export function showBars(show) {
