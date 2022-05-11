@@ -6,6 +6,8 @@ import setDisplay, {
 	measureBars,
 	showBars,
 	writeOnCanvasWithFont,
+	calculateDimension,
+	calculatePricing,
 } from "./globalFuntions";
 //globa var destructured
 let {
@@ -20,17 +22,17 @@ let {
 	canva,
 	ctx,
 } = globalVar;
-let {
-	priceSmall,
-	priceSmallLength,
-	priceSmallHeight,
-	priceMedium,
-	priceMediumLength,
-	priceMediumHeight,
-	priceLarge,
-	priceLargeHeight,
-	priceLargeLength,
-} = globarPrice;
+// let {
+// 	priceSmall,
+// 	priceSmallLength,
+// 	priceSmallHeight,
+// 	priceMedium,
+// 	priceMediumLength,
+// 	priceMediumHeight,
+// 	priceLarge,
+// 	priceLargeHeight,
+// 	priceLargeLength,
+// } = globarPrice;
 
 let navText = uiInputText.firstElementChild;
 //state variables
@@ -39,6 +41,26 @@ let textInputState = false;
 export let userText = "";
 export let textLength = null;
 export let metrics = null;
+
+const calculation = () => {
+	let cardMeasures = measureBars(
+		display,
+		metrics,
+		barWidth,
+		barWidthSize,
+		barHeight,
+		barHeightSize,
+		textLength
+	);
+	showBars(true);
+	let width = parseInt(cardMeasures[0]);
+	let height = parseInt(cardMeasures[1]);
+	console.log(width, height);
+	// console.log(userText.length);
+	//calcualtion for price cards
+	calculatePricing(userText);
+	calculateDimension(width, height);
+};
 
 function init() {
 	//initial default state
@@ -49,15 +71,20 @@ function init() {
 		let textLength = userText.length;
 		writeOnCanvasWithFont(ctx, userText, "Tangerine");
 		metrics = ctx.measureText(userText);
-		measureBars(
-			display,
-			metrics,
-			barWidth,
-			barWidthSize,
-			barHeight,
-			barHeightSize,
-			textLength
-		);
+		// let cardMeasures = measureBars(
+		// 	display,
+		// 	metrics,
+		// 	barWidth,
+		// 	barWidthSize,
+		// 	barHeight,
+		// 	barHeightSize,
+		// 	textLength
+		// );
+		// let width = parseInt(cardMeasures[0]);
+		// let height = parseInt(cardMeasures[1]);
+		// calculatePricing(userText);
+		// calculateDimension(width, height);
+		calculation();
 	} else {
 		localStorage.clear();
 		userText = "Your Text";
@@ -74,7 +101,6 @@ init();
 navText.addEventListener("input", (e) => {
 	//get the input value, store it, return it
 	userText = e.target.value;
-	console.log(priceSmall);
 	//persist data in local storage
 	localStorage.setItem("userText", userText);
 	//get the item from storage
@@ -110,52 +136,25 @@ navText.addEventListener("input", (e) => {
 			writeOnCanvas(ctx, newUserText);
 			metrics = ctx.measureText(userText);
 			debounceMeasurement();
-
-			//render the pricings
-
-			priceSmall.textContent = `$${newUserText.length * 80}`;
 		}
 	} else {
 		writeOnCanvas(ctx, userText);
 		metrics = ctx.measureText(userText);
 		debounceMeasurement();
-		//PRICINGS
-		priceSmall.textContent = `$${userText.length * 80}`;
 	}
 
 	if (textLength === 0) {
 		clearCanvas(ctx, canva);
 	}
 
-	return userText, metrics, textLength;
+	return userText;
 });
 
-function debounceMeasurement() {
+export default function debounceMeasurement() {
 	let timeout;
 	showBars(false);
 	//cleartimeout
 	clearTimeout(timeout);
 	//measure bar
-	timeout = setTimeout(() => {
-		let cardMeasures = measureBars(
-			display,
-			metrics,
-			barWidth,
-			barWidthSize,
-			barHeight,
-			barHeightSize,
-			textLength
-		);
-		showBars(true);
-		let width = parseInt(cardMeasures[0]);
-		let height = parseInt(cardMeasures[1]);
-		console.log(width, height);
-		console.log(userText);
-		priceSmallLength.textContent = `${width} Cm`;
-		priceSmallHeight.textContent = `${height} Cm`;
-		priceMediumLength.textContent = `${width * 2} Cm`;
-		priceMediumHeight.textContent = `${height * 1.1} Cm`;
-		priceLargeLength.textContent = `${width * 3} Cm`;
-		priceLargeHeight.textContent = `${height * 1.3} Cm`;
-	}, 3000);
+	timeout = setTimeout(calculation, 3000);
 }

@@ -12,3 +12,7 @@ Check out the links below for the licensing of the fonts used here that requires
 - [Amsterdam](https://www.cdnfonts.com/amsterdam-2.font)
 
 - [Amanda](https://www.cdnfonts.com/amanda.font)
+
+### features -
+
+- Pricing is based on the characters, so basically the width.

@@ -1,6 +1,18 @@
 import { globalVar } from "./globalVariables";
+import { globarPrice } from "./globalVariables";
 
 const { heightContainer, widthContainer } = globalVar;
+let {
+	priceSmall,
+	priceSmallLength,
+	priceSmallHeight,
+	priceMedium,
+	priceMediumLength,
+	priceMediumHeight,
+	priceLarge,
+	priceLargeHeight,
+	priceLargeLength,
+} = globarPrice;
 
 export default function setDisplay(el, on = false) {
 	if (on === true) {
@@ -41,6 +53,7 @@ export function measureBars(
 	let height =
 		Math.floor(metrics.actualBoundingBoxAscent) +
 		Math.floor(metrics.actualBoundingBoxDescent);
+
 	//measurement bars
 
 	barWidth.style.width = `${displaySize}px`;
@@ -62,6 +75,17 @@ export function showBars(show) {
 	}
 }
 
-// export function checkBtnActive(){
+export function calculatePricing(userText) {
+	priceSmall.textContent = `$${userText.length * 80}`;
+	priceMedium.textContent = `$${userText.length * 95}`;
+	priceLarge.textContent = `$${userText.length * 105}`;
+}
 
-// }
+export function calculateDimension(width, height) {
+	priceSmallLength.textContent = `${width} Cm`;
+	priceSmallHeight.textContent = `${height} Cm`;
+	priceMediumLength.textContent = `${parseInt(width * 2)} Cm`;
+	priceMediumHeight.textContent = `${parseInt(height * 1.1)} Cm`;
+	priceLargeLength.textContent = `${width * 3} Cm`;
+	priceLargeHeight.textContent = `${parseInt(height * 1.3)} Cm`;
+}

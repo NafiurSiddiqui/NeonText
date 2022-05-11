@@ -1,7 +1,7 @@
 import globalFonts from "../globalVariables";
 import { globalVar } from "../globalVariables";
 import { globarPrice } from "../globalVariables";
-
+import debounceMeasurement from "../textInput";
 import setDisplay, {
 	writeOnCanvas,
 	measureBars,
@@ -10,6 +10,7 @@ import setDisplay, {
 } from "../globalFuntions";
 import { clearCanvas } from "../globalFuntions";
 import { userText } from "../textInput";
+
 //destructured vars
 let { fontBtn, fontBtnsWhite } = globalFonts;
 
@@ -101,12 +102,6 @@ fontBtn.forEach((btns) => {
 				textLength
 			);
 			//set pricing cards
-
-			priceSmall.textContent = `$${textLength * 2 + 120}`;
-			priceMedium.textContent = `$${textLength * 3 + 120}`;
-			priceLarge.textContent = `$${textLength * 4 + 120}`;
-
-			// priceSmallLength.textContent = `${barWidthSize}`;
 		}
 
 		let targetBtn = e.target.closest(".ui-input-fontFamily-list");

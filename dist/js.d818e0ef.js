@@ -204,6 +204,8 @@ exports.globarPrice = globarPrice;
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
+exports.calculateDimension = calculateDimension;
+exports.calculatePricing = calculatePricing;
 exports.clearCanvas = clearCanvas;
 exports.default = setDisplay;
 exports.measureBars = measureBars;
@@ -215,6 +217,15 @@ var _globalVariables = require("./globalVariables");
 
 var heightContainer = _globalVariables.globalVar.heightContainer,
     widthContainer = _globalVariables.globalVar.widthContainer;
+var priceSmall = _globalVariables.globarPrice.priceSmall,
+    priceSmallLength = _globalVariables.globarPrice.priceSmallLength,
+    priceSmallHeight = _globalVariables.globarPrice.priceSmallHeight,
+    priceMedium = _globalVariables.globarPrice.priceMedium,
+    priceMediumLength = _globalVariables.globarPrice.priceMediumLength,
+    priceMediumHeight = _globalVariables.globarPrice.priceMediumHeight,
+    priceLarge = _globalVariables.globarPrice.priceLarge,
+    priceLargeHeight = _globalVariables.globarPrice.priceLargeHeight,
+    priceLargeLength = _globalVariables.globarPrice.priceLargeLength;
 
 function setDisplay(el) {
   var on = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : false;
@@ -263,8 +274,22 @@ function showBars(show) {
     setDisplay(heightContainer, false);
     setDisplay(widthContainer, false);
   }
-} // export function checkBtnActive(){
-// }
+}
+
+function calculatePricing(userText) {
+  priceSmall.textContent = "$".concat(userText.length * 80);
+  priceMedium.textContent = "$".concat(userText.length * 95);
+  priceLarge.textContent = "$".concat(userText.length * 105);
+}
+
+function calculateDimension(width, height) {
+  priceSmallLength.textContent = "".concat(width, " Cm");
+  priceSmallHeight.textContent = "".concat(height, " Cm");
+  priceMediumLength.textContent = "".concat(parseInt(width * 2), " Cm");
+  priceMediumHeight.textContent = "".concat(parseInt(height * 1.1), " Cm");
+  priceLargeLength.textContent = "".concat(width * 3, " Cm");
+  priceLargeHeight.textContent = "".concat(parseInt(height * 1.3), " Cm");
+}
 },{"./globalVariables":"src/js/globalVariables.js"}],"src/js/ui nav/ui-inputNav.js":[function(require,module,exports) {
 "use strict";
 
@@ -419,6 +444,7 @@ _globalVariables.globalVar.uiNav.forEach(function (list) {
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
+exports.default = debounceMeasurement;
 exports.userText = exports.textLength = exports.metrics = void 0;
 
 var _globalVariables = require("./globalVariables");
@@ -439,16 +465,18 @@ var widthContainer = _globalVariables.globalVar.widthContainer,
     uiInputText = _globalVariables.globalVar.uiInputText,
     display = _globalVariables.globalVar.display,
     canva = _globalVariables.globalVar.canva,
-    ctx = _globalVariables.globalVar.ctx;
-var priceSmall = _globalVariables.globarPrice.priceSmall,
-    priceSmallLength = _globalVariables.globarPrice.priceSmallLength,
-    priceSmallHeight = _globalVariables.globarPrice.priceSmallHeight,
-    priceMedium = _globalVariables.globarPrice.priceMedium,
-    priceMediumLength = _globalVariables.globarPrice.priceMediumLength,
-    priceMediumHeight = _globalVariables.globarPrice.priceMediumHeight,
-    priceLarge = _globalVariables.globarPrice.priceLarge,
-    priceLargeHeight = _globalVariables.globarPrice.priceLargeHeight,
-    priceLargeLength = _globalVariables.globarPrice.priceLargeLength;
+    ctx = _globalVariables.globalVar.ctx; // let {
+// 	priceSmall,
+// 	priceSmallLength,
+// 	priceSmallHeight,
+// 	priceMedium,
+// 	priceMediumLength,
+// 	priceMediumHeight,
+// 	priceLarge,
+// 	priceLargeHeight,
+// 	priceLargeLength,
+// } = globarPrice;
+
 var navText = uiInputText.firstElementChild; //state variables
 
 var textInputState = false; //set the default states
@@ -460,6 +488,18 @@ exports.textLength = textLength;
 var metrics = null;
 exports.metrics = metrics;
 
+var calculation = function calculation() {
+  var cardMeasures = (0, _globalFuntions.measureBars)(display, metrics, barWidth, barWidthSize, barHeight, barHeightSize, textLength);
+  (0, _globalFuntions.showBars)(true);
+  var width = parseInt(cardMeasures[0]);
+  var height = parseInt(cardMeasures[1]);
+  console.log(width, height); // console.log(userText.length);
+  //calcualtion for price cards
+
+  (0, _globalFuntions.calculatePricing)(userText);
+  (0, _globalFuntions.calculateDimension)(width, height);
+};
+
 function init() {
   //initial default state
   //check for local storage value exist
@@ -468,8 +508,21 @@ function init() {
     display.textContent = userText;
     var _textLength = userText.length;
     (0, _globalFuntions.writeOnCanvasWithFont)(ctx, userText, "Tangerine");
-    exports.metrics = metrics = ctx.measureText(userText);
-    (0, _globalFuntions.measureBars)(display, metrics, barWidth, barWidthSize, barHeight, barHeightSize, _textLength);
+    exports.metrics = metrics = ctx.measureText(userText); // let cardMeasures = measureBars(
+    // 	display,
+    // 	metrics,
+    // 	barWidth,
+    // 	barWidthSize,
+    // 	barHeight,
+    // 	barHeightSize,
+    // 	textLength
+    // );
+    // let width = parseInt(cardMeasures[0]);
+    // let height = parseInt(cardMeasures[1]);
+    // calculatePricing(userText);
+    // calculateDimension(width, height);
+
+    calculation();
   } else {
     localStorage.clear();
     exports.userText = userText = "Your Text";
@@ -485,8 +538,7 @@ function init() {
 init();
 navText.addEventListener("input", function (e) {
   //get the input value, store it, return it
-  exports.userText = userText = e.target.value;
-  console.log(priceSmall); //persist data in local storage
+  exports.userText = userText = e.target.value; //persist data in local storage
 
   localStorage.setItem("userText", userText); //get the item from storage
 
@@ -511,23 +563,19 @@ navText.addEventListener("input", function (e) {
       (0, _globalFuntions.clearCanvas)(ctx, canva);
       (0, _globalFuntions.writeOnCanvas)(ctx, newUserText);
       exports.metrics = metrics = ctx.measureText(userText);
-      debounceMeasurement(); //render the pricings
-
-      priceSmall.textContent = "$".concat(newUserText.length * 80);
+      debounceMeasurement();
     }
   } else {
     (0, _globalFuntions.writeOnCanvas)(ctx, userText);
     exports.metrics = metrics = ctx.measureText(userText);
-    debounceMeasurement(); //PRICINGS
-
-    priceSmall.textContent = "$".concat(userText.length * 80);
+    debounceMeasurement();
   }
 
   if (textLength === 0) {
     (0, _globalFuntions.clearCanvas)(ctx, canva);
   }
 
-  return userText, metrics, textLength;
+  return userText;
 });
 
 function debounceMeasurement() {
@@ -536,20 +584,7 @@ function debounceMeasurement() {
 
   clearTimeout(timeout); //measure bar
 
-  timeout = setTimeout(function () {
-    var cardMeasures = (0, _globalFuntions.measureBars)(display, metrics, barWidth, barWidthSize, barHeight, barHeightSize, textLength);
-    (0, _globalFuntions.showBars)(true);
-    var width = parseInt(cardMeasures[0]);
-    var height = parseInt(cardMeasures[1]);
-    console.log(width, height);
-    console.log(userText);
-    priceSmallLength.textContent = "".concat(width, " Cm");
-    priceSmallHeight.textContent = "".concat(height, " Cm");
-    priceMediumLength.textContent = "".concat(width * 2, " Cm");
-    priceMediumHeight.textContent = "".concat(height * 1.1, " Cm");
-    priceLargeLength.textContent = "".concat(width * 3, " Cm");
-    priceLargeHeight.textContent = "".concat(height * 1.3, " Cm");
-  }, 3000);
+  timeout = setTimeout(calculation, 3000);
 }
 },{"./globalVariables":"src/js/globalVariables.js","./globalFuntions":"src/js/globalFuntions.js"}],"src/js/font family/setFonts.js":[function(require,module,exports) {
 "use strict";
@@ -561,9 +596,9 @@ exports.fontClicked = void 0;
 
 var _globalVariables = _interopRequireWildcard(require("../globalVariables"));
 
-var _globalFuntions = _interopRequireWildcard(require("../globalFuntions"));
+var _textInput = _interopRequireWildcard(require("../textInput"));
 
-var _textInput = require("../textInput");
+var _globalFuntions = _interopRequireWildcard(require("../globalFuntions"));
 
 function _getRequireWildcardCache(nodeInterop) { if (typeof WeakMap !== "function") return null; var cacheBabelInterop = new WeakMap(); var cacheNodeInterop = new WeakMap(); return (_getRequireWildcardCache = function (nodeInterop) { return nodeInterop ? cacheNodeInterop : cacheBabelInterop; })(nodeInterop); }
 
@@ -637,10 +672,6 @@ fontBtn.forEach(function (btns) {
       var _metrics = ctx.measureText(_textInput.userText);
 
       (0, _globalFuntions.measureBars)(display, _metrics, barWidth, barWidthSize, barHeight, barHeightSize, textLength); //set pricing cards
-
-      priceSmall.textContent = "$".concat(textLength * 2 + 120);
-      priceMedium.textContent = "$".concat(textLength * 3 + 120);
-      priceLarge.textContent = "$".concat(textLength * 4 + 120); // priceSmallLength.textContent = `${barWidthSize}`;
     }
 
     var targetBtn = e.target.closest(".ui-input-fontFamily-list"); //loop throught all the lists
@@ -656,7 +687,7 @@ fontBtn.forEach(function (btns) {
     return fontClicked;
   });
 });
-},{"../globalVariables":"src/js/globalVariables.js","../globalFuntions":"src/js/globalFuntions.js","../textInput":"src/js/textInput.js"}],"src/js/ui color/uiColor.js":[function(require,module,exports) {
+},{"../globalVariables":"src/js/globalVariables.js","../textInput":"src/js/textInput.js","../globalFuntions":"src/js/globalFuntions.js"}],"src/js/ui color/uiColor.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -863,11 +894,7 @@ var price = _globalVariables.globarPrice.price,
     priceLength = _globalVariables.globarPrice.priceLength,
     priceHeight = _globalVariables.globarPrice.priceHeight;
 var barWidth = _globalVariables.globalVar.barWidth,
-    barHeight = _globalVariables.globalVar.barHeight; //bring in the infos i need ------
-//--------- need barWidth
-//----------need barHeight
-//update the height and width
-//update the price
+    barHeight = _globalVariables.globalVar.barHeight;
 },{"./globalVariables":"src/js/globalVariables.js"}],"src/js/index.js":[function(require,module,exports) {
 "use strict";
 
@@ -916,7 +943,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "60257" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "50533" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
