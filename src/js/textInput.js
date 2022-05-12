@@ -42,7 +42,7 @@ export let userText = "";
 export let textLength = null;
 export let metrics = null;
 
-const calculation = () => {
+const calculation = (textLength) => {
 	let cardMeasures = measureBars(
 		display,
 		metrics,
@@ -84,7 +84,7 @@ function init() {
 		// let height = parseInt(cardMeasures[1]);
 		// calculatePricing(userText);
 		// calculateDimension(width, height);
-		calculation();
+		calculation(textLength);
 	} else {
 		localStorage.clear();
 		userText = "Your Text";
@@ -156,5 +156,5 @@ export default function debounceMeasurement() {
 	//cleartimeout
 	clearTimeout(timeout);
 	//measure bar
-	timeout = setTimeout(calculation, 3000);
+	timeout = setTimeout(calculation(textLength), 3000);
 }

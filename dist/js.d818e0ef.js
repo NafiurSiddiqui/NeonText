@@ -488,7 +488,7 @@ exports.textLength = textLength;
 var metrics = null;
 exports.metrics = metrics;
 
-var calculation = function calculation() {
+var calculation = function calculation(textLength) {
   var cardMeasures = (0, _globalFuntions.measureBars)(display, metrics, barWidth, barWidthSize, barHeight, barHeightSize, textLength);
   (0, _globalFuntions.showBars)(true);
   var width = parseInt(cardMeasures[0]);
@@ -522,7 +522,7 @@ function init() {
     // calculatePricing(userText);
     // calculateDimension(width, height);
 
-    calculation();
+    calculation(_textLength);
   } else {
     localStorage.clear();
     exports.userText = userText = "Your Text";
@@ -584,7 +584,7 @@ function debounceMeasurement() {
 
   clearTimeout(timeout); //measure bar
 
-  timeout = setTimeout(calculation, 3000);
+  timeout = setTimeout(calculation(textLength), 3000);
 }
 },{"./globalVariables":"src/js/globalVariables.js","./globalFuntions":"src/js/globalFuntions.js"}],"src/js/font family/setFonts.js":[function(require,module,exports) {
 "use strict";
@@ -943,7 +943,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "50533" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "56231" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
