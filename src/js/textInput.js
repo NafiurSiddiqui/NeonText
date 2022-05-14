@@ -8,6 +8,7 @@ import setDisplay, {
 	writeOnCanvasWithFont,
 	calculateDimension,
 	calculatePricing,
+	calculation,
 } from "./globalFuntions";
 //globa var destructured
 let {
@@ -22,17 +23,6 @@ let {
 	canva,
 	ctx,
 } = globalVar;
-// let {
-// 	priceSmall,
-// 	priceSmallLength,
-// 	priceSmallHeight,
-// 	priceMedium,
-// 	priceMediumLength,
-// 	priceMediumHeight,
-// 	priceLarge,
-// 	priceLargeHeight,
-// 	priceLargeLength,
-// } = globarPrice;
 
 let navText = uiInputText.firstElementChild;
 //state variables
@@ -41,26 +31,6 @@ let textInputState = false;
 export let userText = "";
 export let textLength = null;
 export let metrics = null;
-
-const calculation = (textLength) => {
-	let cardMeasures = measureBars(
-		display,
-		metrics,
-		barWidth,
-		barWidthSize,
-		barHeight,
-		barHeightSize,
-		textLength
-	);
-	showBars(true);
-	let width = parseInt(cardMeasures[0]);
-	let height = parseInt(cardMeasures[1]);
-	console.log(width, height);
-	// console.log(userText.length);
-	//calcualtion for price cards
-	calculatePricing(userText);
-	calculateDimension(width, height);
-};
 
 function init() {
 	//initial default state
@@ -71,20 +41,15 @@ function init() {
 		let textLength = userText.length;
 		writeOnCanvasWithFont(ctx, userText, "Tangerine");
 		metrics = ctx.measureText(userText);
-		// let cardMeasures = measureBars(
-		// 	display,
-		// 	metrics,
-		// 	barWidth,
-		// 	barWidthSize,
-		// 	barHeight,
-		// 	barHeightSize,
-		// 	textLength
-		// );
-		// let width = parseInt(cardMeasures[0]);
-		// let height = parseInt(cardMeasures[1]);
-		// calculatePricing(userText);
-		// calculateDimension(width, height);
-		calculation(textLength);
+		calculation(
+			display,
+			metrics,
+			textLength,
+			barWidth,
+			barWidthSize,
+			barHeight,
+			barHeightSize
+		);
 	} else {
 		localStorage.clear();
 		userText = "Your Text";
@@ -129,7 +94,6 @@ navText.addEventListener("input", (e) => {
 		//recapture the userText here
 
 		let newUserText = localUserText;
-
 		//rerender the userText
 		if (newUserText.length !== 0) {
 			clearCanvas(ctx, canva);
@@ -145,6 +109,7 @@ navText.addEventListener("input", (e) => {
 
 	if (textLength === 0) {
 		clearCanvas(ctx, canva);
+		showBars(false);
 	}
 
 	return userText;
@@ -156,5 +121,16 @@ export default function debounceMeasurement() {
 	//cleartimeout
 	clearTimeout(timeout);
 	//measure bar
-	timeout = setTimeout(calculation(textLength), 3000);
+	timeout = setTimeout(
+		calculation(
+			display,
+			metrics,
+			textLength,
+			barWidth,
+			barWidthSize,
+			barHeight,
+			barHeightSize
+		),
+		3000
+	);
 }

@@ -206,6 +206,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.calculateDimension = calculateDimension;
 exports.calculatePricing = calculatePricing;
+exports.calculation = void 0;
 exports.clearCanvas = clearCanvas;
 exports.default = setDisplay;
 exports.measureBars = measureBars;
@@ -251,17 +252,21 @@ function writeOnCanvasWithFont(ctx, userText, font) {
   ctx.fillText(userText, 0, 50);
 }
 
-function measureBars(display, metrics, barWidth, barWidthSize, barHeight, barHeightSize, textLength) {
+function measureBars(display, metrics, textLength, barWidth, barWidthSize, barHeight, barHeightSize) {
   //width
   var displayWidth = getComputedStyle(display).width;
   var displayString = displayWidth.slice(0, -2);
   var displaySize = Math.ceil(+displayString); //height
 
-  var height = Math.floor(metrics.actualBoundingBoxAscent) + Math.floor(metrics.actualBoundingBoxDescent); //measurement bars
+  var height = Math.floor(metrics.actualBoundingBoxAscent) + Math.floor(metrics.actualBoundingBoxDescent);
+  var length = metrics.actualBoundingBoxLeft + metrics.actualBoundingBoxRight;
+  var height2 = getComputedStyle(display).height; // console.log(`Height: ${height2}`);
+  //measurement bars
 
-  barWidth.style.width = "".concat(displaySize, "px");
+  barWidth.style.width = "".concat(displaySize, "px"); // barWidth.style.width = `${length}px`;
+
   var widthSize = barWidthSize.textContent = "".concat(textLength * 2, " CM");
-  barHeight.style.height = "".concat(height, "px");
+  barHeight.style.height = "".concat(height2, "px");
   var heightSize = barHeightSize.textContent = "".concat(Math.floor(height), "Cm");
   return [widthSize, heightSize];
 }
@@ -276,10 +281,10 @@ function showBars(show) {
   }
 }
 
-function calculatePricing(userText) {
-  priceSmall.textContent = "$".concat(userText.length * 80);
-  priceMedium.textContent = "$".concat(userText.length * 95);
-  priceLarge.textContent = "$".concat(userText.length * 105);
+function calculatePricing(textLength) {
+  priceSmall.textContent = "$".concat(textLength * 80);
+  priceMedium.textContent = "$".concat(textLength * 95);
+  priceLarge.textContent = "$".concat(textLength * 105);
 }
 
 function calculateDimension(width, height) {
@@ -290,6 +295,18 @@ function calculateDimension(width, height) {
   priceLargeLength.textContent = "".concat(width * 3, " Cm");
   priceLargeHeight.textContent = "".concat(parseInt(height * 1.3), " Cm");
 }
+
+var calculation = function calculation(display, metrics, textLength, barWidth, barWidthSize, barHeight, barHeightSize) {
+  var cardMeasures = measureBars(display, metrics, textLength, barWidth, barWidthSize, barHeight, barHeightSize);
+  showBars(true);
+  var width = parseInt(cardMeasures[0]);
+  var height = parseInt(cardMeasures[1]); // console.log(width, height);
+
+  calculatePricing(textLength);
+  calculateDimension(width, height);
+};
+
+exports.calculation = calculation;
 },{"./globalVariables":"src/js/globalVariables.js"}],"src/js/ui nav/ui-inputNav.js":[function(require,module,exports) {
 "use strict";
 
@@ -465,18 +482,7 @@ var widthContainer = _globalVariables.globalVar.widthContainer,
     uiInputText = _globalVariables.globalVar.uiInputText,
     display = _globalVariables.globalVar.display,
     canva = _globalVariables.globalVar.canva,
-    ctx = _globalVariables.globalVar.ctx; // let {
-// 	priceSmall,
-// 	priceSmallLength,
-// 	priceSmallHeight,
-// 	priceMedium,
-// 	priceMediumLength,
-// 	priceMediumHeight,
-// 	priceLarge,
-// 	priceLargeHeight,
-// 	priceLargeLength,
-// } = globarPrice;
-
+    ctx = _globalVariables.globalVar.ctx;
 var navText = uiInputText.firstElementChild; //state variables
 
 var textInputState = false; //set the default states
@@ -488,18 +494,6 @@ exports.textLength = textLength;
 var metrics = null;
 exports.metrics = metrics;
 
-var calculation = function calculation(textLength) {
-  var cardMeasures = (0, _globalFuntions.measureBars)(display, metrics, barWidth, barWidthSize, barHeight, barHeightSize, textLength);
-  (0, _globalFuntions.showBars)(true);
-  var width = parseInt(cardMeasures[0]);
-  var height = parseInt(cardMeasures[1]);
-  console.log(width, height); // console.log(userText.length);
-  //calcualtion for price cards
-
-  (0, _globalFuntions.calculatePricing)(userText);
-  (0, _globalFuntions.calculateDimension)(width, height);
-};
-
 function init() {
   //initial default state
   //check for local storage value exist
@@ -508,21 +502,8 @@ function init() {
     display.textContent = userText;
     var _textLength = userText.length;
     (0, _globalFuntions.writeOnCanvasWithFont)(ctx, userText, "Tangerine");
-    exports.metrics = metrics = ctx.measureText(userText); // let cardMeasures = measureBars(
-    // 	display,
-    // 	metrics,
-    // 	barWidth,
-    // 	barWidthSize,
-    // 	barHeight,
-    // 	barHeightSize,
-    // 	textLength
-    // );
-    // let width = parseInt(cardMeasures[0]);
-    // let height = parseInt(cardMeasures[1]);
-    // calculatePricing(userText);
-    // calculateDimension(width, height);
-
-    calculation(_textLength);
+    exports.metrics = metrics = ctx.measureText(userText);
+    (0, _globalFuntions.calculation)(display, metrics, _textLength, barWidth, barWidthSize, barHeight, barHeightSize);
   } else {
     localStorage.clear();
     exports.userText = userText = "Your Text";
@@ -573,6 +554,7 @@ navText.addEventListener("input", function (e) {
 
   if (textLength === 0) {
     (0, _globalFuntions.clearCanvas)(ctx, canva);
+    (0, _globalFuntions.showBars)(false);
   }
 
   return userText;
@@ -584,7 +566,7 @@ function debounceMeasurement() {
 
   clearTimeout(timeout); //measure bar
 
-  timeout = setTimeout(calculation(textLength), 3000);
+  timeout = setTimeout((0, _globalFuntions.calculation)(display, metrics, textLength, barWidth, barWidthSize, barHeight, barHeightSize), 3000);
 }
 },{"./globalVariables":"src/js/globalVariables.js","./globalFuntions":"src/js/globalFuntions.js"}],"src/js/font family/setFonts.js":[function(require,module,exports) {
 "use strict";
@@ -596,9 +578,9 @@ exports.fontClicked = void 0;
 
 var _globalVariables = _interopRequireWildcard(require("../globalVariables"));
 
-var _textInput = _interopRequireWildcard(require("../textInput"));
-
 var _globalFuntions = _interopRequireWildcard(require("../globalFuntions"));
+
+var _textInput = require("../textInput");
 
 function _getRequireWildcardCache(nodeInterop) { if (typeof WeakMap !== "function") return null; var cacheBabelInterop = new WeakMap(); var cacheNodeInterop = new WeakMap(); return (_getRequireWildcardCache = function (nodeInterop) { return nodeInterop ? cacheNodeInterop : cacheBabelInterop; })(nodeInterop); }
 
@@ -607,15 +589,6 @@ function _interopRequireWildcard(obj, nodeInterop) { if (!nodeInterop && obj && 
 //destructured vars
 var fontBtn = _globalVariables.default.fontBtn,
     fontBtnsWhite = _globalVariables.default.fontBtnsWhite;
-var priceSmall = _globalVariables.globarPrice.priceSmall,
-    priceSmallLength = _globalVariables.globarPrice.priceSmallLength,
-    priceSmallHeight = _globalVariables.globarPrice.priceSmallHeight,
-    priceMedium = _globalVariables.globarPrice.priceMedium,
-    priceMediumLength = _globalVariables.globarPrice.priceMediumLength,
-    priceMediumHeight = _globalVariables.globarPrice.priceMediumHeight,
-    priceLarge = _globalVariables.globarPrice.priceLarge,
-    priceLargeHeight = _globalVariables.globarPrice.priceLargeHeight,
-    priceLargeLength = _globalVariables.globarPrice.priceLargeLength;
 var widthContainer = _globalVariables.globalVar.widthContainer,
     barWidth = _globalVariables.globalVar.barWidth,
     barWidthSize = _globalVariables.globalVar.barWidthSize,
@@ -628,14 +601,23 @@ var widthContainer = _globalVariables.globalVar.widthContainer,
 
 fontBtnsWhite.forEach(function (btn) {
   btn.classList.add("hide");
-}); //write the loadFont function
+}); // function loadFont(targetFont) {
+// 	//---one for the display
+// 	display.style.fontFamily = targetFont;
+// 	//---one for the canvas
+// 	ctx.font = `4rem ${targetFont}`;
+// 	ctx.fillStyle = "White";
+// 	console.log(`Loaded font: ${targetFont}`);
+// }
 
-function loadFont(targetFont) {
+function loadFont(targetFont, userText) {
   //---one for the display
   display.style.fontFamily = targetFont; //---one for the canvas
 
   ctx.font = "4rem ".concat(targetFont);
-  ctx.fillStyle = "White";
+  ctx.fillStyle = "White"; // console.log(`Loaded font: ${targetFont}`);
+
+  ctx.fillText(userText, 0, 50);
 }
 
 var fontClicked = false;
@@ -649,29 +631,48 @@ fontBtn.forEach(function (btns) {
     var target = e.target;
     fontUserText = _textInput.userText;
     fontUserText = "";
-    var textLength = _textInput.userText.length;
-    console.log(target); //Clear displays
+    var textLength = _textInput.userText.length; // console.log(target);
+    //Clear displays
 
     (0, _globalFuntions.default)(widthContainer, false);
     (0, _globalFuntions.default)(heightContainer, false);
-    (0, _globalFuntions.clearCanvas)(ctx, canva); //if it is is  the parent
+    (0, _globalFuntions.clearCanvas)(ctx, canva);
+    console.log(target.classList);
+    console.log(target.classList.length > 1); //if it is is  the parent
 
-    if (target.className === "ui-input-fontFamily-list") {
-      var childId = target.firstElementChild.id;
+    var targetCondition = target.classList.length > 1; //big fonts
+
+    var largeFonts = "";
+
+    if (targetCondition) {
+      var fontId = target.classList[1];
+      largeFonts = fontId;
+      console.log("Large Fonts: ".concat(largeFonts));
       (0, _globalFuntions.clearCanvas)(ctx, canva);
-      loadFont(childId);
-      (0, _globalFuntions.writeOnCanvasWithFont)(ctx, _textInput.userText, childId);
+      loadFont(fontId, _textInput.userText);
       var metrics = ctx.measureText(_textInput.userText);
-      (0, _globalFuntions.measureBars)(display, metrics, barWidth, barWidthSize, barHeight, barHeightSize, textLength);
+      (0, _globalFuntions.calculation)(display, metrics, textLength, barWidth, barWidthSize, barHeight, barHeightSize);
     } else {
       //if it is the child
-      loadFont(target.id);
-      console.log(target.id);
-      (0, _globalFuntions.writeOnCanvasWithFont)(ctx, _textInput.userText, target.id);
+      largeFonts = target.id;
+      (0, _globalFuntions.clearCanvas)(ctx, canva);
+      loadFont(target.id, _textInput.userText);
+      console.log("Large Fonts: ".concat(largeFonts));
 
       var _metrics = ctx.measureText(_textInput.userText);
 
-      (0, _globalFuntions.measureBars)(display, _metrics, barWidth, barWidthSize, barHeight, barHeightSize, textLength); //set pricing cards
+      (0, _globalFuntions.calculation)(display, _metrics, textLength, barWidth, barWidthSize, barHeight, barHeightSize);
+    } //dynamic font sizing
+
+
+    console.log("Large Fonts fromm outside: ".concat(largeFonts));
+
+    if (largeFonts !== "HerrVonMuellerhoff" || largeFonts !== "Tangerine") {
+      display.style.fontSize = "3vw";
+      console.log("FROM CONDITION 1");
+    } else {
+      display.style.fontSize = "3.4rem";
+      console.log("FROM CONDITION 2");
     }
 
     var targetBtn = e.target.closest(".ui-input-fontFamily-list"); //loop throught all the lists
@@ -687,7 +688,7 @@ fontBtn.forEach(function (btns) {
     return fontClicked;
   });
 });
-},{"../globalVariables":"src/js/globalVariables.js","../textInput":"src/js/textInput.js","../globalFuntions":"src/js/globalFuntions.js"}],"src/js/ui color/uiColor.js":[function(require,module,exports) {
+},{"../globalVariables":"src/js/globalVariables.js","../globalFuntions":"src/js/globalFuntions.js","../textInput":"src/js/textInput.js"}],"src/js/ui color/uiColor.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -943,7 +944,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "56231" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "65527" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

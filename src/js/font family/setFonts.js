@@ -1,30 +1,17 @@
 import globalFonts from "../globalVariables";
 import { globalVar } from "../globalVariables";
 import { globarPrice } from "../globalVariables";
-import debounceMeasurement from "../textInput";
 import setDisplay, {
-	writeOnCanvas,
-	measureBars,
 	showBars,
 	writeOnCanvasWithFont,
+	calculation,
+	writeOnCanvas,
 } from "../globalFuntions";
 import { clearCanvas } from "../globalFuntions";
 import { userText } from "../textInput";
 
 //destructured vars
 let { fontBtn, fontBtnsWhite } = globalFonts;
-
-let {
-	priceSmall,
-	priceSmallLength,
-	priceSmallHeight,
-	priceMedium,
-	priceMediumLength,
-	priceMediumHeight,
-	priceLarge,
-	priceLargeHeight,
-	priceLargeLength,
-} = globarPrice;
 
 let {
 	widthContainer,
@@ -43,14 +30,23 @@ fontBtnsWhite.forEach((btn) => {
 	btn.classList.add("hide");
 });
 
-//write the loadFont function
+// function loadFont(targetFont) {
+// 	//---one for the display
+// 	display.style.fontFamily = targetFont;
+// 	//---one for the canvas
+// 	ctx.font = `4rem ${targetFont}`;
+// 	ctx.fillStyle = "White";
+// 	console.log(`Loaded font: ${targetFont}`);
+// }
 
-function loadFont(targetFont) {
+function loadFont(targetFont, userText) {
 	//---one for the display
 	display.style.fontFamily = targetFont;
 	//---one for the canvas
 	ctx.font = `4rem ${targetFont}`;
 	ctx.fillStyle = "White";
+	// console.log(`Loaded font: ${targetFont}`);
+	ctx.fillText(userText, 0, 50);
 }
 
 export let fontClicked = false;
@@ -65,43 +61,63 @@ fontBtn.forEach((btns) => {
 		fontUserText = userText;
 		fontUserText = "";
 		let textLength = userText.length;
-		console.log(target);
+		// console.log(target);
 		//Clear displays
 		setDisplay(widthContainer, false);
 		setDisplay(heightContainer, false);
 		clearCanvas(ctx, canva);
+
+		console.log(target.classList);
+		console.log(target.classList.length > 1);
 		//if it is is  the parent
-		if (target.className === "ui-input-fontFamily-list") {
-			let childId = target.firstElementChild.id;
+
+		const targetCondition = target.classList.length > 1;
+
+		//big fonts
+		let largeFonts = "";
+
+		if (targetCondition) {
+			let fontId = target.classList[1];
+			largeFonts = fontId;
+			console.log(`Large Fonts: ${largeFonts}`);
 			clearCanvas(ctx, canva);
-			loadFont(childId);
-			writeOnCanvasWithFont(ctx, userText, childId);
+			loadFont(fontId, userText);
 			let metrics = ctx.measureText(userText);
-			measureBars(
+			calculation(
 				display,
 				metrics,
+				textLength,
 				barWidth,
 				barWidthSize,
 				barHeight,
-				barHeightSize,
-				textLength
+				barHeightSize
 			);
 		} else {
 			//if it is the child
-			loadFont(target.id);
-			console.log(target.id);
-			writeOnCanvasWithFont(ctx, userText, target.id);
+			largeFonts = target.id;
+			clearCanvas(ctx, canva);
+			loadFont(target.id, userText);
+			console.log(`Large Fonts: ${largeFonts}`);
 			let metrics = ctx.measureText(userText);
-			measureBars(
+			calculation(
 				display,
 				metrics,
+				textLength,
 				barWidth,
 				barWidthSize,
 				barHeight,
-				barHeightSize,
-				textLength
+				barHeightSize
 			);
-			//set pricing cards
+		}
+		//dynamic font sizing
+		console.log(`Large Fonts fromm outside: ${largeFonts}`);
+		if (largeFonts !== "HerrVonMuellerhoff" || largeFonts !== "Tangerine") {
+			display.style.fontSize = "3vw";
+
+			console.log("FROM CONDITION 1");
+		} else {
+			display.style.fontSize = "3.4rem";
+			console.log("FROM CONDITION 2");
 		}
 
 		let targetBtn = e.target.closest(".ui-input-fontFamily-list");

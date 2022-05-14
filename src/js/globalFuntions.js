@@ -39,11 +39,11 @@ export function writeOnCanvasWithFont(ctx, userText, font) {
 export function measureBars(
 	display,
 	metrics,
+	textLength,
 	barWidth,
 	barWidthSize,
 	barHeight,
-	barHeightSize,
-	textLength
+	barHeightSize
 ) {
 	//width
 	let displayWidth = getComputedStyle(display).width;
@@ -53,13 +53,17 @@ export function measureBars(
 	let height =
 		Math.floor(metrics.actualBoundingBoxAscent) +
 		Math.floor(metrics.actualBoundingBoxDescent);
+	let length = metrics.actualBoundingBoxLeft + metrics.actualBoundingBoxRight;
+
+	let height2 = getComputedStyle(display).height;
+	// console.log(`Height: ${height2}`);
 
 	//measurement bars
 
 	barWidth.style.width = `${displaySize}px`;
-
+	// barWidth.style.width = `${length}px`;
 	let widthSize = (barWidthSize.textContent = `${textLength * 2} CM`);
-	barHeight.style.height = `${height}px`;
+	barHeight.style.height = `${height2}px`;
 	let heightSize = (barHeightSize.textContent = `${Math.floor(height)}Cm`);
 
 	return [widthSize, heightSize];
@@ -75,10 +79,10 @@ export function showBars(show) {
 	}
 }
 
-export function calculatePricing(userText) {
-	priceSmall.textContent = `$${userText.length * 80}`;
-	priceMedium.textContent = `$${userText.length * 95}`;
-	priceLarge.textContent = `$${userText.length * 105}`;
+export function calculatePricing(textLength) {
+	priceSmall.textContent = `$${textLength * 80}`;
+	priceMedium.textContent = `$${textLength * 95}`;
+	priceLarge.textContent = `$${textLength * 105}`;
 }
 
 export function calculateDimension(width, height) {
@@ -89,3 +93,29 @@ export function calculateDimension(width, height) {
 	priceLargeLength.textContent = `${width * 3} Cm`;
 	priceLargeHeight.textContent = `${parseInt(height * 1.3)} Cm`;
 }
+
+export const calculation = (
+	display,
+	metrics,
+	textLength,
+	barWidth,
+	barWidthSize,
+	barHeight,
+	barHeightSize
+) => {
+	let cardMeasures = measureBars(
+		display,
+		metrics,
+		textLength,
+		barWidth,
+		barWidthSize,
+		barHeight,
+		barHeightSize
+	);
+	showBars(true);
+	let width = parseInt(cardMeasures[0]);
+	let height = parseInt(cardMeasures[1]);
+	// console.log(width, height);
+	calculatePricing(textLength);
+	calculateDimension(width, height);
+};

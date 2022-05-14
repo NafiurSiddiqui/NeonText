@@ -299,10 +299,11 @@ article.ui-display {
   padding: 1em;
   border-radius: 1.2em;
   border: 10px solid #6b6b6b;
-  display: flex;
-  -webkit-box-flex: flex;
+  display: grid;
+  grid-template-columns: 100%;
   justify-content: center;
-  align-items: center;
+  align-content: center;
+  grid-template-rows: 5em 85%;
 }
 
 .ui-display-userText-container {
@@ -331,7 +332,7 @@ article.ui-display {
   color: #f4f4f4;
   font-size: 3.4rem;
   letter-spacing: 2px;
-  font-family: "Tangerine", cursive;
+  font-family: "HerrVonMuellerhoff", cursive;
   text-shadow: #b5b5b5 0px 1px 0px, darkgray 0px 2px 0px, #949494 0px 3px 0px, #7d7d7d 0px 4px 0px, rgba(0, 0, 0, 0.23) 0px 0px 5px, rgba(0, 0, 0, 0.43) 0px 1px 3px, rgba(0, 0, 0, 0.4) 1px 4px 6px, rgba(0, 0, 0, 0.38) 0px 5px 10px, rgba(0, 0, 0, 0.25) 3px 7px 12px;
 }
 
@@ -360,8 +361,8 @@ article.ui-display {
   -webkit-box-flex: flex;
   justify-content: center;
   align-items: center;
-  right: -1.3em;
   position: relative;
+  right: -1em;
 }
 .measurementBar-height-length {
   color: white;
@@ -376,7 +377,7 @@ article.ui-display {
   color: whitesmoke;
   flex-direction: column;
   position: relative;
-  left: -20px;
+  left: -2em;
 }
 
 .neonOn {
@@ -385,6 +386,7 @@ article.ui-display {
 
 canvas#displayText {
   border: 1px solid orange;
+  display: none;
 }
 
 /* The switch - the box around the slider */
@@ -489,10 +491,10 @@ input:checked ~ span span:first-of-type {
   src: local("Amanda"), url("https://fonts.cdnfonts.com/s/4878/Amanda.woff") format("woff");
 }
 @font-face {
-  font-family: "Raster Slice";
+  font-family: "RasterSlice";
   font-style: normal;
   font-weight: 400;
-  src: local("Raster Slice"), url("https://fonts.cdnfonts.com/s/31151/Raster Slice.woff") format("woff");
+  src: local("RasterSlice"), url("https://fonts.cdnfonts.com/s/31151/Raster Slice.woff") format("woff");
 }
 /* vietnamese */
 @font-face {
@@ -541,7 +543,7 @@ input:checked ~ span span:first-of-type {
 }
 /* latin-ext */
 @font-face {
-  font-family: "Herr Von Muellerhoff";
+  font-family: "HerrVonMuellerhoff";
   font-style: normal;
   font-weight: 400;
   font-display: swap;
@@ -550,7 +552,7 @@ input:checked ~ span span:first-of-type {
 }
 /* latin */
 @font-face {
-  font-family: "Herr Von Muellerhoff";
+  font-family: "HerrVonMuellerhoff";
   font-style: normal;
   font-weight: 400;
   font-display: swap;
@@ -946,10 +948,24 @@ main.container {
   li.ui-input-fontFamily-list {
     width: 8rem;
   }
+
+  .measurementBar-height-length {
+    top: -2.4em;
+    left: -1.2em;
+  }
+
+  .ui-display-userText-text {
+    position: relative;
+    right: -3%;
+  }
+
+  .measurementBar-container-bottom {
+    left: -2%;
+  }
 }
 @media screen and (max-width: 860px) {
   body.ui-body {
-    min-height: 150vh;
+    min-height: 160vh;
   }
 
   section.ui-container {
@@ -958,9 +974,9 @@ main.container {
   }
 
   input:checked + .slider:before {
-    -webkit-transform: translateX(30px);
-    -ms-transform: translateX(30px);
-    transform: translateX(30px);
+    -webkit-transform: translateX(37px);
+    -ms-transform: translateX(37px);
+    transform: translateX(37px);
   }
 }
 @media screen and (max-width: 580px) {
