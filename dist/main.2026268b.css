@@ -332,6 +332,7 @@ article.ui-display {
   color: #f4f4f4;
   font-size: 3.4rem;
   letter-spacing: 2px;
+  word-wrap: anywhere;
   font-family: "HerrVonMuellerhoff", cursive;
   text-shadow: #b5b5b5 0px 1px 0px, darkgray 0px 2px 0px, #949494 0px 3px 0px, #7d7d7d 0px 4px 0px, rgba(0, 0, 0, 0.23) 0px 0px 5px, rgba(0, 0, 0, 0.43) 0px 1px 3px, rgba(0, 0, 0, 0.4) 1px 4px 6px, rgba(0, 0, 0, 0.38) 0px 5px 10px, rgba(0, 0, 0, 0.25) 3px 7px 12px;
 }
@@ -377,7 +378,7 @@ article.ui-display {
   color: whitesmoke;
   flex-direction: column;
   position: relative;
-  left: -2em;
+  left: -20px;
 }
 
 .neonOn {
@@ -958,14 +959,10 @@ main.container {
     position: relative;
     right: -3%;
   }
-
-  .measurementBar-container-bottom {
-    left: -2%;
-  }
 }
 @media screen and (max-width: 860px) {
   body.ui-body {
-    min-height: 160vh;
+    min-height: 180vh;
   }
 
   section.ui-container {
@@ -983,6 +980,34 @@ main.container {
   section.ui-container {
     grid-template-columns: 100%;
     width: 100%;
+  }
+}
+@media screen and (max-width: 500px) {
+  .ui-display-userText-text {
+    font-size: 3.2rem;
+  }
+
+  .measurementBar-container-bottom {
+    left: 0;
+  }
+
+  body.ui-body {
+    min-height: 200vh;
+  }
+
+  .switch {
+    height: 26px;
+  }
+
+  .slider::before {
+    height: 24px;
+    width: 24px;
+  }
+
+  input:checked + .slider::before {
+    -webkit-transform: translateX(40px);
+    -ms-transform: translateX(40px);
+    transform: translateX(40px);
   }
 }
 

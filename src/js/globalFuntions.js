@@ -55,15 +55,14 @@ export function measureBars(
 		Math.floor(metrics.actualBoundingBoxDescent);
 	let length = metrics.actualBoundingBoxLeft + metrics.actualBoundingBoxRight;
 
-	let height2 = getComputedStyle(display).height;
+	// let height2 = getComputedStyle(display).height;
 	// console.log(`Height: ${height2}`);
 
 	//measurement bars
 
 	barWidth.style.width = `${displaySize}px`;
-	// barWidth.style.width = `${length}px`;
 	let widthSize = (barWidthSize.textContent = `${textLength * 2} CM`);
-	barHeight.style.height = `${height2}px`;
+	barHeight.style.height = `${height}px`;
 	let heightSize = (barHeightSize.textContent = `${Math.floor(height)}Cm`);
 
 	return [widthSize, heightSize];
@@ -118,4 +117,8 @@ export const calculation = (
 	// console.log(width, height);
 	calculatePricing(textLength);
 	calculateDimension(width, height);
+};
+
+export const fontBarCondition = (textLength) => {
+	textLength >= 11 ? (widthContainer.style.left = "-8px") : "-20px";
 };

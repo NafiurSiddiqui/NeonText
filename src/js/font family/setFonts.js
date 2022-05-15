@@ -6,6 +6,8 @@ import setDisplay, {
 	writeOnCanvasWithFont,
 	calculation,
 	writeOnCanvas,
+	measureBars,
+	fontBarCondition,
 } from "../globalFuntions";
 import { clearCanvas } from "../globalFuntions";
 import { userText } from "../textInput";
@@ -30,15 +32,6 @@ fontBtnsWhite.forEach((btn) => {
 	btn.classList.add("hide");
 });
 
-// function loadFont(targetFont) {
-// 	//---one for the display
-// 	display.style.fontFamily = targetFont;
-// 	//---one for the canvas
-// 	ctx.font = `4rem ${targetFont}`;
-// 	ctx.fillStyle = "White";
-// 	console.log(`Loaded font: ${targetFont}`);
-// }
-
 function loadFont(targetFont, userText) {
 	//---one for the display
 	display.style.fontFamily = targetFont;
@@ -48,6 +41,18 @@ function loadFont(targetFont, userText) {
 	// console.log(`Loaded font: ${targetFont}`);
 	ctx.fillText(userText, 0, 50);
 }
+
+function getScreenSize() {
+	let width = window.innerWidth;
+	console.log(`Window width: ${width}`);
+	return width;
+}
+
+getScreenSize();
+
+let screenWidth = getScreenSize();
+
+console.log(screenWidth);
 
 export let fontClicked = false;
 
@@ -67,8 +72,8 @@ fontBtn.forEach((btns) => {
 		setDisplay(heightContainer, false);
 		clearCanvas(ctx, canva);
 
-		console.log(target.classList);
-		console.log(target.classList.length > 1);
+		// console.log(target.classList);
+		// console.log(target.classList.length > 1);
 		//if it is is  the parent
 
 		const targetCondition = target.classList.length > 1;
@@ -97,7 +102,7 @@ fontBtn.forEach((btns) => {
 			largeFonts = target.id;
 			clearCanvas(ctx, canva);
 			loadFont(target.id, userText);
-			console.log(`Large Fonts: ${largeFonts}`);
+			// console.log(`Large Fonts: ${largeFonts}`);
 			let metrics = ctx.measureText(userText);
 			calculation(
 				display,
@@ -111,13 +116,15 @@ fontBtn.forEach((btns) => {
 		}
 		//dynamic font sizing
 		console.log(`Large Fonts fromm outside: ${largeFonts}`);
-		if (largeFonts !== "HerrVonMuellerhoff" || largeFonts !== "Tangerine") {
-			display.style.fontSize = "3vw";
 
+		console.log(
+			largeFonts !== "HerrVonMuellerhoff" || largeFonts !== "Tangerine"
+		);
+		if (largeFonts === "Amsterdam") {
+			screenWidth >= 800
+				? (display.style.fontSize = "2.5vw")
+				: (display.style.fontSize = "4vw");
 			console.log("FROM CONDITION 1");
-		} else {
-			display.style.fontSize = "3.4rem";
-			console.log("FROM CONDITION 2");
 		}
 
 		let targetBtn = e.target.closest(".ui-input-fontFamily-list");
@@ -129,6 +136,8 @@ fontBtn.forEach((btns) => {
 
 		//add btn-active class to the existing target list
 		targetBtn.classList.add("btn-active");
+
+		fontBarCondition(textLength);
 		//setthe display for bars
 		showBars(true);
 

@@ -9,6 +9,7 @@ import setDisplay, {
 	calculateDimension,
 	calculatePricing,
 	calculation,
+	fontBarCondition,
 } from "./globalFuntions";
 //globa var destructured
 let {
@@ -80,7 +81,7 @@ navText.addEventListener("input", (e) => {
 	//check if the state is true
 	textLength > 0 ? (textInputState = true) : false;
 
-	textLength >= 30
+	textLength >= 20
 		? alert(
 				`If you need more than 30 characters of text, Please contact us: 📞 +14-999-876-42`
 		  )
@@ -106,6 +107,8 @@ navText.addEventListener("input", (e) => {
 		metrics = ctx.measureText(userText);
 		debounceMeasurement();
 	}
+
+	fontBarCondition(textLength);
 
 	if (textLength === 0) {
 		clearCanvas(ctx, canva);

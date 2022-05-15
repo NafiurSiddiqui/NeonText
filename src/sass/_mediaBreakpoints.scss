@@ -27,14 +27,14 @@
 		right: -3%;
 	}
 
-	.measurementBar-container-bottom {
-		left: -2%;
-	}
+	// .measurementBar-container-bottom {
+	// 	left: -2%;
+	// }
 }
 
 @media screen and (max-width: 860px) {
 	body.ui-body {
-		min-height: 160vh;
+		min-height: 180vh;
 	}
 	section.ui-container {
 		grid-template-columns: 100%;
@@ -52,5 +52,33 @@
 	section.ui-container {
 		grid-template-columns: 100%;
 		width: 100%;
+	}
+}
+
+@media screen and (max-width: 500px) {
+	.ui-display-userText-text {
+		font-size: 3.2rem;
+	}
+	.measurementBar-container-bottom {
+		left: 0;
+	}
+
+	body.ui-body {
+		min-height: 200vh;
+	}
+
+	.switch {
+		height: 26px;
+	}
+
+	.slider::before {
+		height: 24px;
+		width: 24px;
+	}
+
+	input:checked + .slider::before {
+		-webkit-transform: translateX(40px);
+		-ms-transform: translateX(40px);
+		transform: translateX(40px);
 	}
 }

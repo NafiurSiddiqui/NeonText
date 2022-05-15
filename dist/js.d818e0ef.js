@@ -209,6 +209,7 @@ exports.calculatePricing = calculatePricing;
 exports.calculation = void 0;
 exports.clearCanvas = clearCanvas;
 exports.default = setDisplay;
+exports.fontBarCondition = void 0;
 exports.measureBars = measureBars;
 exports.showBars = showBars;
 exports.writeOnCanvas = writeOnCanvas;
@@ -259,14 +260,13 @@ function measureBars(display, metrics, textLength, barWidth, barWidthSize, barHe
   var displaySize = Math.ceil(+displayString); //height
 
   var height = Math.floor(metrics.actualBoundingBoxAscent) + Math.floor(metrics.actualBoundingBoxDescent);
-  var length = metrics.actualBoundingBoxLeft + metrics.actualBoundingBoxRight;
-  var height2 = getComputedStyle(display).height; // console.log(`Height: ${height2}`);
+  var length = metrics.actualBoundingBoxLeft + metrics.actualBoundingBoxRight; // let height2 = getComputedStyle(display).height;
+  // console.log(`Height: ${height2}`);
   //measurement bars
 
-  barWidth.style.width = "".concat(displaySize, "px"); // barWidth.style.width = `${length}px`;
-
+  barWidth.style.width = "".concat(displaySize, "px");
   var widthSize = barWidthSize.textContent = "".concat(textLength * 2, " CM");
-  barHeight.style.height = "".concat(height2, "px");
+  barHeight.style.height = "".concat(height, "px");
   var heightSize = barHeightSize.textContent = "".concat(Math.floor(height), "Cm");
   return [widthSize, heightSize];
 }
@@ -307,6 +307,12 @@ var calculation = function calculation(display, metrics, textLength, barWidth, b
 };
 
 exports.calculation = calculation;
+
+var fontBarCondition = function fontBarCondition(textLength) {
+  textLength >= 11 ? widthContainer.style.left = "-8px" : "-20px";
+};
+
+exports.fontBarCondition = fontBarCondition;
 },{"./globalVariables":"src/js/globalVariables.js"}],"src/js/ui nav/ui-inputNav.js":[function(require,module,exports) {
 "use strict";
 
@@ -530,7 +536,7 @@ navText.addEventListener("input", function (e) {
   display.textContent = localUserText.trim(); //check if the state is true
 
   textLength > 0 ? textInputState = true : false;
-  textLength >= 30 ? alert("If you need more than 30 characters of text, Please contact us: \uD83D\uDCDE +14-999-876-42") : ""; //any space should be omitted from calculating
+  textLength >= 20 ? alert("If you need more than 30 characters of text, Please contact us: \uD83D\uDCDE +14-999-876-42") : ""; //any space should be omitted from calculating
 
   if (e.data === " ") {
     return;
@@ -551,6 +557,8 @@ navText.addEventListener("input", function (e) {
     exports.metrics = metrics = ctx.measureText(userText);
     debounceMeasurement();
   }
+
+  (0, _globalFuntions.fontBarCondition)(textLength);
 
   if (textLength === 0) {
     (0, _globalFuntions.clearCanvas)(ctx, canva);
@@ -601,14 +609,7 @@ var widthContainer = _globalVariables.globalVar.widthContainer,
 
 fontBtnsWhite.forEach(function (btn) {
   btn.classList.add("hide");
-}); // function loadFont(targetFont) {
-// 	//---one for the display
-// 	display.style.fontFamily = targetFont;
-// 	//---one for the canvas
-// 	ctx.font = `4rem ${targetFont}`;
-// 	ctx.fillStyle = "White";
-// 	console.log(`Loaded font: ${targetFont}`);
-// }
+});
 
 function loadFont(targetFont, userText) {
   //---one for the display
@@ -620,6 +621,15 @@ function loadFont(targetFont, userText) {
   ctx.fillText(userText, 0, 50);
 }
 
+function getScreenSize() {
+  var width = window.innerWidth;
+  console.log("Window width: ".concat(width));
+  return width;
+}
+
+getScreenSize();
+var screenWidth = getScreenSize();
+console.log(screenWidth);
 var fontClicked = false;
 exports.fontClicked = fontClicked;
 var fontUserText = ""; //font  action
@@ -636,9 +646,9 @@ fontBtn.forEach(function (btns) {
 
     (0, _globalFuntions.default)(widthContainer, false);
     (0, _globalFuntions.default)(heightContainer, false);
-    (0, _globalFuntions.clearCanvas)(ctx, canva);
-    console.log(target.classList);
-    console.log(target.classList.length > 1); //if it is is  the parent
+    (0, _globalFuntions.clearCanvas)(ctx, canva); // console.log(target.classList);
+    // console.log(target.classList.length > 1);
+    //if it is is  the parent
 
     var targetCondition = target.classList.length > 1; //big fonts
 
@@ -656,8 +666,7 @@ fontBtn.forEach(function (btns) {
       //if it is the child
       largeFonts = target.id;
       (0, _globalFuntions.clearCanvas)(ctx, canva);
-      loadFont(target.id, _textInput.userText);
-      console.log("Large Fonts: ".concat(largeFonts));
+      loadFont(target.id, _textInput.userText); // console.log(`Large Fonts: ${largeFonts}`);
 
       var _metrics = ctx.measureText(_textInput.userText);
 
@@ -666,13 +675,11 @@ fontBtn.forEach(function (btns) {
 
 
     console.log("Large Fonts fromm outside: ".concat(largeFonts));
+    console.log(largeFonts !== "HerrVonMuellerhoff" || largeFonts !== "Tangerine");
 
-    if (largeFonts !== "HerrVonMuellerhoff" || largeFonts !== "Tangerine") {
-      display.style.fontSize = "3vw";
+    if (largeFonts === "Amsterdam") {
+      screenWidth >= 800 ? display.style.fontSize = "2.5vw" : display.style.fontSize = "4vw";
       console.log("FROM CONDITION 1");
-    } else {
-      display.style.fontSize = "3.4rem";
-      console.log("FROM CONDITION 2");
     }
 
     var targetBtn = e.target.closest(".ui-input-fontFamily-list"); //loop throught all the lists
@@ -682,7 +689,8 @@ fontBtn.forEach(function (btns) {
       cls.classList.remove("btn-active");
     }); //add btn-active class to the existing target list
 
-    targetBtn.classList.add("btn-active"); //setthe display for bars
+    targetBtn.classList.add("btn-active");
+    (0, _globalFuntions.fontBarCondition)(textLength); //setthe display for bars
 
     (0, _globalFuntions.showBars)(true);
     return fontClicked;
@@ -944,7 +952,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "65527" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "49904" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
