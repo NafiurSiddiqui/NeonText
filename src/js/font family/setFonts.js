@@ -10,7 +10,7 @@ import setDisplay, {
 	fontBarCondition,
 } from "../globalFuntions";
 import { clearCanvas } from "../globalFuntions";
-import { userText } from "../textInput";
+import debounceMeasurement, { userText } from "../textInput";
 
 //destructured vars
 let { fontBtn, fontBtnsWhite } = globalFonts;
@@ -44,7 +44,7 @@ function loadFont(targetFont, userText) {
 
 function getScreenSize() {
 	let width = window.innerWidth;
-	console.log(`Window width: ${width}`);
+	// console.log(`Window width: ${width}`);
 	return width;
 }
 
@@ -52,7 +52,7 @@ getScreenSize();
 
 let screenWidth = getScreenSize();
 
-console.log(screenWidth);
+// console.log(screenWidth);
 
 export let fontClicked = false;
 
@@ -66,14 +66,12 @@ fontBtn.forEach((btns) => {
 		fontUserText = userText;
 		fontUserText = "";
 		let textLength = userText.length;
-		// console.log(target);
+
 		//Clear displays
 		setDisplay(widthContainer, false);
 		setDisplay(heightContainer, false);
 		clearCanvas(ctx, canva);
 
-		// console.log(target.classList);
-		// console.log(target.classList.length > 1);
 		//if it is is  the parent
 
 		const targetCondition = target.classList.length > 1;
@@ -88,7 +86,7 @@ fontBtn.forEach((btns) => {
 			clearCanvas(ctx, canva);
 			loadFont(fontId, userText);
 			let metrics = ctx.measureText(userText);
-			calculation(
+			measureBars(
 				display,
 				metrics,
 				textLength,
@@ -102,9 +100,8 @@ fontBtn.forEach((btns) => {
 			largeFonts = target.id;
 			clearCanvas(ctx, canva);
 			loadFont(target.id, userText);
-			// console.log(`Large Fonts: ${largeFonts}`);
 			let metrics = ctx.measureText(userText);
-			calculation(
+			measureBars(
 				display,
 				metrics,
 				textLength,

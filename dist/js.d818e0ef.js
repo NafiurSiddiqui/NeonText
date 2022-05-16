@@ -206,7 +206,6 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.calculateDimension = calculateDimension;
 exports.calculatePricing = calculatePricing;
-exports.calculation = void 0;
 exports.clearCanvas = clearCanvas;
 exports.default = setDisplay;
 exports.fontBarCondition = void 0;
@@ -256,18 +255,25 @@ function writeOnCanvasWithFont(ctx, userText, font) {
 function measureBars(display, metrics, textLength, barWidth, barWidthSize, barHeight, barHeightSize) {
   //width
   var displayWidth = getComputedStyle(display).width;
+  console.log(displayWidth);
   var displayString = displayWidth.slice(0, -2);
-  var displaySize = Math.ceil(+displayString); //height
+  var displaySize = Math.ceil(+displayString);
+  var len = metrics.actualBoundingBoxLeft + metrics.actualBoundingBoxRight;
+  var okLen = Math.floor(len);
+  console.log("New len: ".concat(Math.floor(len))); //height
 
-  var height = Math.floor(metrics.actualBoundingBoxAscent) + Math.floor(metrics.actualBoundingBoxDescent);
-  var length = metrics.actualBoundingBoxLeft + metrics.actualBoundingBoxRight; // let height2 = getComputedStyle(display).height;
-  // console.log(`Height: ${height2}`);
-  //measurement bars
+  var height = Math.floor(metrics.actualBoundingBoxAscent) + Math.floor(metrics.actualBoundingBoxDescent); //measurement bars
 
   barWidth.style.width = "".concat(displaySize, "px");
   var widthSize = barWidthSize.textContent = "".concat(textLength * 2, " CM");
   barHeight.style.height = "".concat(height, "px");
   var heightSize = barHeightSize.textContent = "".concat(Math.floor(height), "Cm");
+  console.log("Widht would be: ".concat(displaySize));
+  showBars(true);
+  var widthPrice = parseInt(widthSize);
+  var heightPrice = parseInt(heightSize);
+  calculatePricing(textLength);
+  calculateDimension(widthPrice, heightPrice);
   return [widthSize, heightSize];
 }
 
@@ -295,18 +301,6 @@ function calculateDimension(width, height) {
   priceLargeLength.textContent = "".concat(width * 3, " Cm");
   priceLargeHeight.textContent = "".concat(parseInt(height * 1.3), " Cm");
 }
-
-var calculation = function calculation(display, metrics, textLength, barWidth, barWidthSize, barHeight, barHeightSize) {
-  var cardMeasures = measureBars(display, metrics, textLength, barWidth, barWidthSize, barHeight, barHeightSize);
-  showBars(true);
-  var width = parseInt(cardMeasures[0]);
-  var height = parseInt(cardMeasures[1]); // console.log(width, height);
-
-  calculatePricing(textLength);
-  calculateDimension(width, height);
-};
-
-exports.calculation = calculation;
 
 var fontBarCondition = function fontBarCondition(textLength) {
   textLength >= 11 ? widthContainer.style.left = "-8px" : "-20px";
@@ -509,7 +503,7 @@ function init() {
     var _textLength = userText.length;
     (0, _globalFuntions.writeOnCanvasWithFont)(ctx, userText, "Tangerine");
     exports.metrics = metrics = ctx.measureText(userText);
-    (0, _globalFuntions.calculation)(display, metrics, _textLength, barWidth, barWidthSize, barHeight, barHeightSize);
+    (0, _globalFuntions.measureBars)(display, metrics, _textLength, barWidth, barWidthSize, barHeight, barHeightSize);
   } else {
     localStorage.clear();
     exports.userText = userText = "Your Text";
@@ -556,13 +550,15 @@ navText.addEventListener("input", function (e) {
     (0, _globalFuntions.writeOnCanvas)(ctx, userText);
     exports.metrics = metrics = ctx.measureText(userText);
     debounceMeasurement();
-  }
+  } //css condition
+
 
   (0, _globalFuntions.fontBarCondition)(textLength);
 
   if (textLength === 0) {
     (0, _globalFuntions.clearCanvas)(ctx, canva);
     (0, _globalFuntions.showBars)(false);
+    return;
   }
 
   return userText;
@@ -574,7 +570,10 @@ function debounceMeasurement() {
 
   clearTimeout(timeout); //measure bar
 
-  timeout = setTimeout((0, _globalFuntions.calculation)(display, metrics, textLength, barWidth, barWidthSize, barHeight, barHeightSize), 3000);
+  timeout = setTimeout(function () {
+    console.log("how about this?");
+    (0, _globalFuntions.measureBars)(display, metrics, textLength, barWidth, barWidthSize, barHeight, barHeightSize);
+  }, 3000);
 }
 },{"./globalVariables":"src/js/globalVariables.js","./globalFuntions":"src/js/globalFuntions.js"}],"src/js/font family/setFonts.js":[function(require,module,exports) {
 "use strict";
@@ -588,7 +587,7 @@ var _globalVariables = _interopRequireWildcard(require("../globalVariables"));
 
 var _globalFuntions = _interopRequireWildcard(require("../globalFuntions"));
 
-var _textInput = require("../textInput");
+var _textInput = _interopRequireWildcard(require("../textInput"));
 
 function _getRequireWildcardCache(nodeInterop) { if (typeof WeakMap !== "function") return null; var cacheBabelInterop = new WeakMap(); var cacheNodeInterop = new WeakMap(); return (_getRequireWildcardCache = function (nodeInterop) { return nodeInterop ? cacheNodeInterop : cacheBabelInterop; })(nodeInterop); }
 
@@ -622,14 +621,14 @@ function loadFont(targetFont, userText) {
 }
 
 function getScreenSize() {
-  var width = window.innerWidth;
-  console.log("Window width: ".concat(width));
+  var width = window.innerWidth; // console.log(`Window width: ${width}`);
+
   return width;
 }
 
 getScreenSize();
-var screenWidth = getScreenSize();
-console.log(screenWidth);
+var screenWidth = getScreenSize(); // console.log(screenWidth);
+
 var fontClicked = false;
 exports.fontClicked = fontClicked;
 var fontUserText = ""; //font  action
@@ -641,14 +640,11 @@ fontBtn.forEach(function (btns) {
     var target = e.target;
     fontUserText = _textInput.userText;
     fontUserText = "";
-    var textLength = _textInput.userText.length; // console.log(target);
-    //Clear displays
+    var textLength = _textInput.userText.length; //Clear displays
 
     (0, _globalFuntions.default)(widthContainer, false);
     (0, _globalFuntions.default)(heightContainer, false);
-    (0, _globalFuntions.clearCanvas)(ctx, canva); // console.log(target.classList);
-    // console.log(target.classList.length > 1);
-    //if it is is  the parent
+    (0, _globalFuntions.clearCanvas)(ctx, canva); //if it is is  the parent
 
     var targetCondition = target.classList.length > 1; //big fonts
 
@@ -661,16 +657,16 @@ fontBtn.forEach(function (btns) {
       (0, _globalFuntions.clearCanvas)(ctx, canva);
       loadFont(fontId, _textInput.userText);
       var metrics = ctx.measureText(_textInput.userText);
-      (0, _globalFuntions.calculation)(display, metrics, textLength, barWidth, barWidthSize, barHeight, barHeightSize);
+      (0, _globalFuntions.measureBars)(display, metrics, textLength, barWidth, barWidthSize, barHeight, barHeightSize);
     } else {
       //if it is the child
       largeFonts = target.id;
       (0, _globalFuntions.clearCanvas)(ctx, canva);
-      loadFont(target.id, _textInput.userText); // console.log(`Large Fonts: ${largeFonts}`);
+      loadFont(target.id, _textInput.userText);
 
       var _metrics = ctx.measureText(_textInput.userText);
 
-      (0, _globalFuntions.calculation)(display, _metrics, textLength, barWidth, barWidthSize, barHeight, barHeightSize);
+      (0, _globalFuntions.measureBars)(display, _metrics, textLength, barWidth, barWidthSize, barHeight, barHeightSize);
     } //dynamic font sizing
 
 
@@ -952,7 +948,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "49904" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "63296" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

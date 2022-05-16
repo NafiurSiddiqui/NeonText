@@ -42,7 +42,8 @@ function init() {
 		let textLength = userText.length;
 		writeOnCanvasWithFont(ctx, userText, "Tangerine");
 		metrics = ctx.measureText(userText);
-		calculation(
+
+		measureBars(
 			display,
 			metrics,
 			textLength,
@@ -107,12 +108,13 @@ navText.addEventListener("input", (e) => {
 		metrics = ctx.measureText(userText);
 		debounceMeasurement();
 	}
-
+	//css condition
 	fontBarCondition(textLength);
 
 	if (textLength === 0) {
 		clearCanvas(ctx, canva);
 		showBars(false);
+		return;
 	}
 
 	return userText;
@@ -124,8 +126,9 @@ export default function debounceMeasurement() {
 	//cleartimeout
 	clearTimeout(timeout);
 	//measure bar
-	timeout = setTimeout(
-		calculation(
+	timeout = setTimeout(() => {
+		console.log("how about this?");
+		measureBars(
 			display,
 			metrics,
 			textLength,
@@ -133,7 +136,6 @@ export default function debounceMeasurement() {
 			barWidthSize,
 			barHeight,
 			barHeightSize
-		),
-		3000
-	);
+		);
+	}, 3000);
 }

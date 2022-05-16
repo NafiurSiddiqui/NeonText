@@ -26,3 +26,15 @@ Check out the links below for the licensing of the fonts used here that requires
 ---
 
 - unpredictable behaviour, sometimes one of the font does not get render on the canvas, nor the computed style for width of the `<span class= "measurementBar-width">` based on which the measuremnt bar is changed. After while this does not happen, most noticeable upon first load. Usually appears within first 4 or 5 clicks on the font family. 😬
+
+### Some of the technical aspect i have implemented in this version of the webApp (almost)
+
+---
+
+- Debouncing algorithm -- to purposefully save resources and time therefore good optimization and speed.
+
+- One of the most trickiest and challenging part was to get the height of each characters, which i did with the help of masking a canvas.
+
+- Dynamic calculation of price and dimensions
+
+- Responsiveness ensure to adapt to all of the devices out there.

@@ -47,24 +47,31 @@ export function measureBars(
 ) {
 	//width
 	let displayWidth = getComputedStyle(display).width;
+	console.log(displayWidth);
 	let displayString = displayWidth.slice(0, -2);
 	let displaySize = Math.ceil(+displayString);
+
+	let len = metrics.actualBoundingBoxLeft + metrics.actualBoundingBoxRight;
+	let okLen = Math.floor(len);
+	console.log(`New len: ${Math.floor(len)}`);
 	//height
 	let height =
 		Math.floor(metrics.actualBoundingBoxAscent) +
 		Math.floor(metrics.actualBoundingBoxDescent);
-	let length = metrics.actualBoundingBoxLeft + metrics.actualBoundingBoxRight;
-
-	// let height2 = getComputedStyle(display).height;
-	// console.log(`Height: ${height2}`);
 
 	//measurement bars
 
 	barWidth.style.width = `${displaySize}px`;
+
 	let widthSize = (barWidthSize.textContent = `${textLength * 2} CM`);
 	barHeight.style.height = `${height}px`;
 	let heightSize = (barHeightSize.textContent = `${Math.floor(height)}Cm`);
-
+	console.log(`Widht would be: ${displaySize}`);
+	showBars(true);
+	let widthPrice = parseInt(widthSize);
+	let heightPrice = parseInt(heightSize);
+	calculatePricing(textLength);
+	calculateDimension(widthPrice, heightPrice);
 	return [widthSize, heightSize];
 }
 
@@ -92,32 +99,6 @@ export function calculateDimension(width, height) {
 	priceLargeLength.textContent = `${width * 3} Cm`;
 	priceLargeHeight.textContent = `${parseInt(height * 1.3)} Cm`;
 }
-
-export const calculation = (
-	display,
-	metrics,
-	textLength,
-	barWidth,
-	barWidthSize,
-	barHeight,
-	barHeightSize
-) => {
-	let cardMeasures = measureBars(
-		display,
-		metrics,
-		textLength,
-		barWidth,
-		barWidthSize,
-		barHeight,
-		barHeightSize
-	);
-	showBars(true);
-	let width = parseInt(cardMeasures[0]);
-	let height = parseInt(cardMeasures[1]);
-	// console.log(width, height);
-	calculatePricing(textLength);
-	calculateDimension(width, height);
-};
 
 export const fontBarCondition = (textLength) => {
 	textLength >= 11 ? (widthContainer.style.left = "-8px") : "-20px";
