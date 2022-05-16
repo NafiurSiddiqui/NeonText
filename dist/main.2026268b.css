@@ -331,10 +331,22 @@ article.ui-display {
   height: auto;
   color: #f4f4f4;
   font-size: 50px;
+  border-bottom: 2px solid white;
+  margin-bottom: 20px;
+  padding-bottom: 6px;
   letter-spacing: 2px;
   word-wrap: anywhere;
   font-family: "HerrVonMuellerhoff", cursive;
   text-shadow: #b5b5b5 0px 1px 0px, darkgray 0px 2px 0px, #949494 0px 3px 0px, #7d7d7d 0px 4px 0px, rgba(0, 0, 0, 0.23) 0px 0px 5px, rgba(0, 0, 0, 0.43) 0px 1px 3px, rgba(0, 0, 0, 0.4) 1px 4px 6px, rgba(0, 0, 0, 0.38) 0px 5px 10px, rgba(0, 0, 0, 0.25) 3px 7px 12px;
+}
+.ui-display-userText-text::after {
+  content: "";
+  width: 2px;
+  height: 15px;
+  background-color: white;
+  display: inline-block;
+  position: relative;
+  bottom: -35px;
 }
 
 .measurementBar-width {
