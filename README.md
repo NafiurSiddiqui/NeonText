@@ -25,7 +25,7 @@ Check out the links below for the licensing of the fonts used here that requires
 
 ---
 
-- unpredictable behaviour, sometimes one of the font does not get render on the canvas, nor the computed style for width of the `<span class= "measurementBar-width">` based on which the measuremnt bar is changed. After while this does not happen, most noticeable upon first load. Usually appears within first 4 or 5 clicks on the font family. 😬
+- unpredictable behaviour for the computed style of width of the `<p class="ui-display-userText-text neonOn">Text</p>` based on which the measuremnt bar is changed and rendered. Sometimes need double click to get the actual width and found out that the browser does not compute the accurate result for this bar.
 
 ### Some of the technical aspect i have implemented in this version of the webApp (almost)
 
@@ -36,5 +36,7 @@ Check out the links below for the licensing of the fonts used here that requires
 - One of the most trickiest and challenging part was to get the height of each characters, which i did with the help of masking a canvas.
 
 - Dynamic calculation of price and dimensions
+
+- Caching with local storage to reassure user gets the text, dimension, price where they left in case they close or refresh the tab.
 
 - Responsiveness ensure to adapt to all of the devices out there.

@@ -258,17 +258,16 @@ function measureBars(display, metrics, textLength, barWidth, barWidthSize, barHe
   console.log(displayWidth);
   var displayString = displayWidth.slice(0, -2);
   var displaySize = Math.ceil(+displayString);
-  var len = metrics.actualBoundingBoxLeft + metrics.actualBoundingBoxRight;
-  var okLen = Math.floor(len);
-  console.log("New len: ".concat(Math.floor(len))); //height
+  console.log(displaySize);
+  var len = metrics.actualBoundingBoxLeft + metrics.actualBoundingBoxRight; //height
 
   var height = Math.floor(metrics.actualBoundingBoxAscent) + Math.floor(metrics.actualBoundingBoxDescent); //measurement bars
 
   barWidth.style.width = "".concat(displaySize, "px");
   var widthSize = barWidthSize.textContent = "".concat(textLength * 2, " CM");
   barHeight.style.height = "".concat(height, "px");
-  var heightSize = barHeightSize.textContent = "".concat(Math.floor(height), "Cm");
-  console.log("Widht would be: ".concat(displaySize));
+  var heightSize = barHeightSize.textContent = "".concat(Math.floor(height), "Cm"); // console.log(`Widht would be: ${displaySize}`);
+
   showBars(true);
   var widthPrice = parseInt(widthSize);
   var heightPrice = parseInt(heightSize);
@@ -649,11 +648,12 @@ fontBtn.forEach(function (btns) {
     var targetCondition = target.classList.length > 1; //big fonts
 
     var largeFonts = "";
+    console.log("--------✨✨");
 
     if (targetCondition) {
       var fontId = target.classList[1];
       largeFonts = fontId;
-      console.log("Large Fonts: ".concat(largeFonts));
+      console.log("From Parent click");
       (0, _globalFuntions.clearCanvas)(ctx, canva);
       loadFont(fontId, _textInput.userText);
       var metrics = ctx.measureText(_textInput.userText);
@@ -670,12 +670,8 @@ fontBtn.forEach(function (btns) {
     } //dynamic font sizing
 
 
-    console.log("Large Fonts fromm outside: ".concat(largeFonts));
-    console.log(largeFonts !== "HerrVonMuellerhoff" || largeFonts !== "Tangerine");
-
-    if (largeFonts === "Amsterdam") {
-      screenWidth >= 800 ? display.style.fontSize = "2.5vw" : display.style.fontSize = "4vw";
-      console.log("FROM CONDITION 1");
+    if (largeFonts === "Amsterdam" || largeFonts === "RasterSlice") {
+      screenWidth >= 800 ? display.style.fontSize = "40px" : display.style.fontSize = "30px";
     }
 
     var targetBtn = e.target.closest(".ui-input-fontFamily-list"); //loop throught all the lists
@@ -691,7 +687,13 @@ fontBtn.forEach(function (btns) {
     (0, _globalFuntions.showBars)(true);
     return fontClicked;
   });
-});
+}); //each time btn is clicked, run a function that calculates the recent computed width and send it up there to render
+// const checkCurrentWidth = () => {
+// 	let currWidth = getComputedStyle(userDisplay).width;
+// 	// let displayString = displayWidth.slice(0, -2);
+// 	// let displaySize = Math.ceil(+displayString);
+// 	console.log(currWidth);
+// };
 },{"../globalVariables":"src/js/globalVariables.js","../globalFuntions":"src/js/globalFuntions.js","../textInput":"src/js/textInput.js"}],"src/js/ui color/uiColor.js":[function(require,module,exports) {
 "use strict";
 
@@ -948,7 +950,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "63296" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "56173" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

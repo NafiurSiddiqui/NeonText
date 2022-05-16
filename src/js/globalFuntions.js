@@ -50,10 +50,9 @@ export function measureBars(
 	console.log(displayWidth);
 	let displayString = displayWidth.slice(0, -2);
 	let displaySize = Math.ceil(+displayString);
-
+	console.log(displaySize);
 	let len = metrics.actualBoundingBoxLeft + metrics.actualBoundingBoxRight;
-	let okLen = Math.floor(len);
-	console.log(`New len: ${Math.floor(len)}`);
+
 	//height
 	let height =
 		Math.floor(metrics.actualBoundingBoxAscent) +
@@ -62,11 +61,10 @@ export function measureBars(
 	//measurement bars
 
 	barWidth.style.width = `${displaySize}px`;
-
 	let widthSize = (barWidthSize.textContent = `${textLength * 2} CM`);
 	barHeight.style.height = `${height}px`;
 	let heightSize = (barHeightSize.textContent = `${Math.floor(height)}Cm`);
-	console.log(`Widht would be: ${displaySize}`);
+	// console.log(`Widht would be: ${displaySize}`);
 	showBars(true);
 	let widthPrice = parseInt(widthSize);
 	let heightPrice = parseInt(heightSize);

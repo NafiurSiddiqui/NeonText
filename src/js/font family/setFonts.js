@@ -78,11 +78,11 @@ fontBtn.forEach((btns) => {
 
 		//big fonts
 		let largeFonts = "";
-
+		console.log("--------✨✨");
 		if (targetCondition) {
 			let fontId = target.classList[1];
 			largeFonts = fontId;
-			console.log(`Large Fonts: ${largeFonts}`);
+			console.log(`From Parent click`);
 			clearCanvas(ctx, canva);
 			loadFont(fontId, userText);
 			let metrics = ctx.measureText(userText);
@@ -112,16 +112,11 @@ fontBtn.forEach((btns) => {
 			);
 		}
 		//dynamic font sizing
-		console.log(`Large Fonts fromm outside: ${largeFonts}`);
 
-		console.log(
-			largeFonts !== "HerrVonMuellerhoff" || largeFonts !== "Tangerine"
-		);
-		if (largeFonts === "Amsterdam") {
+		if (largeFonts === "Amsterdam" || largeFonts === "RasterSlice") {
 			screenWidth >= 800
-				? (display.style.fontSize = "2.5vw")
-				: (display.style.fontSize = "4vw");
-			console.log("FROM CONDITION 1");
+				? (display.style.fontSize = "40px")
+				: (display.style.fontSize = "30px");
 		}
 
 		let targetBtn = e.target.closest(".ui-input-fontFamily-list");
@@ -141,3 +136,12 @@ fontBtn.forEach((btns) => {
 		return fontClicked;
 	});
 });
+
+//each time btn is clicked, run a function that calculates the recent computed width and send it up there to render
+
+// const checkCurrentWidth = () => {
+// 	let currWidth = getComputedStyle(userDisplay).width;
+// 	// let displayString = displayWidth.slice(0, -2);
+// 	// let displaySize = Math.ceil(+displayString);
+// 	console.log(currWidth);
+// };

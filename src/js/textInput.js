@@ -42,7 +42,6 @@ function init() {
 		let textLength = userText.length;
 		writeOnCanvasWithFont(ctx, userText, "Tangerine");
 		metrics = ctx.measureText(userText);
-
 		measureBars(
 			display,
 			metrics,
