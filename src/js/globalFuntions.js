@@ -37,22 +37,12 @@ export function writeOnCanvasWithFont(ctx, userText, font) {
 }
 
 export function measureBars(
-	display,
 	metrics,
 	textLength,
-	barWidth,
 	barWidthSize,
 	barHeight,
 	barHeightSize
 ) {
-	//width
-	let displayWidth = getComputedStyle(display).width;
-	console.log(displayWidth);
-	let displayString = displayWidth.slice(0, -2);
-	let displaySize = Math.ceil(+displayString);
-	console.log(displaySize);
-	let len = metrics.actualBoundingBoxLeft + metrics.actualBoundingBoxRight;
-
 	//height
 	let height =
 		Math.floor(metrics.actualBoundingBoxAscent) +
@@ -60,11 +50,10 @@ export function measureBars(
 
 	//measurement bars
 
-	barWidth.style.width = `${displaySize}px`;
+	// barWidth.style.width = `${displaySize}px`;
 	let widthSize = (barWidthSize.textContent = `${textLength * 2} CM`);
 	barHeight.style.height = `${height}px`;
 	let heightSize = (barHeightSize.textContent = `${Math.floor(height)}Cm`);
-	// console.log(`Widht would be: ${displaySize}`);
 	showBars(true);
 	let widthPrice = parseInt(widthSize);
 	let heightPrice = parseInt(heightSize);
@@ -76,10 +65,8 @@ export function measureBars(
 export function showBars(show) {
 	if (show === true) {
 		setDisplay(heightContainer, true);
-		setDisplay(widthContainer, true);
 	} else {
 		setDisplay(heightContainer, false);
-		setDisplay(widthContainer, false);
 	}
 }
 
@@ -98,6 +85,6 @@ export function calculateDimension(width, height) {
 	priceLargeHeight.textContent = `${parseInt(height * 1.3)} Cm`;
 }
 
-export const fontBarCondition = (textLength) => {
-	textLength >= 11 ? (widthContainer.style.left = "-8px") : "-20px";
-};
+// export const fontBarCondition = (textLength) => {
+// 	// textLength >= 11 ? (widthContainer.style.left = "-8px") : "-20px";
+// };

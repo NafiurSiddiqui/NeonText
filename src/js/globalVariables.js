@@ -16,6 +16,9 @@ let barWidthSize = document.querySelector(".measurementBar-width-length");
 const heightContainer = document.querySelector(
 	".measurementBar-height-wrapper"
 );
+
+const height = document.querySelector(".measurementBar-height-length");
+
 const barHeight = document.querySelector(".measurementBar-height");
 const barHeightSize = document.querySelector(".measurementBar-height-length");
 
@@ -46,6 +49,7 @@ export const globalVar = {
 	widthContainer,
 	barWidth,
 	barWidthSize,
+	height,
 	heightContainer,
 	barHeight,
 	barHeightSize,

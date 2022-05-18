@@ -1,15 +1,10 @@
 import { globalVar } from "./globalVariables";
-import { globarPrice } from "./globalVariables";
 import setDisplay, {
 	writeOnCanvas,
 	clearCanvas,
 	measureBars,
 	showBars,
 	writeOnCanvasWithFont,
-	calculateDimension,
-	calculatePricing,
-	calculation,
-	fontBarCondition,
 } from "./globalFuntions";
 //globa var destructured
 let {
@@ -23,6 +18,7 @@ let {
 	display,
 	canva,
 	ctx,
+	height,
 } = globalVar;
 
 let navText = uiInputText.firstElementChild;
@@ -42,15 +38,7 @@ function init() {
 		let textLength = userText.length;
 		writeOnCanvasWithFont(ctx, userText, "Tangerine");
 		metrics = ctx.measureText(userText);
-		measureBars(
-			display,
-			metrics,
-			textLength,
-			barWidth,
-			barWidthSize,
-			barHeight,
-			barHeightSize
-		);
+		measureBars(metrics, textLength, barWidthSize, barHeight, barHeightSize);
 	} else {
 		localStorage.clear();
 		userText = "Your Text";
@@ -64,15 +52,16 @@ function init() {
 
 init();
 
+//ACTION
 navText.addEventListener("input", (e) => {
 	//get the input value, store it, return it
 	userText = e.target.value;
+
 	//persist data in local storage
 	localStorage.setItem("userText", userText);
-	//get the item from storage
 
+	//get the item from storage
 	let localUserText = localStorage.getItem("userText");
-	let timeout;
 	textLength = localUserText.length;
 
 	//show each letter upon typing
@@ -87,6 +76,10 @@ navText.addEventListener("input", (e) => {
 		  )
 		: "";
 
+	if (textLength >= 11) {
+		height.style.bottom = `-2.4em`;
+		height.style.left = `-0.5em`;
+	}
 	//any space should be omitted from calculating
 	if (e.data === " ") {
 		return;
@@ -107,8 +100,6 @@ navText.addEventListener("input", (e) => {
 		metrics = ctx.measureText(userText);
 		debounceMeasurement();
 	}
-	//css condition
-	fontBarCondition(textLength);
 
 	if (textLength === 0) {
 		clearCanvas(ctx, canva);
@@ -126,15 +117,6 @@ export default function debounceMeasurement() {
 	clearTimeout(timeout);
 	//measure bar
 	timeout = setTimeout(() => {
-		console.log("how about this?");
-		measureBars(
-			display,
-			metrics,
-			textLength,
-			barWidth,
-			barWidthSize,
-			barHeight,
-			barHeightSize
-		);
+		measureBars(metrics, textLength, barWidthSize, barHeight, barHeightSize);
 	}, 3000);
 }

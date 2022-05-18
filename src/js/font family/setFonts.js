@@ -1,16 +1,12 @@
-import globalFonts from "../globalVariables";
-import { globalVar } from "../globalVariables";
-import { globarPrice } from "../globalVariables";
+import globalFonts, { globalVar } from "../globalVariables";
 import setDisplay, {
 	showBars,
-	writeOnCanvasWithFont,
-	calculation,
-	writeOnCanvas,
 	measureBars,
 	fontBarCondition,
+	clearCanvas,
 } from "../globalFuntions";
-import { clearCanvas } from "../globalFuntions";
-import debounceMeasurement, { userText } from "../textInput";
+// import { clearCanvas } from "../globalFuntions";
+import { userText } from "../textInput";
 
 //destructured vars
 let { fontBtn, fontBtnsWhite } = globalFonts;
@@ -44,15 +40,12 @@ function loadFont(targetFont, userText) {
 
 function getScreenSize() {
 	let width = window.innerWidth;
-	// console.log(`Window width: ${width}`);
 	return width;
 }
 
 getScreenSize();
 
 let screenWidth = getScreenSize();
-
-// console.log(screenWidth);
 
 export let fontClicked = false;
 
@@ -68,7 +61,7 @@ fontBtn.forEach((btns) => {
 		let textLength = userText.length;
 
 		//Clear displays
-		setDisplay(widthContainer, false);
+		// setDisplay(widthContainer, false);
 		setDisplay(heightContainer, false);
 		clearCanvas(ctx, canva);
 
@@ -87,10 +80,9 @@ fontBtn.forEach((btns) => {
 			loadFont(fontId, userText);
 			let metrics = ctx.measureText(userText);
 			measureBars(
-				display,
 				metrics,
 				textLength,
-				barWidth,
+
 				barWidthSize,
 				barHeight,
 				barHeightSize
@@ -101,22 +93,14 @@ fontBtn.forEach((btns) => {
 			clearCanvas(ctx, canva);
 			loadFont(target.id, userText);
 			let metrics = ctx.measureText(userText);
-			measureBars(
-				display,
-				metrics,
-				textLength,
-				barWidth,
-				barWidthSize,
-				barHeight,
-				barHeightSize
-			);
+			measureBars(metrics, textLength, barWidthSize, barHeight, barHeightSize);
 		}
 		//dynamic font sizing
 
 		if (largeFonts === "Amsterdam" || largeFonts === "RasterSlice") {
-			screenWidth >= 800
-				? (display.style.fontSize = "40px")
-				: (display.style.fontSize = "30px");
+			screenWidth >= 800 ? setFontSize(50) : setFontSize(35);
+		} else {
+			screenWidth >= 600 ? setFontSize(70) : setFontSize(45);
 		}
 
 		let targetBtn = e.target.closest(".ui-input-fontFamily-list");
@@ -129,7 +113,6 @@ fontBtn.forEach((btns) => {
 		//add btn-active class to the existing target list
 		targetBtn.classList.add("btn-active");
 
-		fontBarCondition(textLength);
 		//setthe display for bars
 		showBars(true);
 
@@ -137,11 +120,6 @@ fontBtn.forEach((btns) => {
 	});
 });
 
-//each time btn is clicked, run a function that calculates the recent computed width and send it up there to render
-
-// const checkCurrentWidth = () => {
-// 	let currWidth = getComputedStyle(userDisplay).width;
-// 	// let displayString = displayWidth.slice(0, -2);
-// 	// let displaySize = Math.ceil(+displayString);
-// 	console.log(currWidth);
-// };
+function setFontSize(size) {
+	return (display.style.fontSize = `${size}px`);
+}

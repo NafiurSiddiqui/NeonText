@@ -330,35 +330,40 @@ article.ui-display {
   width: auto;
   height: auto;
   color: #f4f4f4;
-  font-size: 50px;
-  border-bottom: 2px solid white;
-  margin-bottom: 20px;
-  padding-bottom: 6px;
+  font-size: 70px;
+  padding-bottom: 0.3em;
   letter-spacing: 2px;
   word-wrap: anywhere;
   font-family: "HerrVonMuellerhoff", cursive;
   text-shadow: #b5b5b5 0px 1px 0px, darkgray 0px 2px 0px, #949494 0px 3px 0px, #7d7d7d 0px 4px 0px, rgba(0, 0, 0, 0.23) 0px 0px 5px, rgba(0, 0, 0, 0.43) 0px 1px 3px, rgba(0, 0, 0, 0.4) 1px 4px 6px, rgba(0, 0, 0, 0.38) 0px 5px 10px, rgba(0, 0, 0, 0.25) 3px 7px 12px;
 }
-.ui-display-userText-text::after {
+.ui-display-userText-and-bar {
+  border-bottom: 2px solid white;
+  width: 100%;
+  position: relative;
+}
+.ui-display-userText-and-bar::after {
   content: "";
   width: 2px;
   height: 15px;
   background-color: white;
   display: inline-block;
-  position: relative;
-  bottom: -35px;
+  position: absolute;
+  bottom: 0;
+  right: 0;
+}
+.ui-display-userText-and-bar::before {
+  content: "";
+  width: 2px;
+  height: 15px;
+  background-color: white;
+  display: inline-block;
+  position: absolute;
+  bottom: 0;
 }
 
-.measurementBar-width {
-  width: 20px;
-  display: inline-block;
-  height: 7px;
-  border-bottom: 2px solid white;
-  border-left: 2px solid white;
-  border-right: 2px solid white;
-}
 .measurementBar-width-length {
-  padding: 4px 0;
+  color: white;
 }
 .measurementBar-height {
   width: 4px;
@@ -376,6 +381,7 @@ article.ui-display {
   align-items: center;
   position: relative;
   right: -1em;
+  padding-bottom: 1.5em;
 }
 .measurementBar-height-length {
   color: white;
@@ -960,11 +966,6 @@ main.container {
 @media screen and (max-width: 980px) {
   li.ui-input-fontFamily-list {
     width: 8rem;
-  }
-
-  .measurementBar-height-length {
-    top: -2.4em;
-    left: -1.2em;
   }
 
   .ui-display-userText-text {

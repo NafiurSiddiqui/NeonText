@@ -138,6 +138,7 @@ var widthContainer = document.querySelector(".measurementBar-container-bottom");
 var barWidth = document.querySelector(".measurementBar-width");
 var barWidthSize = document.querySelector(".measurementBar-width-length");
 var heightContainer = document.querySelector(".measurementBar-height-wrapper");
+var height = document.querySelector(".measurementBar-height-length");
 var barHeight = document.querySelector(".measurementBar-height");
 var barHeightSize = document.querySelector(".measurementBar-height-length"); //font family
 
@@ -162,6 +163,7 @@ var globalVar = {
   widthContainer: widthContainer,
   barWidth: barWidth,
   barWidthSize: barWidthSize,
+  height: height,
   heightContainer: heightContainer,
   barHeight: barHeight,
   barHeightSize: barHeightSize,
@@ -208,7 +210,6 @@ exports.calculateDimension = calculateDimension;
 exports.calculatePricing = calculatePricing;
 exports.clearCanvas = clearCanvas;
 exports.default = setDisplay;
-exports.fontBarCondition = void 0;
 exports.measureBars = measureBars;
 exports.showBars = showBars;
 exports.writeOnCanvas = writeOnCanvas;
@@ -252,22 +253,14 @@ function writeOnCanvasWithFont(ctx, userText, font) {
   ctx.fillText(userText, 0, 50);
 }
 
-function measureBars(display, metrics, textLength, barWidth, barWidthSize, barHeight, barHeightSize) {
-  //width
-  var displayWidth = getComputedStyle(display).width;
-  console.log(displayWidth);
-  var displayString = displayWidth.slice(0, -2);
-  var displaySize = Math.ceil(+displayString);
-  console.log(displaySize);
-  var len = metrics.actualBoundingBoxLeft + metrics.actualBoundingBoxRight; //height
-
+function measureBars(metrics, textLength, barWidthSize, barHeight, barHeightSize) {
+  //height
   var height = Math.floor(metrics.actualBoundingBoxAscent) + Math.floor(metrics.actualBoundingBoxDescent); //measurement bars
+  // barWidth.style.width = `${displaySize}px`;
 
-  barWidth.style.width = "".concat(displaySize, "px");
   var widthSize = barWidthSize.textContent = "".concat(textLength * 2, " CM");
   barHeight.style.height = "".concat(height, "px");
-  var heightSize = barHeightSize.textContent = "".concat(Math.floor(height), "Cm"); // console.log(`Widht would be: ${displaySize}`);
-
+  var heightSize = barHeightSize.textContent = "".concat(Math.floor(height), "Cm");
   showBars(true);
   var widthPrice = parseInt(widthSize);
   var heightPrice = parseInt(heightSize);
@@ -279,10 +272,8 @@ function measureBars(display, metrics, textLength, barWidth, barWidthSize, barHe
 function showBars(show) {
   if (show === true) {
     setDisplay(heightContainer, true);
-    setDisplay(widthContainer, true);
   } else {
     setDisplay(heightContainer, false);
-    setDisplay(widthContainer, false);
   }
 }
 
@@ -299,13 +290,9 @@ function calculateDimension(width, height) {
   priceMediumHeight.textContent = "".concat(parseInt(height * 1.1), " Cm");
   priceLargeLength.textContent = "".concat(width * 3, " Cm");
   priceLargeHeight.textContent = "".concat(parseInt(height * 1.3), " Cm");
-}
-
-var fontBarCondition = function fontBarCondition(textLength) {
-  textLength >= 11 ? widthContainer.style.left = "-8px" : "-20px";
-};
-
-exports.fontBarCondition = fontBarCondition;
+} // export const fontBarCondition = (textLength) => {
+// 	// textLength >= 11 ? (widthContainer.style.left = "-8px") : "-20px";
+// };
 },{"./globalVariables":"src/js/globalVariables.js"}],"src/js/ui nav/ui-inputNav.js":[function(require,module,exports) {
 "use strict";
 
@@ -481,7 +468,8 @@ var widthContainer = _globalVariables.globalVar.widthContainer,
     uiInputText = _globalVariables.globalVar.uiInputText,
     display = _globalVariables.globalVar.display,
     canva = _globalVariables.globalVar.canva,
-    ctx = _globalVariables.globalVar.ctx;
+    ctx = _globalVariables.globalVar.ctx,
+    height = _globalVariables.globalVar.height;
 var navText = uiInputText.firstElementChild; //state variables
 
 var textInputState = false; //set the default states
@@ -502,7 +490,7 @@ function init() {
     var _textLength = userText.length;
     (0, _globalFuntions.writeOnCanvasWithFont)(ctx, userText, "Tangerine");
     exports.metrics = metrics = ctx.measureText(userText);
-    (0, _globalFuntions.measureBars)(display, metrics, _textLength, barWidth, barWidthSize, barHeight, barHeightSize);
+    (0, _globalFuntions.measureBars)(metrics, _textLength, barWidthSize, barHeight, barHeightSize);
   } else {
     localStorage.clear();
     exports.userText = userText = "Your Text";
@@ -515,7 +503,8 @@ function init() {
   ctx.fillStyle = "White";
 }
 
-init();
+init(); //ACTION
+
 navText.addEventListener("input", function (e) {
   //get the input value, store it, return it
   exports.userText = userText = e.target.value; //persist data in local storage
@@ -523,13 +512,18 @@ navText.addEventListener("input", function (e) {
   localStorage.setItem("userText", userText); //get the item from storage
 
   var localUserText = localStorage.getItem("userText");
-  var timeout;
   exports.textLength = textLength = localUserText.length; //show each letter upon typing
 
   display.textContent = localUserText.trim(); //check if the state is true
 
   textLength > 0 ? textInputState = true : false;
-  textLength >= 20 ? alert("If you need more than 30 characters of text, Please contact us: \uD83D\uDCDE +14-999-876-42") : ""; //any space should be omitted from calculating
+  textLength >= 20 ? alert("If you need more than 30 characters of text, Please contact us: \uD83D\uDCDE +14-999-876-42") : "";
+
+  if (textLength >= 11) {
+    height.style.bottom = "-2.4em";
+    height.style.left = "-0.5em";
+  } //any space should be omitted from calculating
+
 
   if (e.data === " ") {
     return;
@@ -549,10 +543,7 @@ navText.addEventListener("input", function (e) {
     (0, _globalFuntions.writeOnCanvas)(ctx, userText);
     exports.metrics = metrics = ctx.measureText(userText);
     debounceMeasurement();
-  } //css condition
-
-
-  (0, _globalFuntions.fontBarCondition)(textLength);
+  }
 
   if (textLength === 0) {
     (0, _globalFuntions.clearCanvas)(ctx, canva);
@@ -570,8 +561,7 @@ function debounceMeasurement() {
   clearTimeout(timeout); //measure bar
 
   timeout = setTimeout(function () {
-    console.log("how about this?");
-    (0, _globalFuntions.measureBars)(display, metrics, textLength, barWidth, barWidthSize, barHeight, barHeightSize);
+    (0, _globalFuntions.measureBars)(metrics, textLength, barWidthSize, barHeight, barHeightSize);
   }, 3000);
 }
 },{"./globalVariables":"src/js/globalVariables.js","./globalFuntions":"src/js/globalFuntions.js"}],"src/js/font family/setFonts.js":[function(require,module,exports) {
@@ -586,12 +576,13 @@ var _globalVariables = _interopRequireWildcard(require("../globalVariables"));
 
 var _globalFuntions = _interopRequireWildcard(require("../globalFuntions"));
 
-var _textInput = _interopRequireWildcard(require("../textInput"));
+var _textInput = require("../textInput");
 
 function _getRequireWildcardCache(nodeInterop) { if (typeof WeakMap !== "function") return null; var cacheBabelInterop = new WeakMap(); var cacheNodeInterop = new WeakMap(); return (_getRequireWildcardCache = function (nodeInterop) { return nodeInterop ? cacheNodeInterop : cacheBabelInterop; })(nodeInterop); }
 
 function _interopRequireWildcard(obj, nodeInterop) { if (!nodeInterop && obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(nodeInterop); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (key !== "default" && Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
 
+// import { clearCanvas } from "../globalFuntions";
 //destructured vars
 var fontBtn = _globalVariables.default.fontBtn,
     fontBtnsWhite = _globalVariables.default.fontBtnsWhite;
@@ -620,14 +611,12 @@ function loadFont(targetFont, userText) {
 }
 
 function getScreenSize() {
-  var width = window.innerWidth; // console.log(`Window width: ${width}`);
-
+  var width = window.innerWidth;
   return width;
 }
 
 getScreenSize();
-var screenWidth = getScreenSize(); // console.log(screenWidth);
-
+var screenWidth = getScreenSize();
 var fontClicked = false;
 exports.fontClicked = fontClicked;
 var fontUserText = ""; //font  action
@@ -640,8 +629,8 @@ fontBtn.forEach(function (btns) {
     fontUserText = _textInput.userText;
     fontUserText = "";
     var textLength = _textInput.userText.length; //Clear displays
+    // setDisplay(widthContainer, false);
 
-    (0, _globalFuntions.default)(widthContainer, false);
     (0, _globalFuntions.default)(heightContainer, false);
     (0, _globalFuntions.clearCanvas)(ctx, canva); //if it is is  the parent
 
@@ -657,7 +646,7 @@ fontBtn.forEach(function (btns) {
       (0, _globalFuntions.clearCanvas)(ctx, canva);
       loadFont(fontId, _textInput.userText);
       var metrics = ctx.measureText(_textInput.userText);
-      (0, _globalFuntions.measureBars)(display, metrics, textLength, barWidth, barWidthSize, barHeight, barHeightSize);
+      (0, _globalFuntions.measureBars)(metrics, textLength, barWidthSize, barHeight, barHeightSize);
     } else {
       //if it is the child
       largeFonts = target.id;
@@ -666,12 +655,14 @@ fontBtn.forEach(function (btns) {
 
       var _metrics = ctx.measureText(_textInput.userText);
 
-      (0, _globalFuntions.measureBars)(display, _metrics, textLength, barWidth, barWidthSize, barHeight, barHeightSize);
+      (0, _globalFuntions.measureBars)(_metrics, textLength, barWidthSize, barHeight, barHeightSize);
     } //dynamic font sizing
 
 
     if (largeFonts === "Amsterdam" || largeFonts === "RasterSlice") {
-      screenWidth >= 800 ? display.style.fontSize = "40px" : display.style.fontSize = "30px";
+      screenWidth >= 800 ? setFontSize(50) : setFontSize(35);
+    } else {
+      screenWidth >= 600 ? setFontSize(70) : setFontSize(45);
     }
 
     var targetBtn = e.target.closest(".ui-input-fontFamily-list"); //loop throught all the lists
@@ -681,19 +672,16 @@ fontBtn.forEach(function (btns) {
       cls.classList.remove("btn-active");
     }); //add btn-active class to the existing target list
 
-    targetBtn.classList.add("btn-active");
-    (0, _globalFuntions.fontBarCondition)(textLength); //setthe display for bars
+    targetBtn.classList.add("btn-active"); //setthe display for bars
 
     (0, _globalFuntions.showBars)(true);
     return fontClicked;
   });
-}); //each time btn is clicked, run a function that calculates the recent computed width and send it up there to render
-// const checkCurrentWidth = () => {
-// 	let currWidth = getComputedStyle(userDisplay).width;
-// 	// let displayString = displayWidth.slice(0, -2);
-// 	// let displaySize = Math.ceil(+displayString);
-// 	console.log(currWidth);
-// };
+});
+
+function setFontSize(size) {
+  return display.style.fontSize = "".concat(size, "px");
+}
 },{"../globalVariables":"src/js/globalVariables.js","../globalFuntions":"src/js/globalFuntions.js","../textInput":"src/js/textInput.js"}],"src/js/ui color/uiColor.js":[function(require,module,exports) {
 "use strict";
 
@@ -950,7 +938,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "55169" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "52491" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

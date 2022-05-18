@@ -25,7 +25,7 @@ Check out the links below for the licensing of the fonts used here that requires
 
 ---
 
-- unpredictable behaviour for the computed style of width of the `<p class="ui-display-userText-text neonOn">Text</p>` based on which the measuremnt bar is changed and rendered. Sometimes need double click to get the actual width and found out that the browser does not compute the accurate result for this bar.
+- unpredictable behaviour for the computed style of the height, needs double clicking to render the accurate size.
 
 ### Some of the technical aspect i have implemented in this version of the webApp (almost)
 

@@ -5,7 +5,6 @@ article.ui-display {
 		rgb(10, 10, 14) 18%,
 		rgba(0, 0, 0, 0.8183474073223039) 100%
 	);
-	// background: linear-gradient(180deg, #181818 0%, #000000 49.53%, #161616 100%);
 	padding: 1em;
 	border-radius: 1.2em;
 	border: 10px solid rgb(107, 107, 107);
@@ -35,11 +34,8 @@ article.ui-display {
 		width: auto;
 		height: auto;
 		color: rgb(244, 244, 244);
-		// font-size: 3.4rem;
-		font-size: 50px;
-		border-bottom: 2px solid white;
-		margin-bottom: 20px;
-		padding-bottom: 6px;
+		font-size: 70px;
+		padding-bottom: 0.3em;
 		letter-spacing: 2px;
 		word-wrap: anywhere;
 		font-family: "HerrVonMuellerhoff", cursive;
@@ -48,15 +44,31 @@ article.ui-display {
 			rgba(0, 0, 0, 0.23) 0px 0px 5px, rgba(0, 0, 0, 0.43) 0px 1px 3px,
 			rgba(0, 0, 0, 0.4) 1px 4px 6px, rgba(0, 0, 0, 0.38) 0px 5px 10px,
 			rgba(0, 0, 0, 0.25) 3px 7px 12px;
-
+	}
+	&-and-bar {
+		border-bottom: 2px solid white;
+		width: 100%;
+		position: relative;
 		&::after {
 			content: "";
 			width: 2px;
 			height: 15px;
 			background-color: white;
 			display: inline-block;
-			position: relative;
-			bottom: -35px;
+			position: absolute;
+			bottom: 0;
+			right: 0;
+		}
+		&::before {
+			content: "";
+			width: 2px;
+			height: 15px;
+			background-color: white;
+			display: inline-block;
+			// position: relative;
+			position: absolute;
+			// bottom: -6px;
+			bottom: 0;
 		}
 	}
 }
@@ -64,18 +76,9 @@ article.ui-display {
 //measurement bar
 
 .measurementBar {
-	&-width {
-		width: 20px;
-		display: inline-block;
-		height: 7px;
-		border-bottom: 2px solid white;
-		border-left: 2px solid white;
-		border-right: 2px solid white;
-		&-length {
-			padding: 4px 0;
-		}
+	&-width-length {
+		color: white;
 	}
-
 	&-height {
 		width: 4px;
 		height: 46px;
@@ -89,6 +92,7 @@ article.ui-display {
 			@include flexCentered;
 			position: relative;
 			right: -1em;
+			padding-bottom: 1.5em;
 		}
 
 		&-length {
