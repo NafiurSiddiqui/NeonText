@@ -1,5 +1,5 @@
 import { globalVar } from "../globalVariables";
-import { lastColorState, lastState, neonOn, neonState } from "../neonSwitch";
+import { lastColorState, neonState } from "../neonSwitch";
 let { display, colorList, neonSwitch } = globalVar;
 let bulbDom = document.querySelectorAll(".fa.fa-lightbulb-o");
 
