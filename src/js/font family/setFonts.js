@@ -88,7 +88,6 @@ fontBtn.forEach((btns) => {
 					setNewHeight(newHeight, 1.5);
 				}
 			} else {
-				console.log("REGULAR CONDITION");
 				measureBars(
 					metrics,
 					textLength,
@@ -118,7 +117,6 @@ fontBtn.forEach((btns) => {
 					setNewHeight(newHeight, 1.5);
 				}
 			} else {
-				console.log("REGULAR CONDITION");
 				measureBars(
 					metrics,
 					textLength,
@@ -132,8 +130,20 @@ fontBtn.forEach((btns) => {
 		//dynamic font sizing
 		if (largeFonts === "Amsterdam" || largeFonts === "RasterSlice") {
 			screenWidth >= 800 ? setFontSize(50) : setFontSize(35);
+			if (textLength >= 11) {
+				barHeightSize.style.bottom = `-6.4em`;
+				barHeightSize.style.left = `-1em`;
+			}
 		} else {
 			screenWidth >= 600 ? setFontSize(70) : setFontSize(60);
+
+			if (
+				textLength >= 11 &&
+				(largeFonts !== "Amsterdam" || largeFonts !== "RasterSlice")
+			) {
+				barHeightSize.style.top = `-2.7em`;
+				barHeightSize.style.right = `1.3em`;
+			}
 		}
 
 		//navbtns activation

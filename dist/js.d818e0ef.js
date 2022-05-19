@@ -648,7 +648,6 @@ fontBtn.forEach(function (btns) {
           setNewHeight(newHeight, 1.5);
         }
       } else {
-        console.log("REGULAR CONDITION");
         (0, _globalFuntions.measureBars)(metrics, textLength, barWidthSize, barHeight, barHeightSize, false);
       }
     } else {
@@ -665,7 +664,6 @@ fontBtn.forEach(function (btns) {
           setNewHeight(newHeight, 1.5);
         }
       } else {
-        console.log("REGULAR CONDITION");
         (0, _globalFuntions.measureBars)(metrics, textLength, barWidthSize, barHeight, barHeightSize, false);
       }
     } //dynamic font sizing
@@ -673,8 +671,18 @@ fontBtn.forEach(function (btns) {
 
     if (largeFonts === "Amsterdam" || largeFonts === "RasterSlice") {
       screenWidth >= 800 ? setFontSize(50) : setFontSize(35);
+
+      if (textLength >= 11) {
+        barHeightSize.style.bottom = "-6.4em";
+        barHeightSize.style.left = "-1em";
+      }
     } else {
       screenWidth >= 600 ? setFontSize(70) : setFontSize(60);
+
+      if (textLength >= 11 && (largeFonts !== "Amsterdam" || largeFonts !== "RasterSlice")) {
+        barHeightSize.style.top = "-2.7em";
+        barHeightSize.style.right = "1.3em";
+      }
     } //navbtns activation
 
 
@@ -944,7 +952,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "57387" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "56810" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

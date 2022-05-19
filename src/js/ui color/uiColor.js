@@ -92,7 +92,6 @@ colorList.forEach((list) => {
 		bulb.dataset.active = true;
 
 		//check if any other bulbData is true or empty
-
 		//set btn glow
 		if (bulb.dataset.active === "true") {
 			btnActivate = true;
