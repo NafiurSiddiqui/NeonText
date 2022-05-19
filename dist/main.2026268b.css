@@ -364,6 +364,8 @@ article.ui-display {
 
 .measurementBar-width-length {
   color: white;
+  position: relative;
+  left: -1em;
 }
 .measurementBar-height {
   width: 4px;
@@ -987,6 +989,10 @@ main.container {
     -webkit-transform: translateX(37px);
     -ms-transform: translateX(37px);
     transform: translateX(37px);
+  }
+
+  .measurementBar-height-wrapper {
+    padding-bottom: 0;
   }
 }
 @media screen and (max-width: 580px) {

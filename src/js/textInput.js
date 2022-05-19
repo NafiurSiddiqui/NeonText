@@ -6,10 +6,8 @@ import setDisplay, {
 	showBars,
 	writeOnCanvasWithFont,
 } from "./globalFuntions";
-//globa var destructured
+
 let {
-	widthContainer,
-	barWidth,
 	barWidthSize,
 	heightContainer,
 	barHeight,
@@ -30,7 +28,6 @@ export let textLength = null;
 export let metrics = null;
 
 function init() {
-	//initial default state
 	//check for local storage value exist
 	if (localStorage.length > 0) {
 		userText = localStorage.getItem("userText");
@@ -43,8 +40,7 @@ function init() {
 		localStorage.clear();
 		userText = "Your Text";
 		display.textContent = userText;
-		setDisplay(widthContainer, null);
-		setDisplay(heightContainer, null);
+		setDisplay(heightContainer, false);
 	}
 	ctx.font = "4rem Tangerine";
 	ctx.fillStyle = "White";

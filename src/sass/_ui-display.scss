@@ -65,9 +65,9 @@ article.ui-display {
 			height: 15px;
 			background-color: white;
 			display: inline-block;
-			// position: relative;
+
 			position: absolute;
-			// bottom: -6px;
+
 			bottom: 0;
 		}
 	}
@@ -78,6 +78,8 @@ article.ui-display {
 .measurementBar {
 	&-width-length {
 		color: white;
+		position: relative;
+		left: -1em;
 	}
 	&-height {
 		width: 4px;
@@ -108,7 +110,6 @@ article.ui-display {
 		flex-direction: column;
 		position: relative;
 		left: -20px;
-		// left: -2em;
 	}
 }
 

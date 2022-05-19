@@ -7,11 +7,8 @@ const display = document.querySelector(".ui-display-userText-text");
 const displayWrapper = document.querySelector(".ui-display-userText-wrapper");
 const canva = document.getElementById("displayText");
 const ctx = canva.getContext("2d");
+
 //-----------measurement bars
-const widthContainer = document.querySelector(
-	".measurementBar-container-bottom"
-);
-let barWidth = document.querySelector(".measurementBar-width");
 let barWidthSize = document.querySelector(".measurementBar-width-length");
 const heightContainer = document.querySelector(
 	".measurementBar-height-wrapper"
@@ -34,7 +31,6 @@ let fontBtnsWhite = document.querySelectorAll(
 const neonSwitch = document.getElementById("neonSwitch");
 //colorList
 const colorList = document.querySelectorAll(".input-color-list");
-
 //exporting these as globalVariable
 export const globalVar = {
 	uiNav,
@@ -46,8 +42,6 @@ export const globalVar = {
 	displayWrapper,
 	canva,
 	ctx,
-	widthContainer,
-	barWidth,
 	barWidthSize,
 	height,
 	heightContainer,

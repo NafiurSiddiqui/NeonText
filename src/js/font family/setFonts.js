@@ -2,18 +2,14 @@ import globalFonts, { globalVar } from "../globalVariables";
 import setDisplay, {
 	showBars,
 	measureBars,
-	fontBarCondition,
 	clearCanvas,
 } from "../globalFuntions";
-// import { clearCanvas } from "../globalFuntions";
 import { userText } from "../textInput";
 
 //destructured vars
 let { fontBtn, fontBtnsWhite } = globalFonts;
 
 let {
-	widthContainer,
-	barWidth,
 	barWidthSize,
 	heightContainer,
 	barHeight,
@@ -34,7 +30,6 @@ function loadFont(targetFont, userText) {
 	//---one for the canvas
 	ctx.font = `4rem ${targetFont}`;
 	ctx.fillStyle = "White";
-	// console.log(`Loaded font: ${targetFont}`);
 	ctx.fillText(userText, 0, 50);
 }
 
@@ -48,8 +43,8 @@ getScreenSize();
 let screenWidth = getScreenSize();
 
 export let fontClicked = false;
-
 let fontUserText = "";
+
 //font  action
 fontBtn.forEach((btns) => {
 	//select font
@@ -59,50 +54,89 @@ fontBtn.forEach((btns) => {
 		fontUserText = userText;
 		fontUserText = "";
 		let textLength = userText.length;
-
+		let metrics;
+		let newHeight;
 		//Clear displays
-		// setDisplay(widthContainer, false);
 		setDisplay(heightContainer, false);
 		clearCanvas(ctx, canva);
 
-		//if it is is  the parent
-
 		const targetCondition = target.classList.length > 1;
-
 		//big fonts
 		let largeFonts = "";
-		console.log("--------✨✨");
+
+		//if it is is  the parent
 		if (targetCondition) {
 			let fontId = target.classList[1];
 			largeFonts = fontId;
 			console.log(`From Parent click`);
 			clearCanvas(ctx, canva);
 			loadFont(fontId, userText);
-			let metrics = ctx.measureText(userText);
-			measureBars(
-				metrics,
-				textLength,
+			metrics = ctx.measureText(userText);
 
-				barWidthSize,
-				barHeight,
-				barHeightSize
-			);
+			if (largeFonts === "Amsterdam" || largeFonts === "RasterSlice") {
+				console.log("LARGE CONDITION");
+				measureBars(
+					metrics,
+					textLength,
+					barWidthSize,
+					barHeight,
+					barHeightSize,
+					true
+				);
+				if (screenWidth <= 800) {
+					//calculate newHeight bassed on display Var
+					setNewHeight(newHeight, 1.5);
+				}
+			} else {
+				console.log("REGULAR CONDITION");
+				measureBars(
+					metrics,
+					textLength,
+					barWidthSize,
+					barHeight,
+					barHeightSize,
+					false
+				);
+			}
 		} else {
 			//if it is the child
 			largeFonts = target.id;
 			clearCanvas(ctx, canva);
 			loadFont(target.id, userText);
-			let metrics = ctx.measureText(userText);
-			measureBars(metrics, textLength, barWidthSize, barHeight, barHeightSize);
+			metrics = ctx.measureText(userText);
+
+			if (largeFonts === "Amsterdam" || largeFonts === "RasterSlice") {
+				measureBars(
+					metrics,
+					textLength,
+					barWidthSize,
+					barHeight,
+					barHeightSize,
+					true
+				);
+				if (screenWidth <= 800) {
+					setNewHeight(newHeight, 1.5);
+				}
+			} else {
+				console.log("REGULAR CONDITION");
+				measureBars(
+					metrics,
+					textLength,
+					barWidthSize,
+					barHeight,
+					barHeightSize,
+					false
+				);
+			}
 		}
 		//dynamic font sizing
-
 		if (largeFonts === "Amsterdam" || largeFonts === "RasterSlice") {
 			screenWidth >= 800 ? setFontSize(50) : setFontSize(35);
 		} else {
-			screenWidth >= 600 ? setFontSize(70) : setFontSize(45);
+			screenWidth >= 600 ? setFontSize(70) : setFontSize(60);
 		}
 
+		//navbtns activation
 		let targetBtn = e.target.closest(".ui-input-fontFamily-list");
 		//loop throught all the lists
 		fontBtn.forEach((cls) => {
@@ -122,4 +156,9 @@ fontBtn.forEach((btns) => {
 
 function setFontSize(size) {
 	return (display.style.fontSize = `${size}px`);
+}
+
+function setNewHeight(newHeight, heightValue) {
+	newHeight = parseInt(getComputedStyle(display).height);
+	return (barHeight.style.height = `${newHeight / heightValue}px`);
 }

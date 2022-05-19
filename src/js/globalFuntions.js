@@ -1,7 +1,7 @@
 import { globalVar } from "./globalVariables";
 import { globarPrice } from "./globalVariables";
 
-const { heightContainer, widthContainer } = globalVar;
+const { heightContainer } = globalVar;
 let {
 	priceSmall,
 	priceSmallLength,
@@ -41,7 +41,8 @@ export function measureBars(
 	textLength,
 	barWidthSize,
 	barHeight,
-	barHeightSize
+	barHeightSize,
+	largeFont = false
 ) {
 	//height
 	let height =
@@ -49,12 +50,19 @@ export function measureBars(
 		Math.floor(metrics.actualBoundingBoxDescent);
 
 	//measurement bars
-
-	// barWidth.style.width = `${displaySize}px`;
 	let widthSize = (barWidthSize.textContent = `${textLength * 2} CM`);
 	barHeight.style.height = `${height}px`;
-	let heightSize = (barHeightSize.textContent = `${Math.floor(height)}Cm`);
+
+	//font Amsterdam or RasterSlice?
+	let heightSize;
+	if (largeFont === true) {
+		return (heightSize = barHeightSize.textContent =
+			`${Math.floor(height / 2)}Cm`);
+	} else {
+		heightSize = barHeightSize.textContent = `${Math.floor(height)}Cm`;
+	}
 	showBars(true);
+	//PRICING
 	let widthPrice = parseInt(widthSize);
 	let heightPrice = parseInt(heightSize);
 	calculatePricing(textLength);
@@ -84,7 +92,3 @@ export function calculateDimension(width, height) {
 	priceLargeLength.textContent = `${width * 3} Cm`;
 	priceLargeHeight.textContent = `${parseInt(height * 1.3)} Cm`;
 }
-
-// export const fontBarCondition = (textLength) => {
-// 	// textLength >= 11 ? (widthContainer.style.left = "-8px") : "-20px";
-// };

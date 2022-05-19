@@ -6,4 +6,3 @@ import "./font family/setFonts";
 import "./neonSwitch";
 import "./ui color/uiColor";
 import "./misc";
-import "./pricing";

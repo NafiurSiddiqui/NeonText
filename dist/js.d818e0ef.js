@@ -134,8 +134,6 @@ var displayWrapper = document.querySelector(".ui-display-userText-wrapper");
 var canva = document.getElementById("displayText");
 var ctx = canva.getContext("2d"); //-----------measurement bars
 
-var widthContainer = document.querySelector(".measurementBar-container-bottom");
-var barWidth = document.querySelector(".measurementBar-width");
 var barWidthSize = document.querySelector(".measurementBar-width-length");
 var heightContainer = document.querySelector(".measurementBar-height-wrapper");
 var height = document.querySelector(".measurementBar-height-length");
@@ -160,8 +158,6 @@ var globalVar = {
   displayWrapper: displayWrapper,
   canva: canva,
   ctx: ctx,
-  widthContainer: widthContainer,
-  barWidth: barWidth,
   barWidthSize: barWidthSize,
   height: height,
   heightContainer: heightContainer,
@@ -217,8 +213,7 @@ exports.writeOnCanvasWithFont = writeOnCanvasWithFont;
 
 var _globalVariables = require("./globalVariables");
 
-var heightContainer = _globalVariables.globalVar.heightContainer,
-    widthContainer = _globalVariables.globalVar.widthContainer;
+var heightContainer = _globalVariables.globalVar.heightContainer;
 var priceSmall = _globalVariables.globarPrice.priceSmall,
     priceSmallLength = _globalVariables.globarPrice.priceSmallLength,
     priceSmallHeight = _globalVariables.globarPrice.priceSmallHeight,
@@ -254,14 +249,23 @@ function writeOnCanvasWithFont(ctx, userText, font) {
 }
 
 function measureBars(metrics, textLength, barWidthSize, barHeight, barHeightSize) {
+  var largeFont = arguments.length > 5 && arguments[5] !== undefined ? arguments[5] : false;
   //height
   var height = Math.floor(metrics.actualBoundingBoxAscent) + Math.floor(metrics.actualBoundingBoxDescent); //measurement bars
-  // barWidth.style.width = `${displaySize}px`;
 
   var widthSize = barWidthSize.textContent = "".concat(textLength * 2, " CM");
-  barHeight.style.height = "".concat(height, "px");
-  var heightSize = barHeightSize.textContent = "".concat(Math.floor(height), "Cm");
-  showBars(true);
+  barHeight.style.height = "".concat(height, "px"); //font Amsterdam or RasterSlice?
+
+  var heightSize;
+
+  if (largeFont === true) {
+    return heightSize = barHeightSize.textContent = "".concat(Math.floor(height / 2), "Cm");
+  } else {
+    heightSize = barHeightSize.textContent = "".concat(Math.floor(height), "Cm");
+  }
+
+  showBars(true); //PRICING
+
   var widthPrice = parseInt(widthSize);
   var heightPrice = parseInt(heightSize);
   calculatePricing(textLength);
@@ -290,9 +294,7 @@ function calculateDimension(width, height) {
   priceMediumHeight.textContent = "".concat(parseInt(height * 1.1), " Cm");
   priceLargeLength.textContent = "".concat(width * 3, " Cm");
   priceLargeHeight.textContent = "".concat(parseInt(height * 1.3), " Cm");
-} // export const fontBarCondition = (textLength) => {
-// 	// textLength >= 11 ? (widthContainer.style.left = "-8px") : "-20px";
-// };
+}
 },{"./globalVariables":"src/js/globalVariables.js"}],"src/js/ui nav/ui-inputNav.js":[function(require,module,exports) {
 "use strict";
 
@@ -458,10 +460,7 @@ function _getRequireWildcardCache(nodeInterop) { if (typeof WeakMap !== "functio
 
 function _interopRequireWildcard(obj, nodeInterop) { if (!nodeInterop && obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(nodeInterop); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (key !== "default" && Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
 
-//globa var destructured
-var widthContainer = _globalVariables.globalVar.widthContainer,
-    barWidth = _globalVariables.globalVar.barWidth,
-    barWidthSize = _globalVariables.globalVar.barWidthSize,
+var barWidthSize = _globalVariables.globalVar.barWidthSize,
     heightContainer = _globalVariables.globalVar.heightContainer,
     barHeight = _globalVariables.globalVar.barHeight,
     barHeightSize = _globalVariables.globalVar.barHeightSize,
@@ -482,7 +481,6 @@ var metrics = null;
 exports.metrics = metrics;
 
 function init() {
-  //initial default state
   //check for local storage value exist
   if (localStorage.length > 0) {
     exports.userText = userText = localStorage.getItem("userText");
@@ -495,8 +493,7 @@ function init() {
     localStorage.clear();
     exports.userText = userText = "Your Text";
     display.textContent = userText;
-    (0, _globalFuntions.default)(widthContainer, null);
-    (0, _globalFuntions.default)(heightContainer, null);
+    (0, _globalFuntions.default)(heightContainer, false);
   }
 
   ctx.font = "4rem Tangerine";
@@ -582,13 +579,10 @@ function _getRequireWildcardCache(nodeInterop) { if (typeof WeakMap !== "functio
 
 function _interopRequireWildcard(obj, nodeInterop) { if (!nodeInterop && obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(nodeInterop); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (key !== "default" && Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
 
-// import { clearCanvas } from "../globalFuntions";
 //destructured vars
 var fontBtn = _globalVariables.default.fontBtn,
     fontBtnsWhite = _globalVariables.default.fontBtnsWhite;
-var widthContainer = _globalVariables.globalVar.widthContainer,
-    barWidth = _globalVariables.globalVar.barWidth,
-    barWidthSize = _globalVariables.globalVar.barWidthSize,
+var barWidthSize = _globalVariables.globalVar.barWidthSize,
     heightContainer = _globalVariables.globalVar.heightContainer,
     barHeight = _globalVariables.globalVar.barHeight,
     barHeightSize = _globalVariables.globalVar.barHeightSize,
@@ -605,8 +599,7 @@ function loadFont(targetFont, userText) {
   display.style.fontFamily = targetFont; //---one for the canvas
 
   ctx.font = "4rem ".concat(targetFont);
-  ctx.fillStyle = "White"; // console.log(`Loaded font: ${targetFont}`);
-
+  ctx.fillStyle = "White";
   ctx.fillText(userText, 0, 50);
 }
 
@@ -628,16 +621,15 @@ fontBtn.forEach(function (btns) {
     var target = e.target;
     fontUserText = _textInput.userText;
     fontUserText = "";
-    var textLength = _textInput.userText.length; //Clear displays
-    // setDisplay(widthContainer, false);
+    var textLength = _textInput.userText.length;
+    var metrics;
+    var newHeight; //Clear displays
 
     (0, _globalFuntions.default)(heightContainer, false);
-    (0, _globalFuntions.clearCanvas)(ctx, canva); //if it is is  the parent
-
+    (0, _globalFuntions.clearCanvas)(ctx, canva);
     var targetCondition = target.classList.length > 1; //big fonts
 
-    var largeFonts = "";
-    console.log("--------✨✨");
+    var largeFonts = ""; //if it is is  the parent
 
     if (targetCondition) {
       var fontId = target.classList[1];
@@ -645,25 +637,46 @@ fontBtn.forEach(function (btns) {
       console.log("From Parent click");
       (0, _globalFuntions.clearCanvas)(ctx, canva);
       loadFont(fontId, _textInput.userText);
-      var metrics = ctx.measureText(_textInput.userText);
-      (0, _globalFuntions.measureBars)(metrics, textLength, barWidthSize, barHeight, barHeightSize);
+      metrics = ctx.measureText(_textInput.userText);
+
+      if (largeFonts === "Amsterdam" || largeFonts === "RasterSlice") {
+        console.log("LARGE CONDITION");
+        (0, _globalFuntions.measureBars)(metrics, textLength, barWidthSize, barHeight, barHeightSize, true);
+
+        if (screenWidth <= 800) {
+          //calculate newHeight bassed on display Var
+          setNewHeight(newHeight, 1.5);
+        }
+      } else {
+        console.log("REGULAR CONDITION");
+        (0, _globalFuntions.measureBars)(metrics, textLength, barWidthSize, barHeight, barHeightSize, false);
+      }
     } else {
       //if it is the child
       largeFonts = target.id;
       (0, _globalFuntions.clearCanvas)(ctx, canva);
       loadFont(target.id, _textInput.userText);
+      metrics = ctx.measureText(_textInput.userText);
 
-      var _metrics = ctx.measureText(_textInput.userText);
+      if (largeFonts === "Amsterdam" || largeFonts === "RasterSlice") {
+        (0, _globalFuntions.measureBars)(metrics, textLength, barWidthSize, barHeight, barHeightSize, true);
 
-      (0, _globalFuntions.measureBars)(_metrics, textLength, barWidthSize, barHeight, barHeightSize);
+        if (screenWidth <= 800) {
+          setNewHeight(newHeight, 1.5);
+        }
+      } else {
+        console.log("REGULAR CONDITION");
+        (0, _globalFuntions.measureBars)(metrics, textLength, barWidthSize, barHeight, barHeightSize, false);
+      }
     } //dynamic font sizing
 
 
     if (largeFonts === "Amsterdam" || largeFonts === "RasterSlice") {
       screenWidth >= 800 ? setFontSize(50) : setFontSize(35);
     } else {
-      screenWidth >= 600 ? setFontSize(70) : setFontSize(45);
-    }
+      screenWidth >= 600 ? setFontSize(70) : setFontSize(60);
+    } //navbtns activation
+
 
     var targetBtn = e.target.closest(".ui-input-fontFamily-list"); //loop throught all the lists
 
@@ -681,6 +694,11 @@ fontBtn.forEach(function (btns) {
 
 function setFontSize(size) {
   return display.style.fontSize = "".concat(size, "px");
+}
+
+function setNewHeight(newHeight, heightValue) {
+  newHeight = parseInt(getComputedStyle(display).height);
+  return barHeight.style.height = "".concat(newHeight / heightValue, "px");
 }
 },{"../globalVariables":"src/js/globalVariables.js","../globalFuntions":"src/js/globalFuntions.js","../textInput":"src/js/textInput.js"}],"src/js/ui color/uiColor.js":[function(require,module,exports) {
 "use strict";
@@ -880,17 +898,7 @@ neonSwitch.addEventListener("click", neonOn);
 // ------ Do you want to clear data and close the browser?
 //yes, clear cookies
 //no, close the browser
-},{}],"src/js/pricing.js":[function(require,module,exports) {
-"use strict";
-
-var _globalVariables = require("./globalVariables");
-
-var price = _globalVariables.globarPrice.price,
-    priceLength = _globalVariables.globarPrice.priceLength,
-    priceHeight = _globalVariables.globarPrice.priceHeight;
-var barWidth = _globalVariables.globalVar.barWidth,
-    barHeight = _globalVariables.globalVar.barHeight;
-},{"./globalVariables":"src/js/globalVariables.js"}],"src/js/index.js":[function(require,module,exports) {
+},{}],"src/js/index.js":[function(require,module,exports) {
 "use strict";
 
 require("./globalVariables");
@@ -908,9 +916,7 @@ require("./neonSwitch");
 require("./ui color/uiColor");
 
 require("./misc");
-
-require("./pricing");
-},{"./globalVariables":"src/js/globalVariables.js","./globalFuntions":"src/js/globalFuntions.js","./ui nav/ui-inputNav":"src/js/ui nav/ui-inputNav.js","./textInput":"src/js/textInput.js","./font family/setFonts":"src/js/font family/setFonts.js","./neonSwitch":"src/js/neonSwitch.js","./ui color/uiColor":"src/js/ui color/uiColor.js","./misc":"src/js/misc.js","./pricing":"src/js/pricing.js"}],"node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
+},{"./globalVariables":"src/js/globalVariables.js","./globalFuntions":"src/js/globalFuntions.js","./ui nav/ui-inputNav":"src/js/ui nav/ui-inputNav.js","./textInput":"src/js/textInput.js","./font family/setFonts":"src/js/font family/setFonts.js","./neonSwitch":"src/js/neonSwitch.js","./ui color/uiColor":"src/js/ui color/uiColor.js","./misc":"src/js/misc.js"}],"node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
 var OVERLAY_ID = '__parcel__error__overlay__';
 var OldModule = module.bundle.Module;
@@ -938,7 +944,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "52491" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "57387" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
