@@ -124,29 +124,29 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.globarPrice = exports.globalVar = exports.default = void 0;
-var uiNav = document.querySelectorAll(".ui-input-nav-list");
-var uiInputText = document.querySelector(".ui-input-form.text");
-var uiInputFont = document.querySelector(".ui-input-form.fontFamily");
-var uiInputColor = document.querySelector(".ui-input-form.color");
-var uiForm = document.querySelectorAll(".ui-input-form");
-var display = document.querySelector(".ui-display-userText-text");
-var displayWrapper = document.querySelector(".ui-display-userText-wrapper");
-var canva = document.getElementById("displayText");
-var ctx = canva.getContext("2d"); //-----------measurement bars
+var uiNav = document.querySelectorAll('.ui-input-nav-list');
+var uiInputText = document.querySelector('.ui-input-form.text');
+var uiInputFont = document.querySelector('.ui-input-form.fontFamily');
+var uiInputColor = document.querySelector('.ui-input-form.color');
+var uiForm = document.querySelectorAll('.ui-input-form');
+var display = document.querySelector('.ui-display-userText-text');
+var displayWrapper = document.querySelector('.ui-display-userText-wrapper');
+var canva = document.getElementById('displayText');
+var ctx = canva.getContext('2d'); //-----------measurement bars
 
-var barWidthSize = document.querySelector(".measurementBar-width-length");
-var heightContainer = document.querySelector(".measurementBar-height-wrapper");
-var height = document.querySelector(".measurementBar-height-length");
-var barHeight = document.querySelector(".measurementBar-height");
-var barHeightSize = document.querySelector(".measurementBar-height-length"); //font family
+var barWidthSize = document.querySelector('.measurementBar-width-length');
+var heightContainer = document.querySelector('.measurementBar-height-wrapper');
+var height = document.querySelector('.measurementBar-height-length');
+var barHeight = document.querySelector('.measurementBar-height');
+var barHeightSize = document.querySelector('.measurementBar-height-length'); //font family
 
-var fontBtn = document.querySelectorAll(".ui-input-fontFamily-list");
-var fontBtnsBlack = document.querySelectorAll(".ui-input-fontFamily-list__image");
-var fontBtnsWhite = document.querySelectorAll(".ui-input-fontFamily-list__imageWhite"); //neonSwitch
+var fontBtn = document.querySelectorAll('.ui-input-fontFamily-list');
+var fontBtnsBlack = document.querySelectorAll('.ui-input-fontFamily-list__image');
+var fontBtnsWhite = document.querySelectorAll('.ui-input-fontFamily-list__imageWhite'); //neonSwitch
 
-var neonSwitch = document.getElementById("neonSwitch"); //colorList
+var neonSwitch = document.getElementById('neonSwitch'); //colorList
 
-var colorList = document.querySelectorAll(".input-color-list"); //exporting these as globalVariable
+var colorList = document.querySelectorAll('.input-color-list'); //exporting these as globalVariable
 
 var globalVar = {
   uiNav: uiNav,
@@ -175,15 +175,15 @@ var globalFonts = {
 var _default = globalFonts; //--------------Pricing cards
 
 exports.default = _default;
-var priceSmall = document.querySelector(".ui-price-card__small-price");
-var priceSmallLength = document.querySelector(".ui-price-card__small-length");
-var priceSmallHeight = document.querySelector(".ui-price-card__small-height");
-var priceMedium = document.querySelector(".ui-price-card__medium-price");
-var priceMediumLength = document.querySelector(".ui-price-card__medium-length");
-var priceMediumHeight = document.querySelector(".ui-price-card__medium-height");
-var priceLarge = document.querySelector(".ui-price-card__large-price");
-var priceLargeLength = document.querySelector(".ui-price-card__large-length");
-var priceLargeHeight = document.querySelector(".ui-price-card__large-height");
+var priceSmall = document.querySelector('.ui-price-card__small-price');
+var priceSmallLength = document.querySelector('.ui-price-card__small-length');
+var priceSmallHeight = document.querySelector('.ui-price-card__small-height');
+var priceMedium = document.querySelector('.ui-price-card__medium-price');
+var priceMediumLength = document.querySelector('.ui-price-card__medium-length');
+var priceMediumHeight = document.querySelector('.ui-price-card__medium-height');
+var priceLarge = document.querySelector('.ui-price-card__large-price');
+var priceLargeLength = document.querySelector('.ui-price-card__large-length');
+var priceLargeHeight = document.querySelector('.ui-price-card__large-height');
 var globarPrice = {
   priceSmall: priceSmall,
   priceSmallLength: priceSmallLength,
@@ -228,9 +228,9 @@ function setDisplay(el) {
   var on = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : false;
 
   if (on === true) {
-    el.style.display = "flex";
+    el.style.display = 'flex';
   } else {
-    el.style.display = "none";
+    el.style.display = 'none';
   }
 }
 
@@ -244,7 +244,7 @@ function writeOnCanvas(ctx, userText) {
 
 function writeOnCanvasWithFont(ctx, userText, font) {
   ctx.font = "4rem ".concat(font);
-  ctx.fillStyle = "White";
+  ctx.fillStyle = 'White';
   ctx.fillText(userText, 0, 50);
 }
 
@@ -473,7 +473,7 @@ var navText = uiInputText.firstElementChild; //state variables
 
 var textInputState = false; //set the default states
 
-var userText = "";
+var userText = '';
 exports.userText = userText;
 var textLength = null;
 exports.textLength = textLength;
@@ -483,38 +483,43 @@ exports.metrics = metrics;
 function init() {
   //check for local storage value exist
   if (localStorage.length > 0) {
-    exports.userText = userText = localStorage.getItem("userText");
+    exports.userText = userText = localStorage.getItem('userText');
     display.textContent = userText;
     var _textLength = userText.length;
-    (0, _globalFuntions.writeOnCanvasWithFont)(ctx, userText, "Tangerine");
+    (0, _globalFuntions.writeOnCanvasWithFont)(ctx, userText, 'Tangerine');
     exports.metrics = metrics = ctx.measureText(userText);
     (0, _globalFuntions.measureBars)(metrics, _textLength, barWidthSize, barHeight, barHeightSize);
   } else {
     localStorage.clear();
-    exports.userText = userText = "Your Text";
+    exports.userText = userText = 'Your Text';
     display.textContent = userText;
     (0, _globalFuntions.default)(heightContainer, false);
   }
 
-  ctx.font = "4rem Tangerine";
-  ctx.fillStyle = "White";
+  ctx.font = '4rem Tangerine';
+  ctx.fillStyle = 'White';
 }
 
 init(); //ACTION
 
-navText.addEventListener("input", function (e) {
+navText.addEventListener('input', function (e) {
   //get the input value, store it, return it
   exports.userText = userText = e.target.value; //persist data in local storage
 
-  localStorage.setItem("userText", userText); //get the item from storage
+  localStorage.setItem('userText', userText); //get the item from storage
 
-  var localUserText = localStorage.getItem("userText");
+  var localUserText = localStorage.getItem('userText');
   exports.textLength = textLength = localUserText.length; //show each letter upon typing
 
-  display.textContent = localUserText.trim(); //check if the state is true
+  display.textContent = localUserText; //check if the state is true
 
   textLength > 0 ? textInputState = true : false;
-  textLength >= 20 ? alert("If you need more than 30 characters of text, Please contact us: \uD83D\uDCDE +14-999-876-42") : "";
+
+  if (textLength >= 20) {
+    alert("If you need more than 20 characters of text, Please contact us: \uD83D\uDCDE +14-999-876-42");
+    return;
+  } //This is needed in the bar component, textLength state is needed there.
+
 
   if (textLength >= 11) {
     height.style.bottom = "-2.4em";
@@ -522,11 +527,11 @@ navText.addEventListener("input", function (e) {
   } //any space should be omitted from calculating
 
 
-  if (e.data === " ") {
+  if (e.data === ' ') {
     return;
   }
 
-  if (e.inputType === "deleteContentBackward") {
+  if (e.inputType === 'deleteContentBackward') {
     //recapture the userText here
     var newUserText = localUserText; //rerender the userText
 
@@ -591,7 +596,7 @@ var barWidthSize = _globalVariables.globalVar.barWidthSize,
     ctx = _globalVariables.globalVar.ctx; //defaults
 
 fontBtnsWhite.forEach(function (btn) {
-  btn.classList.add("hide");
+  btn.classList.add('hide');
 });
 
 function loadFont(targetFont, userText) {
@@ -599,7 +604,7 @@ function loadFont(targetFont, userText) {
   display.style.fontFamily = targetFont; //---one for the canvas
 
   ctx.font = "4rem ".concat(targetFont);
-  ctx.fillStyle = "White";
+  ctx.fillStyle = 'White';
   ctx.fillText(userText, 0, 50);
 }
 
@@ -612,15 +617,15 @@ getScreenSize();
 var screenWidth = getScreenSize();
 var fontClicked = false;
 exports.fontClicked = fontClicked;
-var fontUserText = ""; //font  action
+var fontUserText = ''; //font  action
 
 fontBtn.forEach(function (btns) {
   //select font
-  btns.addEventListener("click", function (e) {
+  btns.addEventListener('click', function (e) {
     exports.fontClicked = fontClicked = true;
     var target = e.target;
     fontUserText = _textInput.userText;
-    fontUserText = "";
+    fontUserText = '';
     var textLength = _textInput.userText.length;
     var metrics;
     var newHeight; //Clear displays
@@ -629,7 +634,7 @@ fontBtn.forEach(function (btns) {
     (0, _globalFuntions.clearCanvas)(ctx, canva);
     var targetCondition = target.classList.length > 1; //big fonts
 
-    var largeFonts = ""; //if it is is  the parent
+    var largeFonts = ''; //if it is is  the parent
 
     if (targetCondition) {
       var fontId = target.classList[1];
@@ -639,8 +644,8 @@ fontBtn.forEach(function (btns) {
       loadFont(fontId, _textInput.userText);
       metrics = ctx.measureText(_textInput.userText);
 
-      if (largeFonts === "Amsterdam" || largeFonts === "RasterSlice") {
-        console.log("LARGE CONDITION");
+      if (largeFonts === 'Amsterdam' || largeFonts === 'RasterSlice') {
+        console.log('LARGE CONDITION');
         (0, _globalFuntions.measureBars)(metrics, textLength, barWidthSize, barHeight, barHeightSize, true);
 
         if (screenWidth <= 800) {
@@ -657,7 +662,7 @@ fontBtn.forEach(function (btns) {
       loadFont(target.id, _textInput.userText);
       metrics = ctx.measureText(_textInput.userText);
 
-      if (largeFonts === "Amsterdam" || largeFonts === "RasterSlice") {
+      if (largeFonts === 'Amsterdam' || largeFonts === 'RasterSlice') {
         (0, _globalFuntions.measureBars)(metrics, textLength, barWidthSize, barHeight, barHeightSize, true);
 
         if (screenWidth <= 800) {
@@ -669,7 +674,7 @@ fontBtn.forEach(function (btns) {
     } //dynamic font sizing
 
 
-    if (largeFonts === "Amsterdam" || largeFonts === "RasterSlice") {
+    if (largeFonts === 'Amsterdam' || largeFonts === 'RasterSlice') {
       screenWidth >= 800 ? setFontSize(50) : setFontSize(35);
 
       if (textLength >= 11) {
@@ -679,21 +684,21 @@ fontBtn.forEach(function (btns) {
     } else {
       screenWidth >= 600 ? setFontSize(70) : setFontSize(60);
 
-      if (textLength >= 11 && (largeFonts !== "Amsterdam" || largeFonts !== "RasterSlice")) {
+      if (textLength >= 11 && (largeFonts !== 'Amsterdam' || largeFonts !== 'RasterSlice')) {
         barHeightSize.style.top = "-2.7em";
         barHeightSize.style.right = "1.3em";
       }
     } //navbtns activation
 
 
-    var targetBtn = e.target.closest(".ui-input-fontFamily-list"); //loop throught all the lists
+    var targetBtn = e.target.closest('.ui-input-fontFamily-list'); //loop throught all the lists
 
     fontBtn.forEach(function (cls) {
       //if btnactive match found-remove it
-      cls.classList.remove("btn-active");
+      cls.classList.remove('btn-active');
     }); //add btn-active class to the existing target list
 
-    targetBtn.classList.add("btn-active"); //setthe display for bars
+    targetBtn.classList.add('btn-active'); //setthe display for bars
 
     (0, _globalFuntions.showBars)(true);
     return fontClicked;
@@ -952,7 +957,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "57159" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "52135" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

@@ -1,10 +1,10 @@
-import globalFonts, { globalVar } from "../globalVariables";
+import globalFonts, { globalVar } from '../globalVariables';
 import setDisplay, {
 	showBars,
 	measureBars,
 	clearCanvas,
-} from "../globalFuntions";
-import { userText } from "../textInput";
+} from '../globalFuntions';
+import { userText } from '../textInput';
 
 //destructured vars
 let { fontBtn, fontBtnsWhite } = globalFonts;
@@ -21,7 +21,7 @@ let {
 
 //defaults
 fontBtnsWhite.forEach((btn) => {
-	btn.classList.add("hide");
+	btn.classList.add('hide');
 });
 
 function loadFont(targetFont, userText) {
@@ -29,7 +29,7 @@ function loadFont(targetFont, userText) {
 	display.style.fontFamily = targetFont;
 	//---one for the canvas
 	ctx.font = `4rem ${targetFont}`;
-	ctx.fillStyle = "White";
+	ctx.fillStyle = 'White';
 	ctx.fillText(userText, 0, 50);
 }
 
@@ -43,16 +43,16 @@ getScreenSize();
 let screenWidth = getScreenSize();
 
 export let fontClicked = false;
-let fontUserText = "";
+let fontUserText = '';
 
 //font  action
 fontBtn.forEach((btns) => {
 	//select font
-	btns.addEventListener("click", (e) => {
+	btns.addEventListener('click', (e) => {
 		fontClicked = true;
 		let target = e.target;
 		fontUserText = userText;
-		fontUserText = "";
+		fontUserText = '';
 		let textLength = userText.length;
 		let metrics;
 		let newHeight;
@@ -62,7 +62,7 @@ fontBtn.forEach((btns) => {
 
 		const targetCondition = target.classList.length > 1;
 		//big fonts
-		let largeFonts = "";
+		let largeFonts = '';
 
 		//if it is is  the parent
 		if (targetCondition) {
@@ -73,8 +73,8 @@ fontBtn.forEach((btns) => {
 			loadFont(fontId, userText);
 			metrics = ctx.measureText(userText);
 
-			if (largeFonts === "Amsterdam" || largeFonts === "RasterSlice") {
-				console.log("LARGE CONDITION");
+			if (largeFonts === 'Amsterdam' || largeFonts === 'RasterSlice') {
+				console.log('LARGE CONDITION');
 				measureBars(
 					metrics,
 					textLength,
@@ -83,6 +83,7 @@ fontBtn.forEach((btns) => {
 					barHeightSize,
 					true
 				);
+
 				if (screenWidth <= 800) {
 					//calculate newHeight bassed on display Var
 					setNewHeight(newHeight, 1.5);
@@ -104,7 +105,7 @@ fontBtn.forEach((btns) => {
 			loadFont(target.id, userText);
 			metrics = ctx.measureText(userText);
 
-			if (largeFonts === "Amsterdam" || largeFonts === "RasterSlice") {
+			if (largeFonts === 'Amsterdam' || largeFonts === 'RasterSlice') {
 				measureBars(
 					metrics,
 					textLength,
@@ -128,7 +129,7 @@ fontBtn.forEach((btns) => {
 			}
 		}
 		//dynamic font sizing
-		if (largeFonts === "Amsterdam" || largeFonts === "RasterSlice") {
+		if (largeFonts === 'Amsterdam' || largeFonts === 'RasterSlice') {
 			screenWidth >= 800 ? setFontSize(50) : setFontSize(35);
 			if (textLength >= 11) {
 				barHeightSize.style.bottom = `-6.4em`;
@@ -139,7 +140,7 @@ fontBtn.forEach((btns) => {
 
 			if (
 				textLength >= 11 &&
-				(largeFonts !== "Amsterdam" || largeFonts !== "RasterSlice")
+				(largeFonts !== 'Amsterdam' || largeFonts !== 'RasterSlice')
 			) {
 				barHeightSize.style.top = `-2.7em`;
 				barHeightSize.style.right = `1.3em`;
@@ -147,15 +148,15 @@ fontBtn.forEach((btns) => {
 		}
 
 		//navbtns activation
-		let targetBtn = e.target.closest(".ui-input-fontFamily-list");
+		let targetBtn = e.target.closest('.ui-input-fontFamily-list');
 		//loop throught all the lists
 		fontBtn.forEach((cls) => {
 			//if btnactive match found-remove it
-			cls.classList.remove("btn-active");
+			cls.classList.remove('btn-active');
 		});
 
 		//add btn-active class to the existing target list
-		targetBtn.classList.add("btn-active");
+		targetBtn.classList.add('btn-active');
 
 		//setthe display for bars
 		showBars(true);

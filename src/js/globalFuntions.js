@@ -1,5 +1,5 @@
-import { globalVar } from "./globalVariables";
-import { globarPrice } from "./globalVariables";
+import { globalVar } from './globalVariables';
+import { globarPrice } from './globalVariables';
 
 const { heightContainer } = globalVar;
 let {
@@ -16,9 +16,9 @@ let {
 
 export default function setDisplay(el, on = false) {
 	if (on === true) {
-		el.style.display = "flex";
+		el.style.display = 'flex';
 	} else {
-		el.style.display = "none";
+		el.style.display = 'none';
 	}
 }
 
@@ -32,7 +32,7 @@ export function writeOnCanvas(ctx, userText) {
 
 export function writeOnCanvasWithFont(ctx, userText, font) {
 	ctx.font = `4rem ${font}`;
-	ctx.fillStyle = "White";
+	ctx.fillStyle = 'White';
 	ctx.fillText(userText, 0, 50);
 }
 
