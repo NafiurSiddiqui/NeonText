@@ -7,7 +7,7 @@ import setDisplay, {
 import { userText } from '../textInput';
 
 //destructured vars
-let { fontBtn, fontBtnsWhite } = globalFonts;
+let { fontBtn } = globalFonts;
 
 let {
 	barWidthSize,
@@ -20,9 +20,6 @@ let {
 } = globalVar;
 
 //defaults
-fontBtnsWhite.forEach((btn) => {
-	btn.classList.add('hide');
-});
 
 function loadFont(targetFont, userText) {
 	//---one for the display

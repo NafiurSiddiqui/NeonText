@@ -585,8 +585,7 @@ function _getRequireWildcardCache(nodeInterop) { if (typeof WeakMap !== "functio
 function _interopRequireWildcard(obj, nodeInterop) { if (!nodeInterop && obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(nodeInterop); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (key !== "default" && Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
 
 //destructured vars
-var fontBtn = _globalVariables.default.fontBtn,
-    fontBtnsWhite = _globalVariables.default.fontBtnsWhite;
+var fontBtn = _globalVariables.default.fontBtn;
 var barWidthSize = _globalVariables.globalVar.barWidthSize,
     heightContainer = _globalVariables.globalVar.heightContainer,
     barHeight = _globalVariables.globalVar.barHeight,
@@ -594,10 +593,6 @@ var barWidthSize = _globalVariables.globalVar.barWidthSize,
     display = _globalVariables.globalVar.display,
     canva = _globalVariables.globalVar.canva,
     ctx = _globalVariables.globalVar.ctx; //defaults
-
-fontBtnsWhite.forEach(function (btn) {
-  btn.classList.add('hide');
-});
 
 function loadFont(targetFont, userText) {
   //---one for the display
@@ -905,13 +900,7 @@ neonSwitch.addEventListener("click", neonOn);
  * @lastColorState - to get the last navColor clicked, to update the color here as well
  * had to export it as object, otherwise this is only 'Read-only'
  */
-},{"./globalVariables":"src/js/globalVariables.js","./ui color/uiColor":"src/js/ui color/uiColor.js"}],"src/js/misc.js":[function(require,module,exports) {
-//see if user is about to close the tab
-//then show message
-// ------ Do you want to clear data and close the browser?
-//yes, clear cookies
-//no, close the browser
-},{}],"src/js/index.js":[function(require,module,exports) {
+},{"./globalVariables":"src/js/globalVariables.js","./ui color/uiColor":"src/js/ui color/uiColor.js"}],"src/js/index.js":[function(require,module,exports) {
 "use strict";
 
 require("./globalVariables");
@@ -927,9 +916,7 @@ require("./font family/setFonts");
 require("./neonSwitch");
 
 require("./ui color/uiColor");
-
-require("./misc");
-},{"./globalVariables":"src/js/globalVariables.js","./globalFuntions":"src/js/globalFuntions.js","./ui nav/ui-inputNav":"src/js/ui nav/ui-inputNav.js","./textInput":"src/js/textInput.js","./font family/setFonts":"src/js/font family/setFonts.js","./neonSwitch":"src/js/neonSwitch.js","./ui color/uiColor":"src/js/ui color/uiColor.js","./misc":"src/js/misc.js"}],"node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
+},{"./globalVariables":"src/js/globalVariables.js","./globalFuntions":"src/js/globalFuntions.js","./ui nav/ui-inputNav":"src/js/ui nav/ui-inputNav.js","./textInput":"src/js/textInput.js","./font family/setFonts":"src/js/font family/setFonts.js","./neonSwitch":"src/js/neonSwitch.js","./ui color/uiColor":"src/js/ui color/uiColor.js"}],"node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
 var OVERLAY_ID = '__parcel__error__overlay__';
 var OldModule = module.bundle.Module;
@@ -957,7 +944,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "52135" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "49600" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
