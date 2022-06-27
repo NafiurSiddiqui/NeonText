@@ -490,14 +490,12 @@ function init() {
     exports.metrics = metrics = ctx.measureText(userText);
     (0, _globalFuntions.measureBars)(metrics, _textLength, barWidthSize, barHeight, barHeightSize);
   } else {
-    localStorage.clear();
     exports.userText = userText = 'Your Text';
     display.textContent = userText;
     (0, _globalFuntions.default)(heightContainer, false);
-  }
+  } // ctx.font = '4rem Tangerine';
+  // ctx.fillStyle = 'White';
 
-  ctx.font = '4rem Tangerine';
-  ctx.fillStyle = 'White';
 }
 
 init(); //ACTION
@@ -944,7 +942,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "49600" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "65041" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

@@ -37,13 +37,12 @@ function init() {
 		metrics = ctx.measureText(userText);
 		measureBars(metrics, textLength, barWidthSize, barHeight, barHeightSize);
 	} else {
-		localStorage.clear();
 		userText = 'Your Text';
 		display.textContent = userText;
 		setDisplay(heightContainer, false);
 	}
-	ctx.font = '4rem Tangerine';
-	ctx.fillStyle = 'White';
+	// ctx.font = '4rem Tangerine';
+	// ctx.fillStyle = 'White';
 }
 
 init();
