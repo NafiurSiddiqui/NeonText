@@ -60,7 +60,7 @@ fontBtn.forEach((btns) => {
 		const targetCondition = target.classList.length > 1;
 		//big fonts
 		let largeFonts = '';
-
+		// console.log(targetCondition);
 		//if it is is  the parent
 		if (targetCondition) {
 			let fontId = target.classList[1];
@@ -148,13 +148,13 @@ fontBtn.forEach((btns) => {
 		let targetBtn = e.target.closest('.ui-input-fontFamily-list');
 		//loop throught all the lists
 		fontBtn.forEach((cls) => {
-			//if btnactive match found-remove it
+			//if btnactive match found, remove it
 			cls.classList.remove('btn-active');
 		});
 
 		//add btn-active class to the existing target list
 		targetBtn.classList.add('btn-active');
-
+		console.log(targetBtn);
 		//setthe display for bars
 		showBars(true);
 

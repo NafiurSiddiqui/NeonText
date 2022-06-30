@@ -41,8 +41,6 @@ function init() {
 		display.textContent = userText;
 		setDisplay(heightContainer, false);
 	}
-	// ctx.font = '4rem Tangerine';
-	// ctx.fillStyle = 'White';
 }
 
 init();

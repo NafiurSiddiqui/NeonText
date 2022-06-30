@@ -141,8 +141,7 @@ var barHeight = document.querySelector('.measurementBar-height');
 var barHeightSize = document.querySelector('.measurementBar-height-length'); //font family
 
 var fontBtn = document.querySelectorAll('.ui-input-fontFamily-list');
-var fontBtnsBlack = document.querySelectorAll('.ui-input-fontFamily-list__image');
-var fontBtnsWhite = document.querySelectorAll('.ui-input-fontFamily-list__imageWhite'); //neonSwitch
+var fontBtnsBlack = document.querySelectorAll('.ui-input-fontFamily-list__image'); //neonSwitch
 
 var neonSwitch = document.getElementById('neonSwitch'); //colorList
 
@@ -169,7 +168,6 @@ var globalVar = {
 exports.globalVar = globalVar;
 var globalFonts = {
   fontBtn: fontBtn,
-  fontBtnsWhite: fontBtnsWhite,
   fontBtnsBlack: fontBtnsBlack
 };
 var _default = globalFonts; //--------------Pricing cards
@@ -493,9 +491,7 @@ function init() {
     exports.userText = userText = 'Your Text';
     display.textContent = userText;
     (0, _globalFuntions.default)(heightContainer, false);
-  } // ctx.font = '4rem Tangerine';
-  // ctx.fillStyle = 'White';
-
+  }
 }
 
 init(); //ACTION
@@ -627,7 +623,8 @@ fontBtn.forEach(function (btns) {
     (0, _globalFuntions.clearCanvas)(ctx, canva);
     var targetCondition = target.classList.length > 1; //big fonts
 
-    var largeFonts = ''; //if it is is  the parent
+    var largeFonts = ''; // console.log(targetCondition);
+    //if it is is  the parent
 
     if (targetCondition) {
       var fontId = target.classList[1];
@@ -687,11 +684,12 @@ fontBtn.forEach(function (btns) {
     var targetBtn = e.target.closest('.ui-input-fontFamily-list'); //loop throught all the lists
 
     fontBtn.forEach(function (cls) {
-      //if btnactive match found-remove it
+      //if btnactive match found, remove it
       cls.classList.remove('btn-active');
     }); //add btn-active class to the existing target list
 
-    targetBtn.classList.add('btn-active'); //setthe display for bars
+    targetBtn.classList.add('btn-active');
+    console.log(targetBtn); //setthe display for bars
 
     (0, _globalFuntions.showBars)(true);
     return fontClicked;
@@ -942,7 +940,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "65041" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "58577" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

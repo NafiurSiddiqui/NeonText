@@ -25,9 +25,7 @@ let fontBtn = document.querySelectorAll('.ui-input-fontFamily-list');
 let fontBtnsBlack = document.querySelectorAll(
 	'.ui-input-fontFamily-list__image'
 );
-let fontBtnsWhite = document.querySelectorAll(
-	'.ui-input-fontFamily-list__imageWhite'
-);
+
 //neonSwitch
 const neonSwitch = document.getElementById('neonSwitch');
 //colorList
@@ -54,7 +52,6 @@ export const globalVar = {
 
 let globalFonts = {
 	fontBtn,
-	fontBtnsWhite,
 	fontBtnsBlack,
 };
 
