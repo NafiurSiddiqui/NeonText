@@ -816,7 +816,8 @@ colorList.forEach(function (list) {
   list.addEventListener("click", function (e) {
     //wherever color is clicked, alwyas make it happen on the parent -> <li>
     var listEl = e.target.closest("li");
-    var bulb = listEl.firstElementChild; //send the color to whoever needs it
+    var bulb = listEl.firstElementChild;
+    console.log(bulb); //send the color to whoever needs it
 
     exports.listColor = listColor = listEl.classList[1]; //if the neonSwitch is unchecked, alert to turn the switchOn
 
@@ -940,7 +941,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "58577" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "54129" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

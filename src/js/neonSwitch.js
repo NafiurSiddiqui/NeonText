@@ -1,5 +1,5 @@
 import { globalVar } from "./globalVariables";
-import { checkColor, listColor, setColor } from "./ui color/uiColor";
+import { checkColor, setColor } from "./ui color/uiColor";
 
 let { neonSwitch, display } = globalVar;
 

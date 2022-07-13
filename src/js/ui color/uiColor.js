@@ -59,6 +59,7 @@ colorList.forEach((list) => {
 		let bulb = e.target.firstElementChild;
 		setGlowingLight(bulb, checkColor(targetColor), 1);
 	});
+
 	list.addEventListener("mouseleave", (e) => {
 		// let targetColor = e.target.classList[1];
 		listColor = e.target.classList[1];
@@ -75,6 +76,7 @@ colorList.forEach((list) => {
 		//wherever color is clicked, alwyas make it happen on the parent -> <li>
 		let listEl = e.target.closest("li");
 		let bulb = listEl.firstElementChild;
+		console.log(bulb);
 		//send the color to whoever needs it
 		listColor = listEl.classList[1];
 		//if the neonSwitch is unchecked, alert to turn the switchOn
